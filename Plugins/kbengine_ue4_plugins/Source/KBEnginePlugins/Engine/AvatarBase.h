@@ -37,6 +37,7 @@ public:
 	int32 enage;
 	virtual void onEnageChanged(int32 oldValue) {}
 	TArray<uint8> facade;
+	virtual void onFacadeChanged(const TArray<uint8>& oldValue) {}
 	int8 isJump;
 	virtual void onIsJumpChanged(int8 oldValue) {}
 	int8 moveH;
