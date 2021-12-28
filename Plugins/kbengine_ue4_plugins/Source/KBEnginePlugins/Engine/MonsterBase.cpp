@@ -1,4 +1,4 @@
-#include "MonsterBase.h"
+﻿#include "MonsterBase.h"
 #include "KBVar.h"
 #include "EntityDef.h"
 #include "ScriptModule.h"

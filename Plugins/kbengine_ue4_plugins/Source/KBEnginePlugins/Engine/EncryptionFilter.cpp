@@ -1,4 +1,4 @@
-#include "EncryptionFilter.h"
+﻿#include "EncryptionFilter.h"
 #include "MemoryStream.h"
 #include "MessageReader.h"
 #include "PacketSenderTCP.h"

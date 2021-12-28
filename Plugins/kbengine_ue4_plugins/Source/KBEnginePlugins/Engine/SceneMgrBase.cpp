@@ -1,4 +1,4 @@
-#include "SceneMgrBase.h"
+﻿#include "SceneMgrBase.h"
 #include "KBVar.h"
 #include "EntityDef.h"
 #include "ScriptModule.h"

@@ -1,4 +1,4 @@
-#include "EntityCallAvatarBase.h"
+﻿#include "EntityCallAvatarBase.h"
 #include "EntityDef.h"
 #include "Bundle.h"
 
