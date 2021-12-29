@@ -1,4 +1,4 @@
-﻿#include "ExFlobBase.h"
+#include "ExFlobBase.h"
 #include "KBVar.h"
 #include "EntityDef.h"
 #include "ScriptModule.h"

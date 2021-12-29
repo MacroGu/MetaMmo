@@ -1,4 +1,4 @@
-﻿#include "EntityCallExRoleBase.h"
+#include "EntityCallExRoleBase.h"
 #include "EntityDef.h"
 #include "Bundle.h"
 

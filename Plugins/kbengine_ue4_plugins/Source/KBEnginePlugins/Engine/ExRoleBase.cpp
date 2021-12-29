@@ -1,4 +1,4 @@
-﻿#include "ExRoleBase.h"
+#include "ExRoleBase.h"
 #include "KBVar.h"
 #include "EntityDef.h"
 #include "ScriptModule.h"

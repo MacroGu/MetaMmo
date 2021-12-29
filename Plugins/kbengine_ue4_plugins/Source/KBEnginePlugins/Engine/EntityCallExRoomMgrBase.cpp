@@ -1,4 +1,4 @@
-﻿#include "EntityCallExRoomMgrBase.h"
+#include "EntityCallExRoomMgrBase.h"
 #include "EntityDef.h"
 #include "Bundle.h"
 

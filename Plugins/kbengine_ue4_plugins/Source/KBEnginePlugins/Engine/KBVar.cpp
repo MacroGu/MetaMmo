@@ -1,4 +1,4 @@
-﻿
+
 #include "KBVar.h"
 #include "KBDebug.h"
 #include "KBECommon.h"

@@ -1,4 +1,4 @@
-﻿#include "ExMonsterBase.h"
+#include "ExMonsterBase.h"
 #include "KBVar.h"
 #include "EntityDef.h"
 #include "ScriptModule.h"
@@ -89,14 +89,14 @@ void ExMonsterBase::onRemoteMethodCall(MemoryStream& stream)
 
 	switch(pMethod->methodUtype)
 	{
-		case 49:
+		case 50:
 		{
 			ANIM_INFO OnAnimUpdate_arg1;
 			((DATATYPE_ANIM_INFO*)pMethod->args[0])->createFromStreamEx(stream, OnAnimUpdate_arg1);
 			OnAnimUpdate(OnAnimUpdate_arg1);
 			break;
 		}
-		case 47:
+		case 48:
 		{
 			OnAttack();
 			break;

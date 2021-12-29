@@ -1,4 +1,4 @@
-﻿#include "CustomDataTypes.h"
+#include "CustomDataTypes.h"
 #include "EntityDef.h"
 #include "KBDebug.h"
 #include "DataTypes.h"

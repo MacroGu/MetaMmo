@@ -1,4 +1,4 @@
-﻿
+
 #include "PacketSenderKCP.h"
 #include "MemoryStream.h"
 #include "KBDebug.h"

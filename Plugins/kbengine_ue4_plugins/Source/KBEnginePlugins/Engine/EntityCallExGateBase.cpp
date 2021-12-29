@@ -1,4 +1,4 @@
-﻿#include "EntityCallExGateBase.h"
+#include "EntityCallExGateBase.h"
 #include "EntityDef.h"
 #include "Bundle.h"
 

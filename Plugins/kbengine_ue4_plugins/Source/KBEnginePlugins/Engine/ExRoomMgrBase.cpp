@@ -1,4 +1,4 @@
-﻿#include "ExRoomMgrBase.h"
+#include "ExRoomMgrBase.h"
 #include "KBVar.h"
 #include "EntityDef.h"
 #include "ScriptModule.h"

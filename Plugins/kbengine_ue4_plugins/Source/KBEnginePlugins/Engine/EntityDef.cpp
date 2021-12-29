@@ -1,4 +1,4 @@
-﻿#include "EntityDef.h"
+#include "EntityDef.h"
 #include "DataTypes.h"
 #include "CustomDataTypes.h"
 #include "ScriptModule.h"
@@ -989,7 +989,7 @@ void EntityDef::initScriptModules()
 
 	Method* pExMonster_OnAnimUpdate = new Method();
 	pExMonster_OnAnimUpdate->name = TEXT("OnAnimUpdate");
-	pExMonster_OnAnimUpdate->methodUtype = 49;
+	pExMonster_OnAnimUpdate->methodUtype = 50;
 	pExMonster_OnAnimUpdate->aliasID = 1;
 	pExMonster_OnAnimUpdate->args = ExMonster_OnAnimUpdate_args;
 
@@ -997,13 +997,13 @@ void EntityDef::initScriptModules()
 	pExMonsterModule->useMethodDescrAlias = true;
 	pExMonsterModule->idmethods.Add((uint16)pExMonster_OnAnimUpdate->aliasID, pExMonster_OnAnimUpdate);
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(ExMonster), method(OnAnimUpdate / 49).");
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExMonster), method(OnAnimUpdate / 50).");
 
 	TArray<DATATYPE_BASE*> ExMonster_OnAttack_args;
 
 	Method* pExMonster_OnAttack = new Method();
 	pExMonster_OnAttack->name = TEXT("OnAttack");
-	pExMonster_OnAttack->methodUtype = 47;
+	pExMonster_OnAttack->methodUtype = 48;
 	pExMonster_OnAttack->aliasID = 2;
 	pExMonster_OnAttack->args = ExMonster_OnAttack_args;
 
@@ -1011,14 +1011,14 @@ void EntityDef::initScriptModules()
 	pExMonsterModule->useMethodDescrAlias = true;
 	pExMonsterModule->idmethods.Add((uint16)pExMonster_OnAttack->aliasID, pExMonster_OnAttack);
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(ExMonster), method(OnAttack / 47).");
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExMonster), method(OnAttack / 48).");
 
 	TArray<DATATYPE_BASE*> ExMonster_AnimUpdate_args;
 	ExMonster_AnimUpdate_args.Add(EntityDef::id2datatypes[30]);
 
 	Method* pExMonster_AnimUpdate = new Method();
 	pExMonster_AnimUpdate->name = TEXT("AnimUpdate");
-	pExMonster_AnimUpdate->methodUtype = 48;
+	pExMonster_AnimUpdate->methodUtype = 49;
 	pExMonster_AnimUpdate->aliasID = -1;
 	pExMonster_AnimUpdate->args = ExMonster_AnimUpdate_args;
 
@@ -1027,14 +1027,14 @@ void EntityDef::initScriptModules()
 
 	pExMonsterModule->idcell_methods.Add(pExMonster_AnimUpdate->methodUtype, pExMonster_AnimUpdate);
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(ExMonster), method(AnimUpdate / 48).");
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExMonster), method(AnimUpdate / 49).");
 
 	TArray<DATATYPE_BASE*> ExMonster_Attack_args;
 	ExMonster_Attack_args.Add(EntityDef::id2datatypes[34]);
 
 	Method* pExMonster_Attack = new Method();
 	pExMonster_Attack->name = TEXT("Attack");
-	pExMonster_Attack->methodUtype = 41;
+	pExMonster_Attack->methodUtype = 42;
 	pExMonster_Attack->aliasID = -1;
 	pExMonster_Attack->args = ExMonster_Attack_args;
 
@@ -1043,13 +1043,13 @@ void EntityDef::initScriptModules()
 
 	pExMonsterModule->idcell_methods.Add(pExMonster_Attack->methodUtype, pExMonster_Attack);
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(ExMonster), method(Attack / 41).");
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExMonster), method(Attack / 42).");
 
 	TArray<DATATYPE_BASE*> ExMonster_Relive_args;
 
 	Method* pExMonster_Relive = new Method();
 	pExMonster_Relive->name = TEXT("Relive");
-	pExMonster_Relive->methodUtype = 42;
+	pExMonster_Relive->methodUtype = 43;
 	pExMonster_Relive->aliasID = -1;
 	pExMonster_Relive->args = ExMonster_Relive_args;
 
@@ -1058,7 +1058,7 @@ void EntityDef::initScriptModules()
 
 	pExMonsterModule->idcell_methods.Add(pExMonster_Relive->methodUtype, pExMonster_Relive);
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(ExMonster), method(Relive / 42).");
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExMonster), method(Relive / 43).");
 
 	ScriptModule* pExSkillModule = new ScriptModule("ExSkill", 6);
 	EntityDef::moduledefs.Add(TEXT("ExSkill"), pExSkillModule);

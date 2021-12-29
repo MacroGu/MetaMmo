@@ -1,4 +1,4 @@
-﻿#include "ExSkillBase.h"
+#include "ExSkillBase.h"
 #include "KBVar.h"
 #include "EntityDef.h"
 #include "ScriptModule.h"

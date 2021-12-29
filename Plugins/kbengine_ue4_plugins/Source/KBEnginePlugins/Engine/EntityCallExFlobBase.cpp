@@ -1,4 +1,4 @@
-﻿#include "EntityCallExFlobBase.h"
+#include "EntityCallExFlobBase.h"
 #include "EntityDef.h"
 #include "Bundle.h"
 
