@@ -1,4 +1,4 @@
-﻿#include "EntityDef.h"
+#include "EntityDef.h"
 #include "DataTypes.h"
 #include "CustomDataTypes.h"
 #include "ScriptModule.h"
@@ -7,12 +7,12 @@
 #include "KBVar.h"
 #include "Entity.h"
 
-#include "Scripts/Account.h"
-#include "Scripts/Avatar.h"
-#include "Scripts/Skill.h"
-#include "Scripts/Monster.h"
-#include "Scripts/ItemDropPackage.h"
-#include "Scripts/Ore.h"
+#include "Scripts/ExAccount.h"
+#include "Scripts/ExRole.h"
+#include "Scripts/ExMonster.h"
+#include "Scripts/ExSkill.h"
+#include "Scripts/ExFlob.h"
+#include "Scripts/ExGate.h"
 
 namespace KBEngine
 {
@@ -98,22 +98,22 @@ Entity* EntityDef::createEntity(int utype)
 	switch(utype)
 	{
 		case 1:
-			pEntity = new Account();
+			pEntity = new ExAccount();
 			break;
 		case 2:
-			pEntity = new Avatar();
-			break;
-		case 3:
-			pEntity = new Skill();
-			break;
-		case 4:
-			pEntity = new Monster();
+			pEntity = new ExRole();
 			break;
 		case 5:
-			pEntity = new ItemDropPackage();
+			pEntity = new ExMonster();
 			break;
 		case 6:
-			pEntity = new Ore();
+			pEntity = new ExSkill();
+			break;
+		case 7:
+			pEntity = new ExFlob();
+			break;
+		case 8:
+			pEntity = new ExGate();
 			break;
 		default:
 			SCREEN_ERROR_MSG("EntityDef::createEntity() : entity(%d) not found!", utype);
@@ -125,1308 +125,1145 @@ Entity* EntityDef::createEntity(int utype)
 
 void EntityDef::initScriptModules()
 {
-	ScriptModule* pAccountModule = new ScriptModule("Account", 1);
-	EntityDef::moduledefs.Add(TEXT("Account"), pAccountModule);
-	EntityDef::idmoduledefs.Add(1, pAccountModule);
-
-	Property* pAccount_position = new Property();
-	pAccount_position->name = TEXT("position");
-	pAccount_position->properUtype = 40000;
-	pAccount_position->properFlags = 4;
-	pAccount_position->aliasID = 1;
-	KBVar* pAccount_position_defval = new KBVar(FVector());
-	pAccount_position->pDefaultVal = pAccount_position_defval;
-	pAccountModule->propertys.Add(TEXT("position"), pAccount_position); 
-
-	pAccountModule->usePropertyDescrAlias = true;
-	pAccountModule->idpropertys.Add((uint16)pAccount_position->aliasID, pAccount_position);
-
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Account), property(position / 40000).");
-
-	Property* pAccount_direction = new Property();
-	pAccount_direction->name = TEXT("direction");
-	pAccount_direction->properUtype = 40001;
-	pAccount_direction->properFlags = 4;
-	pAccount_direction->aliasID = 2;
-	KBVar* pAccount_direction_defval = new KBVar(FVector());
-	pAccount_direction->pDefaultVal = pAccount_direction_defval;
-	pAccountModule->propertys.Add(TEXT("direction"), pAccount_direction); 
-
-	pAccountModule->usePropertyDescrAlias = true;
-	pAccountModule->idpropertys.Add((uint16)pAccount_direction->aliasID, pAccount_direction);
-
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Account), property(direction / 40001).");
-
-	Property* pAccount_spaceID = new Property();
-	pAccount_spaceID->name = TEXT("spaceID");
-	pAccount_spaceID->properUtype = 40002;
-	pAccount_spaceID->properFlags = 16;
-	pAccount_spaceID->aliasID = 3;
-	KBVar* pAccount_spaceID_defval = new KBVar((uint32)FCString::Atoi64(TEXT("")));
-	pAccount_spaceID->pDefaultVal = pAccount_spaceID_defval;
-	pAccountModule->propertys.Add(TEXT("spaceID"), pAccount_spaceID); 
+	ScriptModule* pExAccountModule = new ScriptModule("ExAccount", 1);
+	EntityDef::moduledefs.Add(TEXT("ExAccount"), pExAccountModule);
+	EntityDef::idmoduledefs.Add(1, pExAccountModule);
+
+	Property* pExAccount_position = new Property();
+	pExAccount_position->name = TEXT("position");
+	pExAccount_position->properUtype = 40000;
+	pExAccount_position->properFlags = 4;
+	pExAccount_position->aliasID = 1;
+	KBVar* pExAccount_position_defval = new KBVar(FVector());
+	pExAccount_position->pDefaultVal = pExAccount_position_defval;
+	pExAccountModule->propertys.Add(TEXT("position"), pExAccount_position); 
+
+	pExAccountModule->usePropertyDescrAlias = true;
+	pExAccountModule->idpropertys.Add((uint16)pExAccount_position->aliasID, pExAccount_position);
+
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExAccount), property(position / 40000).");
+
+	Property* pExAccount_direction = new Property();
+	pExAccount_direction->name = TEXT("direction");
+	pExAccount_direction->properUtype = 40001;
+	pExAccount_direction->properFlags = 4;
+	pExAccount_direction->aliasID = 2;
+	KBVar* pExAccount_direction_defval = new KBVar(FVector());
+	pExAccount_direction->pDefaultVal = pExAccount_direction_defval;
+	pExAccountModule->propertys.Add(TEXT("direction"), pExAccount_direction); 
+
+	pExAccountModule->usePropertyDescrAlias = true;
+	pExAccountModule->idpropertys.Add((uint16)pExAccount_direction->aliasID, pExAccount_direction);
+
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExAccount), property(direction / 40001).");
+
+	Property* pExAccount_spaceID = new Property();
+	pExAccount_spaceID->name = TEXT("spaceID");
+	pExAccount_spaceID->properUtype = 40002;
+	pExAccount_spaceID->properFlags = 16;
+	pExAccount_spaceID->aliasID = 3;
+	KBVar* pExAccount_spaceID_defval = new KBVar((uint32)FCString::Atoi64(TEXT("")));
+	pExAccount_spaceID->pDefaultVal = pExAccount_spaceID_defval;
+	pExAccountModule->propertys.Add(TEXT("spaceID"), pExAccount_spaceID); 
+
+	pExAccountModule->usePropertyDescrAlias = true;
+	pExAccountModule->idpropertys.Add((uint16)pExAccount_spaceID->aliasID, pExAccount_spaceID);
+
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExAccount), property(spaceID / 40002).");
+
+	Property* pExAccount_LastSelRole = new Property();
+	pExAccount_LastSelRole->name = TEXT("LastSelRole");
+	pExAccount_LastSelRole->properUtype = 2;
+	pExAccount_LastSelRole->properFlags = 32;
+	pExAccount_LastSelRole->aliasID = 4;
+	KBVar* pExAccount_LastSelRole_defval = new KBVar((uint64)FCString::Atoi64(TEXT("0")));
+	pExAccount_LastSelRole->pDefaultVal = pExAccount_LastSelRole_defval;
+	pExAccountModule->propertys.Add(TEXT("LastSelRole"), pExAccount_LastSelRole); 
+
+	pExAccountModule->usePropertyDescrAlias = true;
+	pExAccountModule->idpropertys.Add((uint16)pExAccount_LastSelRole->aliasID, pExAccount_LastSelRole);
+
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExAccount), property(LastSelRole / 2).");
+
+	TArray<DATATYPE_BASE*> ExAccount_OnCreateRole_args;
+	ExAccount_OnCreateRole_args.Add(EntityDef::id2datatypes[2]);
+	ExAccount_OnCreateRole_args.Add(EntityDef::id2datatypes[24]);
+
+	Method* pExAccount_OnCreateRole = new Method();
+	pExAccount_OnCreateRole->name = TEXT("OnCreateRole");
+	pExAccount_OnCreateRole->methodUtype = 9;
+	pExAccount_OnCreateRole->aliasID = 1;
+	pExAccount_OnCreateRole->args = ExAccount_OnCreateRole_args;
+
+	pExAccountModule->methods.Add(TEXT("OnCreateRole"), pExAccount_OnCreateRole); 
+	pExAccountModule->useMethodDescrAlias = true;
+	pExAccountModule->idmethods.Add((uint16)pExAccount_OnCreateRole->aliasID, pExAccount_OnCreateRole);
+
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExAccount), method(OnCreateRole / 9).");
+
+	TArray<DATATYPE_BASE*> ExAccount_OnCreateRoom_args;
+	ExAccount_OnCreateRoom_args.Add(EntityDef::id2datatypes[2]);
+	ExAccount_OnCreateRoom_args.Add(EntityDef::id2datatypes[27]);
+
+	Method* pExAccount_OnCreateRoom = new Method();
+	pExAccount_OnCreateRoom->name = TEXT("OnCreateRoom");
+	pExAccount_OnCreateRoom->methodUtype = 13;
+	pExAccount_OnCreateRoom->aliasID = 2;
+	pExAccount_OnCreateRoom->args = ExAccount_OnCreateRoom_args;
+
+	pExAccountModule->methods.Add(TEXT("OnCreateRoom"), pExAccount_OnCreateRoom); 
+	pExAccountModule->useMethodDescrAlias = true;
+	pExAccountModule->idmethods.Add((uint16)pExAccount_OnCreateRoom->aliasID, pExAccount_OnCreateRoom);
 
-	pAccountModule->usePropertyDescrAlias = true;
-	pAccountModule->idpropertys.Add((uint16)pAccount_spaceID->aliasID, pAccount_spaceID);
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExAccount), method(OnCreateRoom / 13).");
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Account), property(spaceID / 40002).");
-
-	TArray<DATATYPE_BASE*> Account_rspAvatarList_args;
-	Account_rspAvatarList_args.Add(EntityDef::id2datatypes[31]);
-	Account_rspAvatarList_args.Add(EntityDef::id2datatypes[5]);
-
-	Method* pAccount_rspAvatarList = new Method();
-	pAccount_rspAvatarList->name = TEXT("rspAvatarList");
-	pAccount_rspAvatarList->methodUtype = 8;
-	pAccount_rspAvatarList->aliasID = 1;
-	pAccount_rspAvatarList->args = Account_rspAvatarList_args;
+	TArray<DATATYPE_BASE*> ExAccount_OnRemoveRole_args;
+	ExAccount_OnRemoveRole_args.Add(EntityDef::id2datatypes[5]);
+
+	Method* pExAccount_OnRemoveRole = new Method();
+	pExAccount_OnRemoveRole->name = TEXT("OnRemoveRole");
+	pExAccount_OnRemoveRole->methodUtype = 10;
+	pExAccount_OnRemoveRole->aliasID = 3;
+	pExAccount_OnRemoveRole->args = ExAccount_OnRemoveRole_args;
 
-	pAccountModule->methods.Add(TEXT("rspAvatarList"), pAccount_rspAvatarList); 
-	pAccountModule->useMethodDescrAlias = true;
-	pAccountModule->idmethods.Add((uint16)pAccount_rspAvatarList->aliasID, pAccount_rspAvatarList);
+	pExAccountModule->methods.Add(TEXT("OnRemoveRole"), pExAccount_OnRemoveRole); 
+	pExAccountModule->useMethodDescrAlias = true;
+	pExAccountModule->idmethods.Add((uint16)pExAccount_OnRemoveRole->aliasID, pExAccount_OnRemoveRole);
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Account), method(rspAvatarList / 8).");
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExAccount), method(OnRemoveRole / 10).");
 
-	TArray<DATATYPE_BASE*> Account_rspCreateAvatar_args;
-	Account_rspCreateAvatar_args.Add(EntityDef::id2datatypes[4]);
+	TArray<DATATYPE_BASE*> ExAccount_OnReqRoleList_args;
+	ExAccount_OnReqRoleList_args.Add(EntityDef::id2datatypes[25]);
 
-	Method* pAccount_rspCreateAvatar = new Method();
-	pAccount_rspCreateAvatar->name = TEXT("rspCreateAvatar");
-	pAccount_rspCreateAvatar->methodUtype = 5;
-	pAccount_rspCreateAvatar->aliasID = 2;
-	pAccount_rspCreateAvatar->args = Account_rspCreateAvatar_args;
+	Method* pExAccount_OnReqRoleList = new Method();
+	pExAccount_OnReqRoleList->name = TEXT("OnReqRoleList");
+	pExAccount_OnReqRoleList->methodUtype = 8;
+	pExAccount_OnReqRoleList->aliasID = 4;
+	pExAccount_OnReqRoleList->args = ExAccount_OnReqRoleList_args;
 
-	pAccountModule->methods.Add(TEXT("rspCreateAvatar"), pAccount_rspCreateAvatar); 
-	pAccountModule->useMethodDescrAlias = true;
-	pAccountModule->idmethods.Add((uint16)pAccount_rspCreateAvatar->aliasID, pAccount_rspCreateAvatar);
+	pExAccountModule->methods.Add(TEXT("OnReqRoleList"), pExAccount_OnReqRoleList); 
+	pExAccountModule->useMethodDescrAlias = true;
+	pExAccountModule->idmethods.Add((uint16)pExAccount_OnReqRoleList->aliasID, pExAccount_OnReqRoleList);
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Account), method(rspCreateAvatar / 5).");
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExAccount), method(OnReqRoleList / 8).");
 
-	TArray<DATATYPE_BASE*> Account_rspEnterGame_args;
-	Account_rspEnterGame_args.Add(EntityDef::id2datatypes[4]);
+	TArray<DATATYPE_BASE*> ExAccount_OnReqRoomList_args;
+	ExAccount_OnReqRoomList_args.Add(EntityDef::id2datatypes[28]);
 
-	Method* pAccount_rspEnterGame = new Method();
-	pAccount_rspEnterGame->name = TEXT("rspEnterGame");
-	pAccount_rspEnterGame->methodUtype = 7;
-	pAccount_rspEnterGame->aliasID = 3;
-	pAccount_rspEnterGame->args = Account_rspEnterGame_args;
+	Method* pExAccount_OnReqRoomList = new Method();
+	pExAccount_OnReqRoomList->name = TEXT("OnReqRoomList");
+	pExAccount_OnReqRoomList->methodUtype = 12;
+	pExAccount_OnReqRoomList->aliasID = 5;
+	pExAccount_OnReqRoomList->args = ExAccount_OnReqRoomList_args;
 
-	pAccountModule->methods.Add(TEXT("rspEnterGame"), pAccount_rspEnterGame); 
-	pAccountModule->useMethodDescrAlias = true;
-	pAccountModule->idmethods.Add((uint16)pAccount_rspEnterGame->aliasID, pAccount_rspEnterGame);
+	pExAccountModule->methods.Add(TEXT("OnReqRoomList"), pExAccount_OnReqRoomList); 
+	pExAccountModule->useMethodDescrAlias = true;
+	pExAccountModule->idmethods.Add((uint16)pExAccount_OnReqRoomList->aliasID, pExAccount_OnReqRoomList);
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Account), method(rspEnterGame / 7).");
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExAccount), method(OnReqRoomList / 12).");
 
-	TArray<DATATYPE_BASE*> Account_rspRemoveAvatar_args;
-	Account_rspRemoveAvatar_args.Add(EntityDef::id2datatypes[4]);
+	TArray<DATATYPE_BASE*> ExAccount_OnSelectRoleGame_args;
+	ExAccount_OnSelectRoleGame_args.Add(EntityDef::id2datatypes[2]);
+	ExAccount_OnSelectRoleGame_args.Add(EntityDef::id2datatypes[5]);
 
-	Method* pAccount_rspRemoveAvatar = new Method();
-	pAccount_rspRemoveAvatar->name = TEXT("rspRemoveAvatar");
-	pAccount_rspRemoveAvatar->methodUtype = 6;
-	pAccount_rspRemoveAvatar->aliasID = 4;
-	pAccount_rspRemoveAvatar->args = Account_rspRemoveAvatar_args;
+	Method* pExAccount_OnSelectRoleGame = new Method();
+	pExAccount_OnSelectRoleGame->name = TEXT("OnSelectRoleGame");
+	pExAccount_OnSelectRoleGame->methodUtype = 11;
+	pExAccount_OnSelectRoleGame->aliasID = 6;
+	pExAccount_OnSelectRoleGame->args = ExAccount_OnSelectRoleGame_args;
 
-	pAccountModule->methods.Add(TEXT("rspRemoveAvatar"), pAccount_rspRemoveAvatar); 
-	pAccountModule->useMethodDescrAlias = true;
-	pAccountModule->idmethods.Add((uint16)pAccount_rspRemoveAvatar->aliasID, pAccount_rspRemoveAvatar);
+	pExAccountModule->methods.Add(TEXT("OnSelectRoleGame"), pExAccount_OnSelectRoleGame); 
+	pExAccountModule->useMethodDescrAlias = true;
+	pExAccountModule->idmethods.Add((uint16)pExAccount_OnSelectRoleGame->aliasID, pExAccount_OnSelectRoleGame);
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Account), method(rspRemoveAvatar / 6).");
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExAccount), method(OnSelectRoleGame / 11).");
 
-	TArray<DATATYPE_BASE*> Account_rspSwitchAvatar_args;
-	Account_rspSwitchAvatar_args.Add(EntityDef::id2datatypes[4]);
+	TArray<DATATYPE_BASE*> ExAccount_ReqCreateRole_args;
+	ExAccount_ReqCreateRole_args.Add(EntityDef::id2datatypes[2]);
+	ExAccount_ReqCreateRole_args.Add(EntityDef::id2datatypes[12]);
 
-	Method* pAccount_rspSwitchAvatar = new Method();
-	pAccount_rspSwitchAvatar->name = TEXT("rspSwitchAvatar");
-	pAccount_rspSwitchAvatar->methodUtype = 9;
-	pAccount_rspSwitchAvatar->aliasID = 5;
-	pAccount_rspSwitchAvatar->args = Account_rspSwitchAvatar_args;
+	Method* pExAccount_ReqCreateRole = new Method();
+	pExAccount_ReqCreateRole->name = TEXT("ReqCreateRole");
+	pExAccount_ReqCreateRole->methodUtype = 2;
+	pExAccount_ReqCreateRole->aliasID = -1;
+	pExAccount_ReqCreateRole->args = ExAccount_ReqCreateRole_args;
 
-	pAccountModule->methods.Add(TEXT("rspSwitchAvatar"), pAccount_rspSwitchAvatar); 
-	pAccountModule->useMethodDescrAlias = true;
-	pAccountModule->idmethods.Add((uint16)pAccount_rspSwitchAvatar->aliasID, pAccount_rspSwitchAvatar);
+	pExAccountModule->methods.Add(TEXT("ReqCreateRole"), pExAccount_ReqCreateRole); 
+	pExAccountModule->base_methods.Add(TEXT("ReqCreateRole"), pExAccount_ReqCreateRole);
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Account), method(rspSwitchAvatar / 9).");
+	pExAccountModule->idbase_methods.Add(pExAccount_ReqCreateRole->methodUtype, pExAccount_ReqCreateRole);
 
-	TArray<DATATYPE_BASE*> Account_reqAvatarList_args;
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExAccount), method(ReqCreateRole / 2).");
 
-	Method* pAccount_reqAvatarList = new Method();
-	pAccount_reqAvatarList->name = TEXT("reqAvatarList");
-	pAccount_reqAvatarList->methodUtype = 1;
-	pAccount_reqAvatarList->aliasID = -1;
-	pAccount_reqAvatarList->args = Account_reqAvatarList_args;
+	TArray<DATATYPE_BASE*> ExAccount_ReqCreateRoom_args;
+	ExAccount_ReqCreateRoom_args.Add(EntityDef::id2datatypes[12]);
 
-	pAccountModule->methods.Add(TEXT("reqAvatarList"), pAccount_reqAvatarList); 
-	pAccountModule->base_methods.Add(TEXT("reqAvatarList"), pAccount_reqAvatarList);
+	Method* pExAccount_ReqCreateRoom = new Method();
+	pExAccount_ReqCreateRoom->name = TEXT("ReqCreateRoom");
+	pExAccount_ReqCreateRoom->methodUtype = 6;
+	pExAccount_ReqCreateRoom->aliasID = -1;
+	pExAccount_ReqCreateRoom->args = ExAccount_ReqCreateRoom_args;
 
-	pAccountModule->idbase_methods.Add(pAccount_reqAvatarList->methodUtype, pAccount_reqAvatarList);
+	pExAccountModule->methods.Add(TEXT("ReqCreateRoom"), pExAccount_ReqCreateRoom); 
+	pExAccountModule->base_methods.Add(TEXT("ReqCreateRoom"), pExAccount_ReqCreateRoom);
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Account), method(reqAvatarList / 1).");
+	pExAccountModule->idbase_methods.Add(pExAccount_ReqCreateRoom->methodUtype, pExAccount_ReqCreateRoom);
 
-	TArray<DATATYPE_BASE*> Account_reqCreateAvatar_args;
-	Account_reqCreateAvatar_args.Add(EntityDef::id2datatypes[2]);
-	Account_reqCreateAvatar_args.Add(EntityDef::id2datatypes[12]);
-	Account_reqCreateAvatar_args.Add(EntityDef::id2datatypes[11]);
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExAccount), method(ReqCreateRoom / 6).");
 
-	Method* pAccount_reqCreateAvatar = new Method();
-	pAccount_reqCreateAvatar->name = TEXT("reqCreateAvatar");
-	pAccount_reqCreateAvatar->methodUtype = 2;
-	pAccount_reqCreateAvatar->aliasID = -1;
-	pAccount_reqCreateAvatar->args = Account_reqCreateAvatar_args;
+	TArray<DATATYPE_BASE*> ExAccount_ReqRemoveRole_args;
+	ExAccount_ReqRemoveRole_args.Add(EntityDef::id2datatypes[12]);
 
-	pAccountModule->methods.Add(TEXT("reqCreateAvatar"), pAccount_reqCreateAvatar); 
-	pAccountModule->base_methods.Add(TEXT("reqCreateAvatar"), pAccount_reqCreateAvatar);
+	Method* pExAccount_ReqRemoveRole = new Method();
+	pExAccount_ReqRemoveRole->name = TEXT("ReqRemoveRole");
+	pExAccount_ReqRemoveRole->methodUtype = 3;
+	pExAccount_ReqRemoveRole->aliasID = -1;
+	pExAccount_ReqRemoveRole->args = ExAccount_ReqRemoveRole_args;
 
-	pAccountModule->idbase_methods.Add(pAccount_reqCreateAvatar->methodUtype, pAccount_reqCreateAvatar);
+	pExAccountModule->methods.Add(TEXT("ReqRemoveRole"), pExAccount_ReqRemoveRole); 
+	pExAccountModule->base_methods.Add(TEXT("ReqRemoveRole"), pExAccount_ReqRemoveRole);
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Account), method(reqCreateAvatar / 2).");
+	pExAccountModule->idbase_methods.Add(pExAccount_ReqRemoveRole->methodUtype, pExAccount_ReqRemoveRole);
 
-	TArray<DATATYPE_BASE*> Account_reqEnterGame_args;
-	Account_reqEnterGame_args.Add(EntityDef::id2datatypes[5]);
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExAccount), method(ReqRemoveRole / 3).");
 
-	Method* pAccount_reqEnterGame = new Method();
-	pAccount_reqEnterGame->name = TEXT("reqEnterGame");
-	pAccount_reqEnterGame->methodUtype = 3;
-	pAccount_reqEnterGame->aliasID = -1;
-	pAccount_reqEnterGame->args = Account_reqEnterGame_args;
+	TArray<DATATYPE_BASE*> ExAccount_ReqRoleList_args;
 
-	pAccountModule->methods.Add(TEXT("reqEnterGame"), pAccount_reqEnterGame); 
-	pAccountModule->base_methods.Add(TEXT("reqEnterGame"), pAccount_reqEnterGame);
+	Method* pExAccount_ReqRoleList = new Method();
+	pExAccount_ReqRoleList->name = TEXT("ReqRoleList");
+	pExAccount_ReqRoleList->methodUtype = 1;
+	pExAccount_ReqRoleList->aliasID = -1;
+	pExAccount_ReqRoleList->args = ExAccount_ReqRoleList_args;
 
-	pAccountModule->idbase_methods.Add(pAccount_reqEnterGame->methodUtype, pAccount_reqEnterGame);
+	pExAccountModule->methods.Add(TEXT("ReqRoleList"), pExAccount_ReqRoleList); 
+	pExAccountModule->base_methods.Add(TEXT("ReqRoleList"), pExAccount_ReqRoleList);
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Account), method(reqEnterGame / 3).");
+	pExAccountModule->idbase_methods.Add(pExAccount_ReqRoleList->methodUtype, pExAccount_ReqRoleList);
 
-	TArray<DATATYPE_BASE*> Account_reqRemoveAvatar_args;
-	Account_reqRemoveAvatar_args.Add(EntityDef::id2datatypes[5]);
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExAccount), method(ReqRoleList / 1).");
 
-	Method* pAccount_reqRemoveAvatar = new Method();
-	pAccount_reqRemoveAvatar->name = TEXT("reqRemoveAvatar");
-	pAccount_reqRemoveAvatar->methodUtype = 4;
-	pAccount_reqRemoveAvatar->aliasID = -1;
-	pAccount_reqRemoveAvatar->args = Account_reqRemoveAvatar_args;
+	TArray<DATATYPE_BASE*> ExAccount_ReqRoomList_args;
 
-	pAccountModule->methods.Add(TEXT("reqRemoveAvatar"), pAccount_reqRemoveAvatar); 
-	pAccountModule->base_methods.Add(TEXT("reqRemoveAvatar"), pAccount_reqRemoveAvatar);
+	Method* pExAccount_ReqRoomList = new Method();
+	pExAccount_ReqRoomList->name = TEXT("ReqRoomList");
+	pExAccount_ReqRoomList->methodUtype = 5;
+	pExAccount_ReqRoomList->aliasID = -1;
+	pExAccount_ReqRoomList->args = ExAccount_ReqRoomList_args;
 
-	pAccountModule->idbase_methods.Add(pAccount_reqRemoveAvatar->methodUtype, pAccount_reqRemoveAvatar);
+	pExAccountModule->methods.Add(TEXT("ReqRoomList"), pExAccount_ReqRoomList); 
+	pExAccountModule->base_methods.Add(TEXT("ReqRoomList"), pExAccount_ReqRoomList);
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Account), method(reqRemoveAvatar / 4).");
+	pExAccountModule->idbase_methods.Add(pExAccount_ReqRoomList->methodUtype, pExAccount_ReqRoomList);
 
-	ScriptModule* pAvatarModule = new ScriptModule("Avatar", 2);
-	EntityDef::moduledefs.Add(TEXT("Avatar"), pAvatarModule);
-	EntityDef::idmoduledefs.Add(2, pAvatarModule);
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExAccount), method(ReqRoomList / 5).");
 
-	Property* pAvatar_position = new Property();
-	pAvatar_position->name = TEXT("position");
-	pAvatar_position->properUtype = 40000;
-	pAvatar_position->properFlags = 4;
-	pAvatar_position->aliasID = 1;
-	KBVar* pAvatar_position_defval = new KBVar(FVector());
-	pAvatar_position->pDefaultVal = pAvatar_position_defval;
-	pAvatarModule->propertys.Add(TEXT("position"), pAvatar_position); 
+	TArray<DATATYPE_BASE*> ExAccount_ReqSelectRoleGame_args;
+	ExAccount_ReqSelectRoleGame_args.Add(EntityDef::id2datatypes[5]);
 
-	pAvatarModule->usePropertyDescrAlias = true;
-	pAvatarModule->idpropertys.Add((uint16)pAvatar_position->aliasID, pAvatar_position);
+	Method* pExAccount_ReqSelectRoleGame = new Method();
+	pExAccount_ReqSelectRoleGame->name = TEXT("ReqSelectRoleGame");
+	pExAccount_ReqSelectRoleGame->methodUtype = 4;
+	pExAccount_ReqSelectRoleGame->aliasID = -1;
+	pExAccount_ReqSelectRoleGame->args = ExAccount_ReqSelectRoleGame_args;
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Avatar), property(position / 40000).");
+	pExAccountModule->methods.Add(TEXT("ReqSelectRoleGame"), pExAccount_ReqSelectRoleGame); 
+	pExAccountModule->base_methods.Add(TEXT("ReqSelectRoleGame"), pExAccount_ReqSelectRoleGame);
 
-	Property* pAvatar_direction = new Property();
-	pAvatar_direction->name = TEXT("direction");
-	pAvatar_direction->properUtype = 40001;
-	pAvatar_direction->properFlags = 4;
-	pAvatar_direction->aliasID = 2;
-	KBVar* pAvatar_direction_defval = new KBVar(FVector());
-	pAvatar_direction->pDefaultVal = pAvatar_direction_defval;
-	pAvatarModule->propertys.Add(TEXT("direction"), pAvatar_direction); 
-
-	pAvatarModule->usePropertyDescrAlias = true;
-	pAvatarModule->idpropertys.Add((uint16)pAvatar_direction->aliasID, pAvatar_direction);
+	pExAccountModule->idbase_methods.Add(pExAccount_ReqSelectRoleGame->methodUtype, pExAccount_ReqSelectRoleGame);
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Avatar), property(direction / 40001).");
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExAccount), method(ReqSelectRoleGame / 4).");
 
-	Property* pAvatar_spaceID = new Property();
-	pAvatar_spaceID->name = TEXT("spaceID");
-	pAvatar_spaceID->properUtype = 40002;
-	pAvatar_spaceID->properFlags = 16;
-	pAvatar_spaceID->aliasID = 3;
-	KBVar* pAvatar_spaceID_defval = new KBVar((uint32)FCString::Atoi64(TEXT("")));
-	pAvatar_spaceID->pDefaultVal = pAvatar_spaceID_defval;
-	pAvatarModule->propertys.Add(TEXT("spaceID"), pAvatar_spaceID); 
-
-	pAvatarModule->usePropertyDescrAlias = true;
-	pAvatarModule->idpropertys.Add((uint16)pAvatar_spaceID->aliasID, pAvatar_spaceID);
-
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Avatar), property(spaceID / 40002).");
+	TArray<DATATYPE_BASE*> ExAccount_SelectRoomGame_args;
+	ExAccount_SelectRoomGame_args.Add(EntityDef::id2datatypes[5]);
 
-	Property* pAvatar_BaseHP = new Property();
-	pAvatar_BaseHP->name = TEXT("BaseHP");
-	pAvatar_BaseHP->properUtype = 28;
-	pAvatar_BaseHP->properFlags = 4;
-	pAvatar_BaseHP->aliasID = 4;
-	KBVar* pAvatar_BaseHP_defval = new KBVar((int32)FCString::Atoi64(TEXT("500")));
-	pAvatar_BaseHP->pDefaultVal = pAvatar_BaseHP_defval;
-	pAvatarModule->propertys.Add(TEXT("BaseHP"), pAvatar_BaseHP); 
-
-	pAvatarModule->usePropertyDescrAlias = true;
-	pAvatarModule->idpropertys.Add((uint16)pAvatar_BaseHP->aliasID, pAvatar_BaseHP);
-
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Avatar), property(BaseHP / 28).");
-
-	Property* pAvatar_HP = new Property();
-	pAvatar_HP->name = TEXT("HP");
-	pAvatar_HP->properUtype = 29;
-	pAvatar_HP->properFlags = 4;
-	pAvatar_HP->aliasID = 5;
-	KBVar* pAvatar_HP_defval = new KBVar((int32)FCString::Atoi64(TEXT("500")));
-	pAvatar_HP->pDefaultVal = pAvatar_HP_defval;
-	pAvatarModule->propertys.Add(TEXT("HP"), pAvatar_HP); 
-
-	pAvatarModule->usePropertyDescrAlias = true;
-	pAvatarModule->idpropertys.Add((uint16)pAvatar_HP->aliasID, pAvatar_HP);
-
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Avatar), property(HP / 29).");
-
-	Property* pAvatar_bagSize = new Property();
-	pAvatar_bagSize->name = TEXT("bagSize");
-	pAvatar_bagSize->properUtype = 21;
-	pAvatar_bagSize->properFlags = 16;
-	pAvatar_bagSize->aliasID = 6;
-	KBVar* pAvatar_bagSize_defval = new KBVar((uint16)FCString::Atoi64(TEXT("30")));
-	pAvatar_bagSize->pDefaultVal = pAvatar_bagSize_defval;
-	pAvatarModule->propertys.Add(TEXT("bagSize"), pAvatar_bagSize); 
-
-	pAvatarModule->usePropertyDescrAlias = true;
-	pAvatarModule->idpropertys.Add((uint16)pAvatar_bagSize->aliasID, pAvatar_bagSize);
-
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Avatar), property(bagSize / 21).");
-
-	Property* pAvatar_dbid = new Property();
-	pAvatar_dbid->name = TEXT("dbid");
-	pAvatar_dbid->properUtype = 8;
-	pAvatar_dbid->properFlags = 4;
-	pAvatar_dbid->aliasID = 7;
-	KBVar* pAvatar_dbid_defval = new KBVar((uint64)FCString::Atoi64(TEXT("0")));
-	pAvatar_dbid->pDefaultVal = pAvatar_dbid_defval;
-	pAvatarModule->propertys.Add(TEXT("dbid"), pAvatar_dbid); 
-
-	pAvatarModule->usePropertyDescrAlias = true;
-	pAvatarModule->idpropertys.Add((uint16)pAvatar_dbid->aliasID, pAvatar_dbid);
-
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Avatar), property(dbid / 8).");
-
-	Property* pAvatar_enage = new Property();
-	pAvatar_enage->name = TEXT("enage");
-	pAvatar_enage->properUtype = 27;
-	pAvatar_enage->properFlags = 4;
-	pAvatar_enage->aliasID = 8;
-	KBVar* pAvatar_enage_defval = new KBVar((int32)FCString::Atoi64(TEXT("-1")));
-	pAvatar_enage->pDefaultVal = pAvatar_enage_defval;
-	pAvatarModule->propertys.Add(TEXT("enage"), pAvatar_enage); 
-
-	pAvatarModule->usePropertyDescrAlias = true;
-	pAvatarModule->idpropertys.Add((uint16)pAvatar_enage->aliasID, pAvatar_enage);
-
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Avatar), property(enage / 27).");
-
-	Property* pAvatar_facade = new Property();
-	pAvatar_facade->name = TEXT("facade");
-	pAvatar_facade->properUtype = 19;
-	pAvatar_facade->properFlags = 4;
-	pAvatar_facade->aliasID = 9;
-	KBVar* pAvatar_facade_defval = new KBVar(TArray<uint8>());
-	pAvatar_facade->pDefaultVal = pAvatar_facade_defval;
-	pAvatarModule->propertys.Add(TEXT("facade"), pAvatar_facade); 
-
-	pAvatarModule->usePropertyDescrAlias = true;
-	pAvatarModule->idpropertys.Add((uint16)pAvatar_facade->aliasID, pAvatar_facade);
-
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Avatar), property(facade / 19).");
-
-	Property* pAvatar_isJump = new Property();
-	pAvatar_isJump->name = TEXT("isJump");
-	pAvatar_isJump->properUtype = 22;
-	pAvatar_isJump->properFlags = 128;
-	pAvatar_isJump->aliasID = 10;
-	KBVar* pAvatar_isJump_defval = new KBVar((int8)FCString::Atoi64(TEXT("")));
-	pAvatar_isJump->pDefaultVal = pAvatar_isJump_defval;
-	pAvatarModule->propertys.Add(TEXT("isJump"), pAvatar_isJump); 
-
-	pAvatarModule->usePropertyDescrAlias = true;
-	pAvatarModule->idpropertys.Add((uint16)pAvatar_isJump->aliasID, pAvatar_isJump);
-
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Avatar), property(isJump / 22).");
-
-	Property* pAvatar_moveH = new Property();
-	pAvatar_moveH->name = TEXT("moveH");
-	pAvatar_moveH->properUtype = 24;
-	pAvatar_moveH->properFlags = 128;
-	pAvatar_moveH->aliasID = 11;
-	KBVar* pAvatar_moveH_defval = new KBVar((int8)FCString::Atoi64(TEXT("")));
-	pAvatar_moveH->pDefaultVal = pAvatar_moveH_defval;
-	pAvatarModule->propertys.Add(TEXT("moveH"), pAvatar_moveH); 
-
-	pAvatarModule->usePropertyDescrAlias = true;
-	pAvatarModule->idpropertys.Add((uint16)pAvatar_moveH->aliasID, pAvatar_moveH);
-
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Avatar), property(moveH / 24).");
-
-	Property* pAvatar_moveLevel = new Property();
-	pAvatar_moveLevel->name = TEXT("moveLevel");
-	pAvatar_moveLevel->properUtype = 23;
-	pAvatar_moveLevel->properFlags = 128;
-	pAvatar_moveLevel->aliasID = 12;
-	KBVar* pAvatar_moveLevel_defval = new KBVar((int8)FCString::Atoi64(TEXT("")));
-	pAvatar_moveLevel->pDefaultVal = pAvatar_moveLevel_defval;
-	pAvatarModule->propertys.Add(TEXT("moveLevel"), pAvatar_moveLevel); 
-
-	pAvatarModule->usePropertyDescrAlias = true;
-	pAvatarModule->idpropertys.Add((uint16)pAvatar_moveLevel->aliasID, pAvatar_moveLevel);
-
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Avatar), property(moveLevel / 23).");
-
-	Property* pAvatar_moveV = new Property();
-	pAvatar_moveV->name = TEXT("moveV");
-	pAvatar_moveV->properUtype = 25;
-	pAvatar_moveV->properFlags = 128;
-	pAvatar_moveV->aliasID = 13;
-	KBVar* pAvatar_moveV_defval = new KBVar((int8)FCString::Atoi64(TEXT("")));
-	pAvatar_moveV->pDefaultVal = pAvatar_moveV_defval;
-	pAvatarModule->propertys.Add(TEXT("moveV"), pAvatar_moveV); 
-
-	pAvatarModule->usePropertyDescrAlias = true;
-	pAvatarModule->idpropertys.Add((uint16)pAvatar_moveV->aliasID, pAvatar_moveV);
-
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Avatar), property(moveV / 25).");
-
-	Property* pAvatar_name = new Property();
-	pAvatar_name->name = TEXT("name");
-	pAvatar_name->properUtype = 18;
-	pAvatar_name->properFlags = 4;
-	pAvatar_name->aliasID = 14;
-	KBVar* pAvatar_name_defval = new KBVar(FString());
-	pAvatar_name->pDefaultVal = pAvatar_name_defval;
-	pAvatarModule->propertys.Add(TEXT("name"), pAvatar_name); 
-
-	pAvatarModule->usePropertyDescrAlias = true;
-	pAvatarModule->idpropertys.Add((uint16)pAvatar_name->aliasID, pAvatar_name);
-
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Avatar), property(name / 18).");
-
-	Property* pAvatar_netDelay = new Property();
-	pAvatar_netDelay->name = TEXT("netDelay");
-	pAvatar_netDelay->properUtype = 16;
-	pAvatar_netDelay->properFlags = 32;
-	pAvatar_netDelay->aliasID = 15;
-	KBVar* pAvatar_netDelay_defval = new KBVar((uint16)FCString::Atoi64(TEXT("")));
-	pAvatar_netDelay->pDefaultVal = pAvatar_netDelay_defval;
-	pAvatarModule->propertys.Add(TEXT("netDelay"), pAvatar_netDelay); 
-
-	pAvatarModule->usePropertyDescrAlias = true;
-	pAvatarModule->idpropertys.Add((uint16)pAvatar_netDelay->aliasID, pAvatar_netDelay);
-
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Avatar), property(netDelay / 16).");
-
-	Property* pAvatar_serverTime = new Property();
-	pAvatar_serverTime->name = TEXT("serverTime");
-	pAvatar_serverTime->properUtype = 10;
-	pAvatar_serverTime->properFlags = 32;
-	pAvatar_serverTime->aliasID = 16;
-	KBVar* pAvatar_serverTime_defval = new KBVar((uint32)FCString::Atoi64(TEXT("0")));
-	pAvatar_serverTime->pDefaultVal = pAvatar_serverTime_defval;
-	pAvatarModule->propertys.Add(TEXT("serverTime"), pAvatar_serverTime); 
-
-	pAvatarModule->usePropertyDescrAlias = true;
-	pAvatarModule->idpropertys.Add((uint16)pAvatar_serverTime->aliasID, pAvatar_serverTime);
-
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Avatar), property(serverTime / 10).");
-
-	Property* pAvatar_sex = new Property();
-	pAvatar_sex->name = TEXT("sex");
-	pAvatar_sex->properUtype = 17;
-	pAvatar_sex->properFlags = 4;
-	pAvatar_sex->aliasID = 17;
-	KBVar* pAvatar_sex_defval = new KBVar((uint8)FCString::Atoi64(TEXT("")));
-	pAvatar_sex->pDefaultVal = pAvatar_sex_defval;
-	pAvatarModule->propertys.Add(TEXT("sex"), pAvatar_sex); 
-
-	pAvatarModule->usePropertyDescrAlias = true;
-	pAvatarModule->idpropertys.Add((uint16)pAvatar_sex->aliasID, pAvatar_sex);
-
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Avatar), property(sex / 17).");
-
-	TArray<DATATYPE_BASE*> Avatar_OnAnimUpdate_args;
-	Avatar_OnAnimUpdate_args.Add(EntityDef::id2datatypes[32]);
-
-	Method* pAvatar_OnAnimUpdate = new Method();
-	pAvatar_OnAnimUpdate->name = TEXT("OnAnimUpdate");
-	pAvatar_OnAnimUpdate->methodUtype = 36;
-	pAvatar_OnAnimUpdate->aliasID = 1;
-	pAvatar_OnAnimUpdate->args = Avatar_OnAnimUpdate_args;
-
-	pAvatarModule->methods.Add(TEXT("OnAnimUpdate"), pAvatar_OnAnimUpdate); 
-	pAvatarModule->useMethodDescrAlias = true;
-	pAvatarModule->idmethods.Add((uint16)pAvatar_OnAnimUpdate->aliasID, pAvatar_OnAnimUpdate);
-
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Avatar), method(OnAnimUpdate / 36).");
-
-	TArray<DATATYPE_BASE*> Avatar_OnAttack_args;
-	Avatar_OnAttack_args.Add(EntityDef::id2datatypes[29]);
-
-	Method* pAvatar_OnAttack = new Method();
-	pAvatar_OnAttack->name = TEXT("OnAttack");
-	pAvatar_OnAttack->methodUtype = 34;
-	pAvatar_OnAttack->aliasID = 2;
-	pAvatar_OnAttack->args = Avatar_OnAttack_args;
-
-	pAvatarModule->methods.Add(TEXT("OnAttack"), pAvatar_OnAttack); 
-	pAvatarModule->useMethodDescrAlias = true;
-	pAvatarModule->idmethods.Add((uint16)pAvatar_OnAttack->aliasID, pAvatar_OnAttack);
-
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Avatar), method(OnAttack / 34).");
-
-	TArray<DATATYPE_BASE*> Avatar_ntfError_args;
-	Avatar_ntfError_args.Add(EntityDef::id2datatypes[4]);
-
-	Method* pAvatar_ntfError = new Method();
-	pAvatar_ntfError->name = TEXT("ntfError");
-	pAvatar_ntfError->methodUtype = 17;
-	pAvatar_ntfError->aliasID = 3;
-	pAvatar_ntfError->args = Avatar_ntfError_args;
-
-	pAvatarModule->methods.Add(TEXT("ntfError"), pAvatar_ntfError); 
-	pAvatarModule->useMethodDescrAlias = true;
-	pAvatarModule->idmethods.Add((uint16)pAvatar_ntfError->aliasID, pAvatar_ntfError);
-
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Avatar), method(ntfError / 17).");
-
-	TArray<DATATYPE_BASE*> Avatar_ntfItemsChange_args;
-	Avatar_ntfItemsChange_args.Add(EntityDef::id2datatypes[27]);
-	Avatar_ntfItemsChange_args.Add(EntityDef::id2datatypes[23]);
-
-	Method* pAvatar_ntfItemsChange = new Method();
-	pAvatar_ntfItemsChange->name = TEXT("ntfItemsChange");
-	pAvatar_ntfItemsChange->methodUtype = 22;
-	pAvatar_ntfItemsChange->aliasID = 4;
-	pAvatar_ntfItemsChange->args = Avatar_ntfItemsChange_args;
+	Method* pExAccount_SelectRoomGame = new Method();
+	pExAccount_SelectRoomGame->name = TEXT("SelectRoomGame");
+	pExAccount_SelectRoomGame->methodUtype = 7;
+	pExAccount_SelectRoomGame->aliasID = -1;
+	pExAccount_SelectRoomGame->args = ExAccount_SelectRoomGame_args;
 
-	pAvatarModule->methods.Add(TEXT("ntfItemsChange"), pAvatar_ntfItemsChange); 
-	pAvatarModule->useMethodDescrAlias = true;
-	pAvatarModule->idmethods.Add((uint16)pAvatar_ntfItemsChange->aliasID, pAvatar_ntfItemsChange);
+	pExAccountModule->methods.Add(TEXT("SelectRoomGame"), pExAccount_SelectRoomGame); 
+	pExAccountModule->base_methods.Add(TEXT("SelectRoomGame"), pExAccount_SelectRoomGame);
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Avatar), method(ntfItemsChange / 22).");
-
-	TArray<DATATYPE_BASE*> Avatar_ntfReceiveChat_args;
-	Avatar_ntfReceiveChat_args.Add(EntityDef::id2datatypes[28]);
+	pExAccountModule->idbase_methods.Add(pExAccount_SelectRoomGame->methodUtype, pExAccount_SelectRoomGame);
 
-	Method* pAvatar_ntfReceiveChat = new Method();
-	pAvatar_ntfReceiveChat->name = TEXT("ntfReceiveChat");
-	pAvatar_ntfReceiveChat->methodUtype = 29;
-	pAvatar_ntfReceiveChat->aliasID = 5;
-	pAvatar_ntfReceiveChat->args = Avatar_ntfReceiveChat_args;
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExAccount), method(SelectRoomGame / 7).");
 
-	pAvatarModule->methods.Add(TEXT("ntfReceiveChat"), pAvatar_ntfReceiveChat); 
-	pAvatarModule->useMethodDescrAlias = true;
-	pAvatarModule->idmethods.Add((uint16)pAvatar_ntfReceiveChat->aliasID, pAvatar_ntfReceiveChat);
+	ScriptModule* pExRoleModule = new ScriptModule("ExRole", 2);
+	EntityDef::moduledefs.Add(TEXT("ExRole"), pExRoleModule);
+	EntityDef::idmoduledefs.Add(2, pExRoleModule);
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Avatar), method(ntfReceiveChat / 29).");
+	Property* pExRole_position = new Property();
+	pExRole_position->name = TEXT("position");
+	pExRole_position->properUtype = 40000;
+	pExRole_position->properFlags = 4;
+	pExRole_position->aliasID = 1;
+	KBVar* pExRole_position_defval = new KBVar(FVector());
+	pExRole_position->pDefaultVal = pExRole_position_defval;
+	pExRoleModule->propertys.Add(TEXT("position"), pExRole_position); 
 
-	TArray<DATATYPE_BASE*> Avatar_rspChangeName_args;
-	Avatar_rspChangeName_args.Add(EntityDef::id2datatypes[4]);
+	pExRoleModule->usePropertyDescrAlias = true;
+	pExRoleModule->idpropertys.Add((uint16)pExRole_position->aliasID, pExRole_position);
 
-	Method* pAvatar_rspChangeName = new Method();
-	pAvatar_rspChangeName->name = TEXT("rspChangeName");
-	pAvatar_rspChangeName->methodUtype = 18;
-	pAvatar_rspChangeName->aliasID = 6;
-	pAvatar_rspChangeName->args = Avatar_rspChangeName_args;
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExRole), property(position / 40000).");
 
-	pAvatarModule->methods.Add(TEXT("rspChangeName"), pAvatar_rspChangeName); 
-	pAvatarModule->useMethodDescrAlias = true;
-	pAvatarModule->idmethods.Add((uint16)pAvatar_rspChangeName->aliasID, pAvatar_rspChangeName);
+	Property* pExRole_direction = new Property();
+	pExRole_direction->name = TEXT("direction");
+	pExRole_direction->properUtype = 40001;
+	pExRole_direction->properFlags = 4;
+	pExRole_direction->aliasID = 2;
+	KBVar* pExRole_direction_defval = new KBVar(FVector());
+	pExRole_direction->pDefaultVal = pExRole_direction_defval;
+	pExRoleModule->propertys.Add(TEXT("direction"), pExRole_direction); 
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Avatar), method(rspChangeName / 18).");
+	pExRoleModule->usePropertyDescrAlias = true;
+	pExRoleModule->idpropertys.Add((uint16)pExRole_direction->aliasID, pExRole_direction);
 
-	TArray<DATATYPE_BASE*> Avatar_rspDigOre_args;
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExRole), property(direction / 40001).");
 
-	Method* pAvatar_rspDigOre = new Method();
-	pAvatar_rspDigOre->name = TEXT("rspDigOre");
-	pAvatar_rspDigOre->methodUtype = 40;
-	pAvatar_rspDigOre->aliasID = 7;
-	pAvatar_rspDigOre->args = Avatar_rspDigOre_args;
+	Property* pExRole_spaceID = new Property();
+	pExRole_spaceID->name = TEXT("spaceID");
+	pExRole_spaceID->properUtype = 40002;
+	pExRole_spaceID->properFlags = 16;
+	pExRole_spaceID->aliasID = 3;
+	KBVar* pExRole_spaceID_defval = new KBVar((uint32)FCString::Atoi64(TEXT("")));
+	pExRole_spaceID->pDefaultVal = pExRole_spaceID_defval;
+	pExRoleModule->propertys.Add(TEXT("spaceID"), pExRole_spaceID); 
 
-	pAvatarModule->methods.Add(TEXT("rspDigOre"), pAvatar_rspDigOre); 
-	pAvatarModule->useMethodDescrAlias = true;
-	pAvatarModule->idmethods.Add((uint16)pAvatar_rspDigOre->aliasID, pAvatar_rspDigOre);
+	pExRoleModule->usePropertyDescrAlias = true;
+	pExRoleModule->idpropertys.Add((uint16)pExRole_spaceID->aliasID, pExRole_spaceID);
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Avatar), method(rspDigOre / 40).");
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExRole), property(spaceID / 40002).");
 
-	TArray<DATATYPE_BASE*> Avatar_rspStopDigOre_args;
+	Property* pExRole_BaseHP = new Property();
+	pExRole_BaseHP->name = TEXT("BaseHP");
+	pExRole_BaseHP->properUtype = 12;
+	pExRole_BaseHP->properFlags = 4;
+	pExRole_BaseHP->aliasID = 4;
+	KBVar* pExRole_BaseHP_defval = new KBVar((int32)FCString::Atoi64(TEXT("500")));
+	pExRole_BaseHP->pDefaultVal = pExRole_BaseHP_defval;
+	pExRoleModule->propertys.Add(TEXT("BaseHP"), pExRole_BaseHP); 
 
-	Method* pAvatar_rspStopDigOre = new Method();
-	pAvatar_rspStopDigOre->name = TEXT("rspStopDigOre");
-	pAvatar_rspStopDigOre->methodUtype = 41;
-	pAvatar_rspStopDigOre->aliasID = 8;
-	pAvatar_rspStopDigOre->args = Avatar_rspStopDigOre_args;
+	pExRoleModule->usePropertyDescrAlias = true;
+	pExRoleModule->idpropertys.Add((uint16)pExRole_BaseHP->aliasID, pExRole_BaseHP);
 
-	pAvatarModule->methods.Add(TEXT("rspStopDigOre"), pAvatar_rspStopDigOre); 
-	pAvatarModule->useMethodDescrAlias = true;
-	pAvatarModule->idmethods.Add((uint16)pAvatar_rspStopDigOre->aliasID, pAvatar_rspStopDigOre);
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExRole), property(BaseHP / 12).");
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Avatar), method(rspStopDigOre / 41).");
+	Property* pExRole_Defense = new Property();
+	pExRole_Defense->name = TEXT("Defense");
+	pExRole_Defense->properUtype = 14;
+	pExRole_Defense->properFlags = 16;
+	pExRole_Defense->aliasID = 5;
+	KBVar* pExRole_Defense_defval = new KBVar((int32)FCString::Atoi64(TEXT("10")));
+	pExRole_Defense->pDefaultVal = pExRole_Defense_defval;
+	pExRoleModule->propertys.Add(TEXT("Defense"), pExRole_Defense); 
 
-	TArray<DATATYPE_BASE*> Avatar_rspSwitchAvatar_args;
-	Avatar_rspSwitchAvatar_args.Add(EntityDef::id2datatypes[4]);
+	pExRoleModule->usePropertyDescrAlias = true;
+	pExRoleModule->idpropertys.Add((uint16)pExRole_Defense->aliasID, pExRole_Defense);
 
-	Method* pAvatar_rspSwitchAvatar = new Method();
-	pAvatar_rspSwitchAvatar->name = TEXT("rspSwitchAvatar");
-	pAvatar_rspSwitchAvatar->methodUtype = 19;
-	pAvatar_rspSwitchAvatar->aliasID = 9;
-	pAvatar_rspSwitchAvatar->args = Avatar_rspSwitchAvatar_args;
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExRole), property(Defense / 14).");
 
-	pAvatarModule->methods.Add(TEXT("rspSwitchAvatar"), pAvatar_rspSwitchAvatar); 
-	pAvatarModule->useMethodDescrAlias = true;
-	pAvatarModule->idmethods.Add((uint16)pAvatar_rspSwitchAvatar->aliasID, pAvatar_rspSwitchAvatar);
+	Property* pExRole_HP = new Property();
+	pExRole_HP->name = TEXT("HP");
+	pExRole_HP->properUtype = 13;
+	pExRole_HP->properFlags = 4;
+	pExRole_HP->aliasID = 6;
+	KBVar* pExRole_HP_defval = new KBVar((int32)FCString::Atoi64(TEXT("500")));
+	pExRole_HP->pDefaultVal = pExRole_HP_defval;
+	pExRoleModule->propertys.Add(TEXT("HP"), pExRole_HP); 
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Avatar), method(rspSwitchAvatar / 19).");
+	pExRoleModule->usePropertyDescrAlias = true;
+	pExRoleModule->idpropertys.Add((uint16)pExRole_HP->aliasID, pExRole_HP);
 
-	TArray<DATATYPE_BASE*> Avatar_reqSwitchAvatar_args;
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExRole), property(HP / 13).");
 
-	Method* pAvatar_reqSwitchAvatar = new Method();
-	pAvatar_reqSwitchAvatar->name = TEXT("reqSwitchAvatar");
-	pAvatar_reqSwitchAvatar->methodUtype = 16;
-	pAvatar_reqSwitchAvatar->aliasID = -1;
-	pAvatar_reqSwitchAvatar->args = Avatar_reqSwitchAvatar_args;
+	Property* pExRole_Name = new Property();
+	pExRole_Name->name = TEXT("Name");
+	pExRole_Name->properUtype = 10;
+	pExRole_Name->properFlags = 4;
+	pExRole_Name->aliasID = 7;
+	KBVar* pExRole_Name_defval = new KBVar(FString());
+	pExRole_Name->pDefaultVal = pExRole_Name_defval;
+	pExRoleModule->propertys.Add(TEXT("Name"), pExRole_Name); 
 
-	pAvatarModule->methods.Add(TEXT("reqSwitchAvatar"), pAvatar_reqSwitchAvatar); 
-	pAvatarModule->base_methods.Add(TEXT("reqSwitchAvatar"), pAvatar_reqSwitchAvatar);
+	pExRoleModule->usePropertyDescrAlias = true;
+	pExRoleModule->idpropertys.Add((uint16)pExRole_Name->aliasID, pExRole_Name);
 
-	pAvatarModule->idbase_methods.Add(pAvatar_reqSwitchAvatar->methodUtype, pAvatar_reqSwitchAvatar);
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExRole), property(Name / 10).");
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Avatar), method(reqSwitchAvatar / 16).");
+	Property* pExRole_PowerRatio = new Property();
+	pExRole_PowerRatio->name = TEXT("PowerRatio");
+	pExRole_PowerRatio->properUtype = 15;
+	pExRole_PowerRatio->properFlags = 16;
+	pExRole_PowerRatio->aliasID = 8;
+	KBVar* pExRole_PowerRatio_defval = new KBVar(FCString::Atof(TEXT("1.0")));
+	pExRole_PowerRatio->pDefaultVal = pExRole_PowerRatio_defval;
+	pExRoleModule->propertys.Add(TEXT("PowerRatio"), pExRole_PowerRatio); 
 
-	TArray<DATATYPE_BASE*> Avatar_AnimUpdate_args;
-	Avatar_AnimUpdate_args.Add(EntityDef::id2datatypes[32]);
+	pExRoleModule->usePropertyDescrAlias = true;
+	pExRoleModule->idpropertys.Add((uint16)pExRole_PowerRatio->aliasID, pExRole_PowerRatio);
 
-	Method* pAvatar_AnimUpdate = new Method();
-	pAvatar_AnimUpdate->name = TEXT("AnimUpdate");
-	pAvatar_AnimUpdate->methodUtype = 35;
-	pAvatar_AnimUpdate->aliasID = -1;
-	pAvatar_AnimUpdate->args = Avatar_AnimUpdate_args;
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExRole), property(PowerRatio / 15).");
 
-	pAvatarModule->methods.Add(TEXT("AnimUpdate"), pAvatar_AnimUpdate); 
-	pAvatarModule->cell_methods.Add(TEXT("AnimUpdate"), pAvatar_AnimUpdate);
+	Property* pExRole_RoleType = new Property();
+	pExRole_RoleType->name = TEXT("RoleType");
+	pExRole_RoleType->properUtype = 11;
+	pExRole_RoleType->properFlags = 4;
+	pExRole_RoleType->aliasID = 9;
+	KBVar* pExRole_RoleType_defval = new KBVar((uint8)FCString::Atoi64(TEXT("")));
+	pExRole_RoleType->pDefaultVal = pExRole_RoleType_defval;
+	pExRoleModule->propertys.Add(TEXT("RoleType"), pExRole_RoleType); 
 
-	pAvatarModule->idcell_methods.Add(pAvatar_AnimUpdate->methodUtype, pAvatar_AnimUpdate);
+	pExRoleModule->usePropertyDescrAlias = true;
+	pExRoleModule->idpropertys.Add((uint16)pExRole_RoleType->aliasID, pExRole_RoleType);
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Avatar), method(AnimUpdate / 35).");
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExRole), property(RoleType / 11).");
 
-	TArray<DATATYPE_BASE*> Avatar_Attack_args;
-	Avatar_Attack_args.Add(EntityDef::id2datatypes[29]);
+	Property* pExRole_SpawnPoint = new Property();
+	pExRole_SpawnPoint->name = TEXT("SpawnPoint");
+	pExRole_SpawnPoint->properUtype = 4;
+	pExRole_SpawnPoint->properFlags = 16;
+	pExRole_SpawnPoint->aliasID = 10;
+	KBVar* pExRole_SpawnPoint_defval = new KBVar(FVector());
+	pExRole_SpawnPoint->pDefaultVal = pExRole_SpawnPoint_defval;
+	pExRoleModule->propertys.Add(TEXT("SpawnPoint"), pExRole_SpawnPoint); 
 
-	Method* pAvatar_Attack = new Method();
-	pAvatar_Attack->name = TEXT("Attack");
-	pAvatar_Attack->methodUtype = 30;
-	pAvatar_Attack->aliasID = -1;
-	pAvatar_Attack->args = Avatar_Attack_args;
+	pExRoleModule->usePropertyDescrAlias = true;
+	pExRoleModule->idpropertys.Add((uint16)pExRole_SpawnPoint->aliasID, pExRole_SpawnPoint);
 
-	pAvatarModule->methods.Add(TEXT("Attack"), pAvatar_Attack); 
-	pAvatarModule->cell_methods.Add(TEXT("Attack"), pAvatar_Attack);
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExRole), property(SpawnPoint / 4).");
 
-	pAvatarModule->idcell_methods.Add(pAvatar_Attack->methodUtype, pAvatar_Attack);
+	Property* pExRole_SpeedRatio = new Property();
+	pExRole_SpeedRatio->name = TEXT("SpeedRatio");
+	pExRole_SpeedRatio->properUtype = 16;
+	pExRole_SpeedRatio->properFlags = 16;
+	pExRole_SpeedRatio->aliasID = 11;
+	KBVar* pExRole_SpeedRatio_defval = new KBVar(FCString::Atof(TEXT("1.0")));
+	pExRole_SpeedRatio->pDefaultVal = pExRole_SpeedRatio_defval;
+	pExRoleModule->propertys.Add(TEXT("SpeedRatio"), pExRole_SpeedRatio); 
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Avatar), method(Attack / 30).");
+	pExRoleModule->usePropertyDescrAlias = true;
+	pExRoleModule->idpropertys.Add((uint16)pExRole_SpeedRatio->aliasID, pExRole_SpeedRatio);
 
-	TArray<DATATYPE_BASE*> Avatar_Relive_args;
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExRole), property(SpeedRatio / 16).");
 
-	Method* pAvatar_Relive = new Method();
-	pAvatar_Relive->name = TEXT("Relive");
-	pAvatar_Relive->methodUtype = 31;
-	pAvatar_Relive->aliasID = -1;
-	pAvatar_Relive->args = Avatar_Relive_args;
+	TArray<DATATYPE_BASE*> ExRole_AcceptChatList_args;
+	ExRole_AcceptChatList_args.Add(EntityDef::id2datatypes[36]);
 
-	pAvatarModule->methods.Add(TEXT("Relive"), pAvatar_Relive); 
-	pAvatarModule->cell_methods.Add(TEXT("Relive"), pAvatar_Relive);
+	Method* pExRole_AcceptChatList = new Method();
+	pExRole_AcceptChatList->name = TEXT("AcceptChatList");
+	pExRole_AcceptChatList->methodUtype = 28;
+	pExRole_AcceptChatList->aliasID = 1;
+	pExRole_AcceptChatList->args = ExRole_AcceptChatList_args;
 
-	pAvatarModule->idcell_methods.Add(pAvatar_Relive->methodUtype, pAvatar_Relive);
+	pExRoleModule->methods.Add(TEXT("AcceptChatList"), pExRole_AcceptChatList); 
+	pExRoleModule->useMethodDescrAlias = true;
+	pExRoleModule->idmethods.Add((uint16)pExRole_AcceptChatList->aliasID, pExRole_AcceptChatList);
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Avatar), method(Relive / 31).");
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExRole), method(AcceptChatList / 28).");
 
-	TArray<DATATYPE_BASE*> Avatar_ReqChangeEnage_args;
-	Avatar_ReqChangeEnage_args.Add(EntityDef::id2datatypes[8]);
+	TArray<DATATYPE_BASE*> ExRole_OnAnimUpdate_args;
+	ExRole_OnAnimUpdate_args.Add(EntityDef::id2datatypes[30]);
 
-	Method* pAvatar_ReqChangeEnage = new Method();
-	pAvatar_ReqChangeEnage->name = TEXT("ReqChangeEnage");
-	pAvatar_ReqChangeEnage->methodUtype = 33;
-	pAvatar_ReqChangeEnage->aliasID = -1;
-	pAvatar_ReqChangeEnage->args = Avatar_ReqChangeEnage_args;
+	Method* pExRole_OnAnimUpdate = new Method();
+	pExRole_OnAnimUpdate->name = TEXT("OnAnimUpdate");
+	pExRole_OnAnimUpdate->methodUtype = 39;
+	pExRole_OnAnimUpdate->aliasID = 2;
+	pExRole_OnAnimUpdate->args = ExRole_OnAnimUpdate_args;
 
-	pAvatarModule->methods.Add(TEXT("ReqChangeEnage"), pAvatar_ReqChangeEnage); 
-	pAvatarModule->cell_methods.Add(TEXT("ReqChangeEnage"), pAvatar_ReqChangeEnage);
+	pExRoleModule->methods.Add(TEXT("OnAnimUpdate"), pExRole_OnAnimUpdate); 
+	pExRoleModule->useMethodDescrAlias = true;
+	pExRoleModule->idmethods.Add((uint16)pExRole_OnAnimUpdate->aliasID, pExRole_OnAnimUpdate);
 
-	pAvatarModule->idcell_methods.Add(pAvatar_ReqChangeEnage->methodUtype, pAvatar_ReqChangeEnage);
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExRole), method(OnAnimUpdate / 39).");
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Avatar), method(ReqChangeEnage / 33).");
+	TArray<DATATYPE_BASE*> ExRole_OnAttack_args;
 
-	TArray<DATATYPE_BASE*> Avatar_ReqStartDamage_args;
-	Avatar_ReqStartDamage_args.Add(EntityDef::id2datatypes[29]);
-	Avatar_ReqStartDamage_args.Add(EntityDef::id2datatypes[25]);
+	Method* pExRole_OnAttack = new Method();
+	pExRole_OnAttack->name = TEXT("OnAttack");
+	pExRole_OnAttack->methodUtype = 37;
+	pExRole_OnAttack->aliasID = 3;
+	pExRole_OnAttack->args = ExRole_OnAttack_args;
 
-	Method* pAvatar_ReqStartDamage = new Method();
-	pAvatar_ReqStartDamage->name = TEXT("ReqStartDamage");
-	pAvatar_ReqStartDamage->methodUtype = 32;
-	pAvatar_ReqStartDamage->aliasID = -1;
-	pAvatar_ReqStartDamage->args = Avatar_ReqStartDamage_args;
+	pExRoleModule->methods.Add(TEXT("OnAttack"), pExRole_OnAttack); 
+	pExRoleModule->useMethodDescrAlias = true;
+	pExRoleModule->idmethods.Add((uint16)pExRole_OnAttack->aliasID, pExRole_OnAttack);
 
-	pAvatarModule->methods.Add(TEXT("ReqStartDamage"), pAvatar_ReqStartDamage); 
-	pAvatarModule->cell_methods.Add(TEXT("ReqStartDamage"), pAvatar_ReqStartDamage);
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExRole), method(OnAttack / 37).");
 
-	pAvatarModule->idcell_methods.Add(pAvatar_ReqStartDamage->methodUtype, pAvatar_ReqStartDamage);
+	TArray<DATATYPE_BASE*> ExRole_OnIncreaseGood_args;
+	ExRole_OnIncreaseGood_args.Add(EntityDef::id2datatypes[2]);
+	ExRole_OnIncreaseGood_args.Add(EntityDef::id2datatypes[31]);
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Avatar), method(ReqStartDamage / 32).");
+	Method* pExRole_OnIncreaseGood = new Method();
+	pExRole_OnIncreaseGood->name = TEXT("OnIncreaseGood");
+	pExRole_OnIncreaseGood->methodUtype = 25;
+	pExRole_OnIncreaseGood->aliasID = 4;
+	pExRole_OnIncreaseGood->args = ExRole_OnIncreaseGood_args;
 
-	TArray<DATATYPE_BASE*> Avatar_reqChangeJump_args;
-	Avatar_reqChangeJump_args.Add(EntityDef::id2datatypes[6]);
+	pExRoleModule->methods.Add(TEXT("OnIncreaseGood"), pExRole_OnIncreaseGood); 
+	pExRoleModule->useMethodDescrAlias = true;
+	pExRoleModule->idmethods.Add((uint16)pExRole_OnIncreaseGood->aliasID, pExRole_OnIncreaseGood);
 
-	Method* pAvatar_reqChangeJump = new Method();
-	pAvatar_reqChangeJump->name = TEXT("reqChangeJump");
-	pAvatar_reqChangeJump->methodUtype = 23;
-	pAvatar_reqChangeJump->aliasID = -1;
-	pAvatar_reqChangeJump->args = Avatar_reqChangeJump_args;
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExRole), method(OnIncreaseGood / 25).");
 
-	pAvatarModule->methods.Add(TEXT("reqChangeJump"), pAvatar_reqChangeJump); 
-	pAvatarModule->cell_methods.Add(TEXT("reqChangeJump"), pAvatar_reqChangeJump);
+	TArray<DATATYPE_BASE*> ExRole_OnPassGood_args;
+	ExRole_OnPassGood_args.Add(EntityDef::id2datatypes[2]);
+	ExRole_OnPassGood_args.Add(EntityDef::id2datatypes[31]);
+	ExRole_OnPassGood_args.Add(EntityDef::id2datatypes[2]);
+	ExRole_OnPassGood_args.Add(EntityDef::id2datatypes[31]);
 
-	pAvatarModule->idcell_methods.Add(pAvatar_reqChangeJump->methodUtype, pAvatar_reqChangeJump);
+	Method* pExRole_OnPassGood = new Method();
+	pExRole_OnPassGood->name = TEXT("OnPassGood");
+	pExRole_OnPassGood->methodUtype = 27;
+	pExRole_OnPassGood->aliasID = 5;
+	pExRole_OnPassGood->args = ExRole_OnPassGood_args;
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Avatar), method(reqChangeJump / 23).");
+	pExRoleModule->methods.Add(TEXT("OnPassGood"), pExRole_OnPassGood); 
+	pExRoleModule->useMethodDescrAlias = true;
+	pExRoleModule->idmethods.Add((uint16)pExRole_OnPassGood->aliasID, pExRole_OnPassGood);
 
-	TArray<DATATYPE_BASE*> Avatar_reqChangeMoveH_args;
-	Avatar_reqChangeMoveH_args.Add(EntityDef::id2datatypes[6]);
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExRole), method(OnPassGood / 27).");
 
-	Method* pAvatar_reqChangeMoveH = new Method();
-	pAvatar_reqChangeMoveH->name = TEXT("reqChangeMoveH");
-	pAvatar_reqChangeMoveH->methodUtype = 25;
-	pAvatar_reqChangeMoveH->aliasID = -1;
-	pAvatar_reqChangeMoveH->args = Avatar_reqChangeMoveH_args;
+	TArray<DATATYPE_BASE*> ExRole_OnReduceGood_args;
+	ExRole_OnReduceGood_args.Add(EntityDef::id2datatypes[2]);
+	ExRole_OnReduceGood_args.Add(EntityDef::id2datatypes[2]);
+	ExRole_OnReduceGood_args.Add(EntityDef::id2datatypes[31]);
 
-	pAvatarModule->methods.Add(TEXT("reqChangeMoveH"), pAvatar_reqChangeMoveH); 
-	pAvatarModule->cell_methods.Add(TEXT("reqChangeMoveH"), pAvatar_reqChangeMoveH);
+	Method* pExRole_OnReduceGood = new Method();
+	pExRole_OnReduceGood->name = TEXT("OnReduceGood");
+	pExRole_OnReduceGood->methodUtype = 26;
+	pExRole_OnReduceGood->aliasID = 6;
+	pExRole_OnReduceGood->args = ExRole_OnReduceGood_args;
 
-	pAvatarModule->idcell_methods.Add(pAvatar_reqChangeMoveH->methodUtype, pAvatar_reqChangeMoveH);
+	pExRoleModule->methods.Add(TEXT("OnReduceGood"), pExRole_OnReduceGood); 
+	pExRoleModule->useMethodDescrAlias = true;
+	pExRoleModule->idmethods.Add((uint16)pExRole_OnReduceGood->aliasID, pExRole_OnReduceGood);
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Avatar), method(reqChangeMoveH / 25).");
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExRole), method(OnReduceGood / 26).");
 
-	TArray<DATATYPE_BASE*> Avatar_reqChangeMoveLevel_args;
-	Avatar_reqChangeMoveLevel_args.Add(EntityDef::id2datatypes[6]);
+	TArray<DATATYPE_BASE*> ExRole_OnReqBagList_args;
+	ExRole_OnReqBagList_args.Add(EntityDef::id2datatypes[32]);
+	ExRole_OnReqBagList_args.Add(EntityDef::id2datatypes[32]);
+	ExRole_OnReqBagList_args.Add(EntityDef::id2datatypes[32]);
+	ExRole_OnReqBagList_args.Add(EntityDef::id2datatypes[32]);
 
-	Method* pAvatar_reqChangeMoveLevel = new Method();
-	pAvatar_reqChangeMoveLevel->name = TEXT("reqChangeMoveLevel");
-	pAvatar_reqChangeMoveLevel->methodUtype = 24;
-	pAvatar_reqChangeMoveLevel->aliasID = -1;
-	pAvatar_reqChangeMoveLevel->args = Avatar_reqChangeMoveLevel_args;
+	Method* pExRole_OnReqBagList = new Method();
+	pExRole_OnReqBagList->name = TEXT("OnReqBagList");
+	pExRole_OnReqBagList->methodUtype = 24;
+	pExRole_OnReqBagList->aliasID = 7;
+	pExRole_OnReqBagList->args = ExRole_OnReqBagList_args;
 
-	pAvatarModule->methods.Add(TEXT("reqChangeMoveLevel"), pAvatar_reqChangeMoveLevel); 
-	pAvatarModule->cell_methods.Add(TEXT("reqChangeMoveLevel"), pAvatar_reqChangeMoveLevel);
+	pExRoleModule->methods.Add(TEXT("OnReqBagList"), pExRole_OnReqBagList); 
+	pExRoleModule->useMethodDescrAlias = true;
+	pExRoleModule->idmethods.Add((uint16)pExRole_OnReqBagList->aliasID, pExRole_OnReqBagList);
 
-	pAvatarModule->idcell_methods.Add(pAvatar_reqChangeMoveLevel->methodUtype, pAvatar_reqChangeMoveLevel);
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExRole), method(OnReqBagList / 24).");
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Avatar), method(reqChangeMoveLevel / 24).");
+	TArray<DATATYPE_BASE*> ExRole_ShowResultList_args;
+	ExRole_ShowResultList_args.Add(EntityDef::id2datatypes[12]);
+	ExRole_ShowResultList_args.Add(EntityDef::id2datatypes[4]);
+	ExRole_ShowResultList_args.Add(EntityDef::id2datatypes[12]);
+	ExRole_ShowResultList_args.Add(EntityDef::id2datatypes[4]);
+	ExRole_ShowResultList_args.Add(EntityDef::id2datatypes[12]);
+	ExRole_ShowResultList_args.Add(EntityDef::id2datatypes[4]);
 
-	TArray<DATATYPE_BASE*> Avatar_reqChangeMoveV_args;
-	Avatar_reqChangeMoveV_args.Add(EntityDef::id2datatypes[6]);
+	Method* pExRole_ShowResultList = new Method();
+	pExRole_ShowResultList->name = TEXT("ShowResultList");
+	pExRole_ShowResultList->methodUtype = 30;
+	pExRole_ShowResultList->aliasID = 8;
+	pExRole_ShowResultList->args = ExRole_ShowResultList_args;
 
-	Method* pAvatar_reqChangeMoveV = new Method();
-	pAvatar_reqChangeMoveV->name = TEXT("reqChangeMoveV");
-	pAvatar_reqChangeMoveV->methodUtype = 26;
-	pAvatar_reqChangeMoveV->aliasID = -1;
-	pAvatar_reqChangeMoveV->args = Avatar_reqChangeMoveV_args;
+	pExRoleModule->methods.Add(TEXT("ShowResultList"), pExRole_ShowResultList); 
+	pExRoleModule->useMethodDescrAlias = true;
+	pExRoleModule->idmethods.Add((uint16)pExRole_ShowResultList->aliasID, pExRole_ShowResultList);
 
-	pAvatarModule->methods.Add(TEXT("reqChangeMoveV"), pAvatar_reqChangeMoveV); 
-	pAvatarModule->cell_methods.Add(TEXT("reqChangeMoveV"), pAvatar_reqChangeMoveV);
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExRole), method(ShowResultList / 30).");
 
-	pAvatarModule->idcell_methods.Add(pAvatar_reqChangeMoveV->methodUtype, pAvatar_reqChangeMoveV);
+	TArray<DATATYPE_BASE*> ExRole_UpdateCountDown_args;
+	ExRole_UpdateCountDown_args.Add(EntityDef::id2datatypes[4]);
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Avatar), method(reqChangeMoveV / 26).");
+	Method* pExRole_UpdateCountDown = new Method();
+	pExRole_UpdateCountDown->name = TEXT("UpdateCountDown");
+	pExRole_UpdateCountDown->methodUtype = 29;
+	pExRole_UpdateCountDown->aliasID = 9;
+	pExRole_UpdateCountDown->args = ExRole_UpdateCountDown_args;
 
-	TArray<DATATYPE_BASE*> Avatar_reqChangeName_args;
-	Avatar_reqChangeName_args.Add(EntityDef::id2datatypes[12]);
+	pExRoleModule->methods.Add(TEXT("UpdateCountDown"), pExRole_UpdateCountDown); 
+	pExRoleModule->useMethodDescrAlias = true;
+	pExRoleModule->idmethods.Add((uint16)pExRole_UpdateCountDown->aliasID, pExRole_UpdateCountDown);
 
-	Method* pAvatar_reqChangeName = new Method();
-	pAvatar_reqChangeName->name = TEXT("reqChangeName");
-	pAvatar_reqChangeName->methodUtype = 12;
-	pAvatar_reqChangeName->aliasID = -1;
-	pAvatar_reqChangeName->args = Avatar_reqChangeName_args;
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExRole), method(UpdateCountDown / 29).");
 
-	pAvatarModule->methods.Add(TEXT("reqChangeName"), pAvatar_reqChangeName); 
-	pAvatarModule->cell_methods.Add(TEXT("reqChangeName"), pAvatar_reqChangeName);
+	TArray<DATATYPE_BASE*> ExRole_LeaveRoom_args;
 
-	pAvatarModule->idcell_methods.Add(pAvatar_reqChangeName->methodUtype, pAvatar_reqChangeName);
+	Method* pExRole_LeaveRoom = new Method();
+	pExRole_LeaveRoom->name = TEXT("LeaveRoom");
+	pExRole_LeaveRoom->methodUtype = 20;
+	pExRole_LeaveRoom->aliasID = -1;
+	pExRole_LeaveRoom->args = ExRole_LeaveRoom_args;
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Avatar), method(reqChangeName / 12).");
+	pExRoleModule->methods.Add(TEXT("LeaveRoom"), pExRole_LeaveRoom); 
+	pExRoleModule->base_methods.Add(TEXT("LeaveRoom"), pExRole_LeaveRoom);
 
-	TArray<DATATYPE_BASE*> Avatar_reqDigOre_args;
-	Avatar_reqDigOre_args.Add(EntityDef::id2datatypes[8]);
+	pExRoleModule->idbase_methods.Add(pExRole_LeaveRoom->methodUtype, pExRole_LeaveRoom);
 
-	Method* pAvatar_reqDigOre = new Method();
-	pAvatar_reqDigOre->name = TEXT("reqDigOre");
-	pAvatar_reqDigOre->methodUtype = 38;
-	pAvatar_reqDigOre->aliasID = -1;
-	pAvatar_reqDigOre->args = Avatar_reqDigOre_args;
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExRole), method(LeaveRoom / 20).");
 
-	pAvatarModule->methods.Add(TEXT("reqDigOre"), pAvatar_reqDigOre); 
-	pAvatarModule->cell_methods.Add(TEXT("reqDigOre"), pAvatar_reqDigOre);
+	TArray<DATATYPE_BASE*> ExRole_PassGood_args;
+	ExRole_PassGood_args.Add(EntityDef::id2datatypes[2]);
+	ExRole_PassGood_args.Add(EntityDef::id2datatypes[2]);
+	ExRole_PassGood_args.Add(EntityDef::id2datatypes[2]);
+	ExRole_PassGood_args.Add(EntityDef::id2datatypes[2]);
 
-	pAvatarModule->idcell_methods.Add(pAvatar_reqDigOre->methodUtype, pAvatar_reqDigOre);
+	Method* pExRole_PassGood = new Method();
+	pExRole_PassGood->name = TEXT("PassGood");
+	pExRole_PassGood->methodUtype = 18;
+	pExRole_PassGood->aliasID = -1;
+	pExRole_PassGood->args = ExRole_PassGood_args;
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Avatar), method(reqDigOre / 38).");
+	pExRoleModule->methods.Add(TEXT("PassGood"), pExRole_PassGood); 
+	pExRoleModule->base_methods.Add(TEXT("PassGood"), pExRole_PassGood);
 
-	TArray<DATATYPE_BASE*> Avatar_reqExecInnerFunc_args;
-	Avatar_reqExecInnerFunc_args.Add(EntityDef::id2datatypes[1]);
-	Avatar_reqExecInnerFunc_args.Add(EntityDef::id2datatypes[1]);
+	pExRoleModule->idbase_methods.Add(pExRole_PassGood->methodUtype, pExRole_PassGood);
 
-	Method* pAvatar_reqExecInnerFunc = new Method();
-	pAvatar_reqExecInnerFunc->name = TEXT("reqExecInnerFunc");
-	pAvatar_reqExecInnerFunc->methodUtype = 14;
-	pAvatar_reqExecInnerFunc->aliasID = -1;
-	pAvatar_reqExecInnerFunc->args = Avatar_reqExecInnerFunc_args;
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExRole), method(PassGood / 18).");
 
-	pAvatarModule->methods.Add(TEXT("reqExecInnerFunc"), pAvatar_reqExecInnerFunc); 
-	pAvatarModule->cell_methods.Add(TEXT("reqExecInnerFunc"), pAvatar_reqExecInnerFunc);
+	TArray<DATATYPE_BASE*> ExRole_ReduceGood_args;
+	ExRole_ReduceGood_args.Add(EntityDef::id2datatypes[2]);
+	ExRole_ReduceGood_args.Add(EntityDef::id2datatypes[2]);
 
-	pAvatarModule->idcell_methods.Add(pAvatar_reqExecInnerFunc->methodUtype, pAvatar_reqExecInnerFunc);
+	Method* pExRole_ReduceGood = new Method();
+	pExRole_ReduceGood->name = TEXT("ReduceGood");
+	pExRole_ReduceGood->methodUtype = 17;
+	pExRole_ReduceGood->aliasID = -1;
+	pExRole_ReduceGood->args = ExRole_ReduceGood_args;
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Avatar), method(reqExecInnerFunc / 14).");
+	pExRoleModule->methods.Add(TEXT("ReduceGood"), pExRole_ReduceGood); 
+	pExRoleModule->base_methods.Add(TEXT("ReduceGood"), pExRole_ReduceGood);
 
-	TArray<DATATYPE_BASE*> Avatar_reqMoveItem_args;
-	Avatar_reqMoveItem_args.Add(EntityDef::id2datatypes[3]);
-	Avatar_reqMoveItem_args.Add(EntityDef::id2datatypes[3]);
+	pExRoleModule->idbase_methods.Add(pExRole_ReduceGood->methodUtype, pExRole_ReduceGood);
 
-	Method* pAvatar_reqMoveItem = new Method();
-	pAvatar_reqMoveItem->name = TEXT("reqMoveItem");
-	pAvatar_reqMoveItem->methodUtype = 20;
-	pAvatar_reqMoveItem->aliasID = -1;
-	pAvatar_reqMoveItem->args = Avatar_reqMoveItem_args;
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExRole), method(ReduceGood / 17).");
 
-	pAvatarModule->methods.Add(TEXT("reqMoveItem"), pAvatar_reqMoveItem); 
-	pAvatarModule->cell_methods.Add(TEXT("reqMoveItem"), pAvatar_reqMoveItem);
+	TArray<DATATYPE_BASE*> ExRole_ReqBagList_args;
 
-	pAvatarModule->idcell_methods.Add(pAvatar_reqMoveItem->methodUtype, pAvatar_reqMoveItem);
+	Method* pExRole_ReqBagList = new Method();
+	pExRole_ReqBagList->name = TEXT("ReqBagList");
+	pExRole_ReqBagList->methodUtype = 15;
+	pExRole_ReqBagList->aliasID = -1;
+	pExRole_ReqBagList->args = ExRole_ReqBagList_args;
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Avatar), method(reqMoveItem / 20).");
+	pExRoleModule->methods.Add(TEXT("ReqBagList"), pExRole_ReqBagList); 
+	pExRoleModule->base_methods.Add(TEXT("ReqBagList"), pExRole_ReqBagList);
 
-	TArray<DATATYPE_BASE*> Avatar_reqPickupItem_args;
-	Avatar_reqPickupItem_args.Add(EntityDef::id2datatypes[8]);
-	Avatar_reqPickupItem_args.Add(EntityDef::id2datatypes[24]);
+	pExRoleModule->idbase_methods.Add(pExRole_ReqBagList->methodUtype, pExRole_ReqBagList);
 
-	Method* pAvatar_reqPickupItem = new Method();
-	pAvatar_reqPickupItem->name = TEXT("reqPickupItem");
-	pAvatar_reqPickupItem->methodUtype = 37;
-	pAvatar_reqPickupItem->aliasID = -1;
-	pAvatar_reqPickupItem->args = Avatar_reqPickupItem_args;
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExRole), method(ReqBagList / 15).");
 
-	pAvatarModule->methods.Add(TEXT("reqPickupItem"), pAvatar_reqPickupItem); 
-	pAvatarModule->cell_methods.Add(TEXT("reqPickupItem"), pAvatar_reqPickupItem);
+	TArray<DATATYPE_BASE*> ExRole_ReqTeleportRoom_args;
+	ExRole_ReqTeleportRoom_args.Add(EntityDef::id2datatypes[5]);
 
-	pAvatarModule->idcell_methods.Add(pAvatar_reqPickupItem->methodUtype, pAvatar_reqPickupItem);
+	Method* pExRole_ReqTeleportRoom = new Method();
+	pExRole_ReqTeleportRoom->name = TEXT("ReqTeleportRoom");
+	pExRole_ReqTeleportRoom->methodUtype = 21;
+	pExRole_ReqTeleportRoom->aliasID = -1;
+	pExRole_ReqTeleportRoom->args = ExRole_ReqTeleportRoom_args;
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Avatar), method(reqPickupItem / 37).");
+	pExRoleModule->methods.Add(TEXT("ReqTeleportRoom"), pExRole_ReqTeleportRoom); 
+	pExRoleModule->base_methods.Add(TEXT("ReqTeleportRoom"), pExRole_ReqTeleportRoom);
 
-	TArray<DATATYPE_BASE*> Avatar_reqSendChatMessage_args;
-	Avatar_reqSendChatMessage_args.Add(EntityDef::id2datatypes[5]);
-	Avatar_reqSendChatMessage_args.Add(EntityDef::id2datatypes[2]);
-	Avatar_reqSendChatMessage_args.Add(EntityDef::id2datatypes[12]);
+	pExRoleModule->idbase_methods.Add(pExRole_ReqTeleportRoom->methodUtype, pExRole_ReqTeleportRoom);
 
-	Method* pAvatar_reqSendChatMessage = new Method();
-	pAvatar_reqSendChatMessage->name = TEXT("reqSendChatMessage");
-	pAvatar_reqSendChatMessage->methodUtype = 27;
-	pAvatar_reqSendChatMessage->aliasID = -1;
-	pAvatar_reqSendChatMessage->args = Avatar_reqSendChatMessage_args;
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExRole), method(ReqTeleportRoom / 21).");
 
-	pAvatarModule->methods.Add(TEXT("reqSendChatMessage"), pAvatar_reqSendChatMessage); 
-	pAvatarModule->cell_methods.Add(TEXT("reqSendChatMessage"), pAvatar_reqSendChatMessage);
+	TArray<DATATYPE_BASE*> ExRole_SendChatInfo_args;
+	ExRole_SendChatInfo_args.Add(EntityDef::id2datatypes[12]);
 
-	pAvatarModule->idcell_methods.Add(pAvatar_reqSendChatMessage->methodUtype, pAvatar_reqSendChatMessage);
+	Method* pExRole_SendChatInfo = new Method();
+	pExRole_SendChatInfo->name = TEXT("SendChatInfo");
+	pExRole_SendChatInfo->methodUtype = 19;
+	pExRole_SendChatInfo->aliasID = -1;
+	pExRole_SendChatInfo->args = ExRole_SendChatInfo_args;
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Avatar), method(reqSendChatMessage / 27).");
+	pExRoleModule->methods.Add(TEXT("SendChatInfo"), pExRole_SendChatInfo); 
+	pExRoleModule->base_methods.Add(TEXT("SendChatInfo"), pExRole_SendChatInfo);
 
-	TArray<DATATYPE_BASE*> Avatar_reqSetupInnerProp_args;
-	Avatar_reqSetupInnerProp_args.Add(EntityDef::id2datatypes[1]);
-	Avatar_reqSetupInnerProp_args.Add(EntityDef::id2datatypes[1]);
+	pExRoleModule->idbase_methods.Add(pExRole_SendChatInfo->methodUtype, pExRole_SendChatInfo);
 
-	Method* pAvatar_reqSetupInnerProp = new Method();
-	pAvatar_reqSetupInnerProp->name = TEXT("reqSetupInnerProp");
-	pAvatar_reqSetupInnerProp->methodUtype = 13;
-	pAvatar_reqSetupInnerProp->aliasID = -1;
-	pAvatar_reqSetupInnerProp->args = Avatar_reqSetupInnerProp_args;
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExRole), method(SendChatInfo / 19).");
 
-	pAvatarModule->methods.Add(TEXT("reqSetupInnerProp"), pAvatar_reqSetupInnerProp); 
-	pAvatarModule->cell_methods.Add(TEXT("reqSetupInnerProp"), pAvatar_reqSetupInnerProp);
+	TArray<DATATYPE_BASE*> ExRole_AnimUpdate_args;
+	ExRole_AnimUpdate_args.Add(EntityDef::id2datatypes[30]);
 
-	pAvatarModule->idcell_methods.Add(pAvatar_reqSetupInnerProp->methodUtype, pAvatar_reqSetupInnerProp);
+	Method* pExRole_AnimUpdate = new Method();
+	pExRole_AnimUpdate->name = TEXT("AnimUpdate");
+	pExRole_AnimUpdate->methodUtype = 38;
+	pExRole_AnimUpdate->aliasID = -1;
+	pExRole_AnimUpdate->args = ExRole_AnimUpdate_args;
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Avatar), method(reqSetupInnerProp / 13).");
+	pExRoleModule->methods.Add(TEXT("AnimUpdate"), pExRole_AnimUpdate); 
+	pExRoleModule->cell_methods.Add(TEXT("AnimUpdate"), pExRole_AnimUpdate);
 
-	TArray<DATATYPE_BASE*> Avatar_reqSplitItemNum_args;
-	Avatar_reqSplitItemNum_args.Add(EntityDef::id2datatypes[3]);
-	Avatar_reqSplitItemNum_args.Add(EntityDef::id2datatypes[4]);
-	Avatar_reqSplitItemNum_args.Add(EntityDef::id2datatypes[3]);
+	pExRoleModule->idcell_methods.Add(pExRole_AnimUpdate->methodUtype, pExRole_AnimUpdate);
 
-	Method* pAvatar_reqSplitItemNum = new Method();
-	pAvatar_reqSplitItemNum->name = TEXT("reqSplitItemNum");
-	pAvatar_reqSplitItemNum->methodUtype = 21;
-	pAvatar_reqSplitItemNum->aliasID = -1;
-	pAvatar_reqSplitItemNum->args = Avatar_reqSplitItemNum_args;
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExRole), method(AnimUpdate / 38).");
 
-	pAvatarModule->methods.Add(TEXT("reqSplitItemNum"), pAvatar_reqSplitItemNum); 
-	pAvatarModule->cell_methods.Add(TEXT("reqSplitItemNum"), pAvatar_reqSplitItemNum);
+	TArray<DATATYPE_BASE*> ExRole_Attack_args;
+	ExRole_Attack_args.Add(EntityDef::id2datatypes[34]);
 
-	pAvatarModule->idcell_methods.Add(pAvatar_reqSplitItemNum->methodUtype, pAvatar_reqSplitItemNum);
+	Method* pExRole_Attack = new Method();
+	pExRole_Attack->name = TEXT("Attack");
+	pExRole_Attack->methodUtype = 31;
+	pExRole_Attack->aliasID = -1;
+	pExRole_Attack->args = ExRole_Attack_args;
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Avatar), method(reqSplitItemNum / 21).");
+	pExRoleModule->methods.Add(TEXT("Attack"), pExRole_Attack); 
+	pExRoleModule->cell_methods.Add(TEXT("Attack"), pExRole_Attack);
 
-	TArray<DATATYPE_BASE*> Avatar_reqStopDigOre_args;
+	pExRoleModule->idcell_methods.Add(pExRole_Attack->methodUtype, pExRole_Attack);
 
-	Method* pAvatar_reqStopDigOre = new Method();
-	pAvatar_reqStopDigOre->name = TEXT("reqStopDigOre");
-	pAvatar_reqStopDigOre->methodUtype = 39;
-	pAvatar_reqStopDigOre->aliasID = -1;
-	pAvatar_reqStopDigOre->args = Avatar_reqStopDigOre_args;
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExRole), method(Attack / 31).");
 
-	pAvatarModule->methods.Add(TEXT("reqStopDigOre"), pAvatar_reqStopDigOre); 
-	pAvatarModule->cell_methods.Add(TEXT("reqStopDigOre"), pAvatar_reqStopDigOre);
+	TArray<DATATYPE_BASE*> ExRole_Relive_args;
 
-	pAvatarModule->idcell_methods.Add(pAvatar_reqStopDigOre->methodUtype, pAvatar_reqStopDigOre);
+	Method* pExRole_Relive = new Method();
+	pExRole_Relive->name = TEXT("Relive");
+	pExRole_Relive->methodUtype = 32;
+	pExRole_Relive->aliasID = -1;
+	pExRole_Relive->args = ExRole_Relive_args;
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Avatar), method(reqStopDigOre / 39).");
+	pExRoleModule->methods.Add(TEXT("Relive"), pExRole_Relive); 
+	pExRoleModule->cell_methods.Add(TEXT("Relive"), pExRole_Relive);
 
-	ScriptModule* pSkillModule = new ScriptModule("Skill", 3);
-	EntityDef::moduledefs.Add(TEXT("Skill"), pSkillModule);
-	EntityDef::idmoduledefs.Add(3, pSkillModule);
+	pExRoleModule->idcell_methods.Add(pExRole_Relive->methodUtype, pExRole_Relive);
 
-	Property* pSkill_position = new Property();
-	pSkill_position->name = TEXT("position");
-	pSkill_position->properUtype = 40000;
-	pSkill_position->properFlags = 4;
-	pSkill_position->aliasID = 1;
-	KBVar* pSkill_position_defval = new KBVar(FVector());
-	pSkill_position->pDefaultVal = pSkill_position_defval;
-	pSkillModule->propertys.Add(TEXT("position"), pSkill_position); 
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExRole), method(Relive / 32).");
 
-	pSkillModule->usePropertyDescrAlias = true;
-	pSkillModule->idpropertys.Add((uint16)pSkill_position->aliasID, pSkill_position);
+	ScriptModule* pExMonsterModule = new ScriptModule("ExMonster", 5);
+	EntityDef::moduledefs.Add(TEXT("ExMonster"), pExMonsterModule);
+	EntityDef::idmoduledefs.Add(5, pExMonsterModule);
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Skill), property(position / 40000).");
+	Property* pExMonster_position = new Property();
+	pExMonster_position->name = TEXT("position");
+	pExMonster_position->properUtype = 40000;
+	pExMonster_position->properFlags = 4;
+	pExMonster_position->aliasID = 1;
+	KBVar* pExMonster_position_defval = new KBVar(FVector());
+	pExMonster_position->pDefaultVal = pExMonster_position_defval;
+	pExMonsterModule->propertys.Add(TEXT("position"), pExMonster_position); 
 
-	Property* pSkill_direction = new Property();
-	pSkill_direction->name = TEXT("direction");
-	pSkill_direction->properUtype = 40001;
-	pSkill_direction->properFlags = 4;
-	pSkill_direction->aliasID = 2;
-	KBVar* pSkill_direction_defval = new KBVar(FVector());
-	pSkill_direction->pDefaultVal = pSkill_direction_defval;
-	pSkillModule->propertys.Add(TEXT("direction"), pSkill_direction); 
+	pExMonsterModule->usePropertyDescrAlias = true;
+	pExMonsterModule->idpropertys.Add((uint16)pExMonster_position->aliasID, pExMonster_position);
 
-	pSkillModule->usePropertyDescrAlias = true;
-	pSkillModule->idpropertys.Add((uint16)pSkill_direction->aliasID, pSkill_direction);
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExMonster), property(position / 40000).");
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Skill), property(direction / 40001).");
+	Property* pExMonster_direction = new Property();
+	pExMonster_direction->name = TEXT("direction");
+	pExMonster_direction->properUtype = 40001;
+	pExMonster_direction->properFlags = 4;
+	pExMonster_direction->aliasID = 2;
+	KBVar* pExMonster_direction_defval = new KBVar(FVector());
+	pExMonster_direction->pDefaultVal = pExMonster_direction_defval;
+	pExMonsterModule->propertys.Add(TEXT("direction"), pExMonster_direction); 
 
-	Property* pSkill_spaceID = new Property();
-	pSkill_spaceID->name = TEXT("spaceID");
-	pSkill_spaceID->properUtype = 40002;
-	pSkill_spaceID->properFlags = 16;
-	pSkill_spaceID->aliasID = 3;
-	KBVar* pSkill_spaceID_defval = new KBVar((uint32)FCString::Atoi64(TEXT("")));
-	pSkill_spaceID->pDefaultVal = pSkill_spaceID_defval;
-	pSkillModule->propertys.Add(TEXT("spaceID"), pSkill_spaceID); 
+	pExMonsterModule->usePropertyDescrAlias = true;
+	pExMonsterModule->idpropertys.Add((uint16)pExMonster_direction->aliasID, pExMonster_direction);
 
-	pSkillModule->usePropertyDescrAlias = true;
-	pSkillModule->idpropertys.Add((uint16)pSkill_spaceID->aliasID, pSkill_spaceID);
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExMonster), property(direction / 40001).");
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Skill), property(spaceID / 40002).");
+	Property* pExMonster_spaceID = new Property();
+	pExMonster_spaceID->name = TEXT("spaceID");
+	pExMonster_spaceID->properUtype = 40002;
+	pExMonster_spaceID->properFlags = 16;
+	pExMonster_spaceID->aliasID = 3;
+	KBVar* pExMonster_spaceID_defval = new KBVar((uint32)FCString::Atoi64(TEXT("")));
+	pExMonster_spaceID->pDefaultVal = pExMonster_spaceID_defval;
+	pExMonsterModule->propertys.Add(TEXT("spaceID"), pExMonster_spaceID); 
 
-	Property* pSkill_skillId = new Property();
-	pSkill_skillId->name = TEXT("skillId");
-	pSkill_skillId->properUtype = 35;
-	pSkill_skillId->properFlags = 4;
-	pSkill_skillId->aliasID = 4;
-	KBVar* pSkill_skillId_defval = new KBVar((uint8)FCString::Atoi64(TEXT("")));
-	pSkill_skillId->pDefaultVal = pSkill_skillId_defval;
-	pSkillModule->propertys.Add(TEXT("skillId"), pSkill_skillId); 
+	pExMonsterModule->usePropertyDescrAlias = true;
+	pExMonsterModule->idpropertys.Add((uint16)pExMonster_spaceID->aliasID, pExMonster_spaceID);
 
-	pSkillModule->usePropertyDescrAlias = true;
-	pSkillModule->idpropertys.Add((uint16)pSkill_skillId->aliasID, pSkill_skillId);
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExMonster), property(spaceID / 40002).");
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Skill), property(skillId / 35).");
+	Property* pExMonster_BaseHP = new Property();
+	pExMonster_BaseHP->name = TEXT("BaseHP");
+	pExMonster_BaseHP->properUtype = 24;
+	pExMonster_BaseHP->properFlags = 4;
+	pExMonster_BaseHP->aliasID = 4;
+	KBVar* pExMonster_BaseHP_defval = new KBVar((int32)FCString::Atoi64(TEXT("500")));
+	pExMonster_BaseHP->pDefaultVal = pExMonster_BaseHP_defval;
+	pExMonsterModule->propertys.Add(TEXT("BaseHP"), pExMonster_BaseHP); 
 
-	pSkillModule->useMethodDescrAlias = true;
-	ScriptModule* pMonsterModule = new ScriptModule("Monster", 4);
-	EntityDef::moduledefs.Add(TEXT("Monster"), pMonsterModule);
-	EntityDef::idmoduledefs.Add(4, pMonsterModule);
+	pExMonsterModule->usePropertyDescrAlias = true;
+	pExMonsterModule->idpropertys.Add((uint16)pExMonster_BaseHP->aliasID, pExMonster_BaseHP);
 
-	Property* pMonster_position = new Property();
-	pMonster_position->name = TEXT("position");
-	pMonster_position->properUtype = 40000;
-	pMonster_position->properFlags = 4;
-	pMonster_position->aliasID = 1;
-	KBVar* pMonster_position_defval = new KBVar(FVector());
-	pMonster_position->pDefaultVal = pMonster_position_defval;
-	pMonsterModule->propertys.Add(TEXT("position"), pMonster_position); 
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExMonster), property(BaseHP / 24).");
 
-	pMonsterModule->usePropertyDescrAlias = true;
-	pMonsterModule->idpropertys.Add((uint16)pMonster_position->aliasID, pMonster_position);
+	Property* pExMonster_Defense = new Property();
+	pExMonster_Defense->name = TEXT("Defense");
+	pExMonster_Defense->properUtype = 26;
+	pExMonster_Defense->properFlags = 16;
+	pExMonster_Defense->aliasID = 5;
+	KBVar* pExMonster_Defense_defval = new KBVar((int32)FCString::Atoi64(TEXT("10")));
+	pExMonster_Defense->pDefaultVal = pExMonster_Defense_defval;
+	pExMonsterModule->propertys.Add(TEXT("Defense"), pExMonster_Defense); 
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Monster), property(position / 40000).");
+	pExMonsterModule->usePropertyDescrAlias = true;
+	pExMonsterModule->idpropertys.Add((uint16)pExMonster_Defense->aliasID, pExMonster_Defense);
 
-	Property* pMonster_direction = new Property();
-	pMonster_direction->name = TEXT("direction");
-	pMonster_direction->properUtype = 40001;
-	pMonster_direction->properFlags = 4;
-	pMonster_direction->aliasID = 2;
-	KBVar* pMonster_direction_defval = new KBVar(FVector());
-	pMonster_direction->pDefaultVal = pMonster_direction_defval;
-	pMonsterModule->propertys.Add(TEXT("direction"), pMonster_direction); 
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExMonster), property(Defense / 26).");
 
-	pMonsterModule->usePropertyDescrAlias = true;
-	pMonsterModule->idpropertys.Add((uint16)pMonster_direction->aliasID, pMonster_direction);
+	Property* pExMonster_HP = new Property();
+	pExMonster_HP->name = TEXT("HP");
+	pExMonster_HP->properUtype = 25;
+	pExMonster_HP->properFlags = 4;
+	pExMonster_HP->aliasID = 6;
+	KBVar* pExMonster_HP_defval = new KBVar((int32)FCString::Atoi64(TEXT("500")));
+	pExMonster_HP->pDefaultVal = pExMonster_HP_defval;
+	pExMonsterModule->propertys.Add(TEXT("HP"), pExMonster_HP); 
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Monster), property(direction / 40001).");
+	pExMonsterModule->usePropertyDescrAlias = true;
+	pExMonsterModule->idpropertys.Add((uint16)pExMonster_HP->aliasID, pExMonster_HP);
 
-	Property* pMonster_spaceID = new Property();
-	pMonster_spaceID->name = TEXT("spaceID");
-	pMonster_spaceID->properUtype = 40002;
-	pMonster_spaceID->properFlags = 16;
-	pMonster_spaceID->aliasID = 3;
-	KBVar* pMonster_spaceID_defval = new KBVar((uint32)FCString::Atoi64(TEXT("")));
-	pMonster_spaceID->pDefaultVal = pMonster_spaceID_defval;
-	pMonsterModule->propertys.Add(TEXT("spaceID"), pMonster_spaceID); 
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExMonster), property(HP / 25).");
 
-	pMonsterModule->usePropertyDescrAlias = true;
-	pMonsterModule->idpropertys.Add((uint16)pMonster_spaceID->aliasID, pMonster_spaceID);
+	Property* pExMonster_Name = new Property();
+	pExMonster_Name->name = TEXT("Name");
+	pExMonster_Name->properUtype = 22;
+	pExMonster_Name->properFlags = 4;
+	pExMonster_Name->aliasID = 7;
+	KBVar* pExMonster_Name_defval = new KBVar(FString());
+	pExMonster_Name->pDefaultVal = pExMonster_Name_defval;
+	pExMonsterModule->propertys.Add(TEXT("Name"), pExMonster_Name); 
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Monster), property(spaceID / 40002).");
+	pExMonsterModule->usePropertyDescrAlias = true;
+	pExMonsterModule->idpropertys.Add((uint16)pExMonster_Name->aliasID, pExMonster_Name);
 
-	Property* pMonster_BaseHP = new Property();
-	pMonster_BaseHP->name = TEXT("BaseHP");
-	pMonster_BaseHP->properUtype = 42;
-	pMonster_BaseHP->properFlags = 4;
-	pMonster_BaseHP->aliasID = 4;
-	KBVar* pMonster_BaseHP_defval = new KBVar((int32)FCString::Atoi64(TEXT("500")));
-	pMonster_BaseHP->pDefaultVal = pMonster_BaseHP_defval;
-	pMonsterModule->propertys.Add(TEXT("BaseHP"), pMonster_BaseHP); 
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExMonster), property(Name / 22).");
 
-	pMonsterModule->usePropertyDescrAlias = true;
-	pMonsterModule->idpropertys.Add((uint16)pMonster_BaseHP->aliasID, pMonster_BaseHP);
+	Property* pExMonster_PowerRatio = new Property();
+	pExMonster_PowerRatio->name = TEXT("PowerRatio");
+	pExMonster_PowerRatio->properUtype = 27;
+	pExMonster_PowerRatio->properFlags = 16;
+	pExMonster_PowerRatio->aliasID = 8;
+	KBVar* pExMonster_PowerRatio_defval = new KBVar(FCString::Atof(TEXT("1.0")));
+	pExMonster_PowerRatio->pDefaultVal = pExMonster_PowerRatio_defval;
+	pExMonsterModule->propertys.Add(TEXT("PowerRatio"), pExMonster_PowerRatio); 
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Monster), property(BaseHP / 42).");
+	pExMonsterModule->usePropertyDescrAlias = true;
+	pExMonsterModule->idpropertys.Add((uint16)pExMonster_PowerRatio->aliasID, pExMonster_PowerRatio);
 
-	Property* pMonster_HP = new Property();
-	pMonster_HP->name = TEXT("HP");
-	pMonster_HP->properUtype = 43;
-	pMonster_HP->properFlags = 4;
-	pMonster_HP->aliasID = 5;
-	KBVar* pMonster_HP_defval = new KBVar((int32)FCString::Atoi64(TEXT("500")));
-	pMonster_HP->pDefaultVal = pMonster_HP_defval;
-	pMonsterModule->propertys.Add(TEXT("HP"), pMonster_HP); 
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExMonster), property(PowerRatio / 27).");
 
-	pMonsterModule->usePropertyDescrAlias = true;
-	pMonsterModule->idpropertys.Add((uint16)pMonster_HP->aliasID, pMonster_HP);
+	Property* pExMonster_RoleType = new Property();
+	pExMonster_RoleType->name = TEXT("RoleType");
+	pExMonster_RoleType->properUtype = 23;
+	pExMonster_RoleType->properFlags = 4;
+	pExMonster_RoleType->aliasID = 9;
+	KBVar* pExMonster_RoleType_defval = new KBVar((uint8)FCString::Atoi64(TEXT("")));
+	pExMonster_RoleType->pDefaultVal = pExMonster_RoleType_defval;
+	pExMonsterModule->propertys.Add(TEXT("RoleType"), pExMonster_RoleType); 
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Monster), property(HP / 43).");
+	pExMonsterModule->usePropertyDescrAlias = true;
+	pExMonsterModule->idpropertys.Add((uint16)pExMonster_RoleType->aliasID, pExMonster_RoleType);
 
-	Property* pMonster_MonsterID = new Property();
-	pMonster_MonsterID->name = TEXT("MonsterID");
-	pMonster_MonsterID->properUtype = 39;
-	pMonster_MonsterID->properFlags = 128;
-	pMonster_MonsterID->aliasID = 6;
-	KBVar* pMonster_MonsterID_defval = new KBVar((uint32)FCString::Atoi64(TEXT("")));
-	pMonster_MonsterID->pDefaultVal = pMonster_MonsterID_defval;
-	pMonsterModule->propertys.Add(TEXT("MonsterID"), pMonster_MonsterID); 
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExMonster), property(RoleType / 23).");
 
-	pMonsterModule->usePropertyDescrAlias = true;
-	pMonsterModule->idpropertys.Add((uint16)pMonster_MonsterID->aliasID, pMonster_MonsterID);
+	Property* pExMonster_SpeedRatio = new Property();
+	pExMonster_SpeedRatio->name = TEXT("SpeedRatio");
+	pExMonster_SpeedRatio->properUtype = 28;
+	pExMonster_SpeedRatio->properFlags = 16;
+	pExMonster_SpeedRatio->aliasID = 10;
+	KBVar* pExMonster_SpeedRatio_defval = new KBVar(FCString::Atof(TEXT("1.0")));
+	pExMonster_SpeedRatio->pDefaultVal = pExMonster_SpeedRatio_defval;
+	pExMonsterModule->propertys.Add(TEXT("SpeedRatio"), pExMonster_SpeedRatio); 
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Monster), property(MonsterID / 39).");
+	pExMonsterModule->usePropertyDescrAlias = true;
+	pExMonsterModule->idpropertys.Add((uint16)pExMonster_SpeedRatio->aliasID, pExMonster_SpeedRatio);
 
-	Property* pMonster_enage = new Property();
-	pMonster_enage->name = TEXT("enage");
-	pMonster_enage->properUtype = 41;
-	pMonster_enage->properFlags = 4;
-	pMonster_enage->aliasID = 7;
-	KBVar* pMonster_enage_defval = new KBVar((int32)FCString::Atoi64(TEXT("-1")));
-	pMonster_enage->pDefaultVal = pMonster_enage_defval;
-	pMonsterModule->propertys.Add(TEXT("enage"), pMonster_enage); 
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExMonster), property(SpeedRatio / 28).");
 
-	pMonsterModule->usePropertyDescrAlias = true;
-	pMonsterModule->idpropertys.Add((uint16)pMonster_enage->aliasID, pMonster_enage);
+	TArray<DATATYPE_BASE*> ExMonster_OnAnimUpdate_args;
+	ExMonster_OnAnimUpdate_args.Add(EntityDef::id2datatypes[30]);
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Monster), property(enage / 41).");
+	Method* pExMonster_OnAnimUpdate = new Method();
+	pExMonster_OnAnimUpdate->name = TEXT("OnAnimUpdate");
+	pExMonster_OnAnimUpdate->methodUtype = 50;
+	pExMonster_OnAnimUpdate->aliasID = 1;
+	pExMonster_OnAnimUpdate->args = ExMonster_OnAnimUpdate_args;
 
-	TArray<DATATYPE_BASE*> Monster_OnAnimUpdate_args;
-	Monster_OnAnimUpdate_args.Add(EntityDef::id2datatypes[32]);
+	pExMonsterModule->methods.Add(TEXT("OnAnimUpdate"), pExMonster_OnAnimUpdate); 
+	pExMonsterModule->useMethodDescrAlias = true;
+	pExMonsterModule->idmethods.Add((uint16)pExMonster_OnAnimUpdate->aliasID, pExMonster_OnAnimUpdate);
 
-	Method* pMonster_OnAnimUpdate = new Method();
-	pMonster_OnAnimUpdate->name = TEXT("OnAnimUpdate");
-	pMonster_OnAnimUpdate->methodUtype = 48;
-	pMonster_OnAnimUpdate->aliasID = 1;
-	pMonster_OnAnimUpdate->args = Monster_OnAnimUpdate_args;
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExMonster), method(OnAnimUpdate / 50).");
 
-	pMonsterModule->methods.Add(TEXT("OnAnimUpdate"), pMonster_OnAnimUpdate); 
-	pMonsterModule->useMethodDescrAlias = true;
-	pMonsterModule->idmethods.Add((uint16)pMonster_OnAnimUpdate->aliasID, pMonster_OnAnimUpdate);
+	TArray<DATATYPE_BASE*> ExMonster_OnAttack_args;
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Monster), method(OnAnimUpdate / 48).");
+	Method* pExMonster_OnAttack = new Method();
+	pExMonster_OnAttack->name = TEXT("OnAttack");
+	pExMonster_OnAttack->methodUtype = 48;
+	pExMonster_OnAttack->aliasID = 2;
+	pExMonster_OnAttack->args = ExMonster_OnAttack_args;
 
-	TArray<DATATYPE_BASE*> Monster_OnAttack_args;
-	Monster_OnAttack_args.Add(EntityDef::id2datatypes[29]);
+	pExMonsterModule->methods.Add(TEXT("OnAttack"), pExMonster_OnAttack); 
+	pExMonsterModule->useMethodDescrAlias = true;
+	pExMonsterModule->idmethods.Add((uint16)pExMonster_OnAttack->aliasID, pExMonster_OnAttack);
 
-	Method* pMonster_OnAttack = new Method();
-	pMonster_OnAttack->name = TEXT("OnAttack");
-	pMonster_OnAttack->methodUtype = 46;
-	pMonster_OnAttack->aliasID = 2;
-	pMonster_OnAttack->args = Monster_OnAttack_args;
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExMonster), method(OnAttack / 48).");
 
-	pMonsterModule->methods.Add(TEXT("OnAttack"), pMonster_OnAttack); 
-	pMonsterModule->useMethodDescrAlias = true;
-	pMonsterModule->idmethods.Add((uint16)pMonster_OnAttack->aliasID, pMonster_OnAttack);
+	TArray<DATATYPE_BASE*> ExMonster_AnimUpdate_args;
+	ExMonster_AnimUpdate_args.Add(EntityDef::id2datatypes[30]);
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Monster), method(OnAttack / 46).");
+	Method* pExMonster_AnimUpdate = new Method();
+	pExMonster_AnimUpdate->name = TEXT("AnimUpdate");
+	pExMonster_AnimUpdate->methodUtype = 49;
+	pExMonster_AnimUpdate->aliasID = -1;
+	pExMonster_AnimUpdate->args = ExMonster_AnimUpdate_args;
 
-	TArray<DATATYPE_BASE*> Monster_AnimUpdate_args;
-	Monster_AnimUpdate_args.Add(EntityDef::id2datatypes[32]);
+	pExMonsterModule->methods.Add(TEXT("AnimUpdate"), pExMonster_AnimUpdate); 
+	pExMonsterModule->cell_methods.Add(TEXT("AnimUpdate"), pExMonster_AnimUpdate);
 
-	Method* pMonster_AnimUpdate = new Method();
-	pMonster_AnimUpdate->name = TEXT("AnimUpdate");
-	pMonster_AnimUpdate->methodUtype = 47;
-	pMonster_AnimUpdate->aliasID = -1;
-	pMonster_AnimUpdate->args = Monster_AnimUpdate_args;
+	pExMonsterModule->idcell_methods.Add(pExMonster_AnimUpdate->methodUtype, pExMonster_AnimUpdate);
 
-	pMonsterModule->methods.Add(TEXT("AnimUpdate"), pMonster_AnimUpdate); 
-	pMonsterModule->cell_methods.Add(TEXT("AnimUpdate"), pMonster_AnimUpdate);
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExMonster), method(AnimUpdate / 49).");
 
-	pMonsterModule->idcell_methods.Add(pMonster_AnimUpdate->methodUtype, pMonster_AnimUpdate);
+	TArray<DATATYPE_BASE*> ExMonster_Attack_args;
+	ExMonster_Attack_args.Add(EntityDef::id2datatypes[34]);
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Monster), method(AnimUpdate / 47).");
+	Method* pExMonster_Attack = new Method();
+	pExMonster_Attack->name = TEXT("Attack");
+	pExMonster_Attack->methodUtype = 42;
+	pExMonster_Attack->aliasID = -1;
+	pExMonster_Attack->args = ExMonster_Attack_args;
 
-	TArray<DATATYPE_BASE*> Monster_Attack_args;
-	Monster_Attack_args.Add(EntityDef::id2datatypes[29]);
+	pExMonsterModule->methods.Add(TEXT("Attack"), pExMonster_Attack); 
+	pExMonsterModule->cell_methods.Add(TEXT("Attack"), pExMonster_Attack);
 
-	Method* pMonster_Attack = new Method();
-	pMonster_Attack->name = TEXT("Attack");
-	pMonster_Attack->methodUtype = 42;
-	pMonster_Attack->aliasID = -1;
-	pMonster_Attack->args = Monster_Attack_args;
+	pExMonsterModule->idcell_methods.Add(pExMonster_Attack->methodUtype, pExMonster_Attack);
 
-	pMonsterModule->methods.Add(TEXT("Attack"), pMonster_Attack); 
-	pMonsterModule->cell_methods.Add(TEXT("Attack"), pMonster_Attack);
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExMonster), method(Attack / 42).");
 
-	pMonsterModule->idcell_methods.Add(pMonster_Attack->methodUtype, pMonster_Attack);
+	TArray<DATATYPE_BASE*> ExMonster_Relive_args;
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Monster), method(Attack / 42).");
+	Method* pExMonster_Relive = new Method();
+	pExMonster_Relive->name = TEXT("Relive");
+	pExMonster_Relive->methodUtype = 43;
+	pExMonster_Relive->aliasID = -1;
+	pExMonster_Relive->args = ExMonster_Relive_args;
 
-	TArray<DATATYPE_BASE*> Monster_Relive_args;
+	pExMonsterModule->methods.Add(TEXT("Relive"), pExMonster_Relive); 
+	pExMonsterModule->cell_methods.Add(TEXT("Relive"), pExMonster_Relive);
 
-	Method* pMonster_Relive = new Method();
-	pMonster_Relive->name = TEXT("Relive");
-	pMonster_Relive->methodUtype = 43;
-	pMonster_Relive->aliasID = -1;
-	pMonster_Relive->args = Monster_Relive_args;
+	pExMonsterModule->idcell_methods.Add(pExMonster_Relive->methodUtype, pExMonster_Relive);
 
-	pMonsterModule->methods.Add(TEXT("Relive"), pMonster_Relive); 
-	pMonsterModule->cell_methods.Add(TEXT("Relive"), pMonster_Relive);
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExMonster), method(Relive / 43).");
 
-	pMonsterModule->idcell_methods.Add(pMonster_Relive->methodUtype, pMonster_Relive);
+	ScriptModule* pExSkillModule = new ScriptModule("ExSkill", 6);
+	EntityDef::moduledefs.Add(TEXT("ExSkill"), pExSkillModule);
+	EntityDef::idmoduledefs.Add(6, pExSkillModule);
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Monster), method(Relive / 43).");
+	Property* pExSkill_position = new Property();
+	pExSkill_position->name = TEXT("position");
+	pExSkill_position->properUtype = 40000;
+	pExSkill_position->properFlags = 4;
+	pExSkill_position->aliasID = 1;
+	KBVar* pExSkill_position_defval = new KBVar(FVector());
+	pExSkill_position->pDefaultVal = pExSkill_position_defval;
+	pExSkillModule->propertys.Add(TEXT("position"), pExSkill_position); 
 
-	TArray<DATATYPE_BASE*> Monster_ReqChangeEnage_args;
-	Monster_ReqChangeEnage_args.Add(EntityDef::id2datatypes[8]);
+	pExSkillModule->usePropertyDescrAlias = true;
+	pExSkillModule->idpropertys.Add((uint16)pExSkill_position->aliasID, pExSkill_position);
 
-	Method* pMonster_ReqChangeEnage = new Method();
-	pMonster_ReqChangeEnage->name = TEXT("ReqChangeEnage");
-	pMonster_ReqChangeEnage->methodUtype = 45;
-	pMonster_ReqChangeEnage->aliasID = -1;
-	pMonster_ReqChangeEnage->args = Monster_ReqChangeEnage_args;
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExSkill), property(position / 40000).");
 
-	pMonsterModule->methods.Add(TEXT("ReqChangeEnage"), pMonster_ReqChangeEnage); 
-	pMonsterModule->cell_methods.Add(TEXT("ReqChangeEnage"), pMonster_ReqChangeEnage);
+	Property* pExSkill_direction = new Property();
+	pExSkill_direction->name = TEXT("direction");
+	pExSkill_direction->properUtype = 40001;
+	pExSkill_direction->properFlags = 4;
+	pExSkill_direction->aliasID = 2;
+	KBVar* pExSkill_direction_defval = new KBVar(FVector());
+	pExSkill_direction->pDefaultVal = pExSkill_direction_defval;
+	pExSkillModule->propertys.Add(TEXT("direction"), pExSkill_direction); 
 
-	pMonsterModule->idcell_methods.Add(pMonster_ReqChangeEnage->methodUtype, pMonster_ReqChangeEnage);
+	pExSkillModule->usePropertyDescrAlias = true;
+	pExSkillModule->idpropertys.Add((uint16)pExSkill_direction->aliasID, pExSkill_direction);
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Monster), method(ReqChangeEnage / 45).");
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExSkill), property(direction / 40001).");
 
-	TArray<DATATYPE_BASE*> Monster_ReqStartDamage_args;
-	Monster_ReqStartDamage_args.Add(EntityDef::id2datatypes[29]);
-	Monster_ReqStartDamage_args.Add(EntityDef::id2datatypes[25]);
+	Property* pExSkill_spaceID = new Property();
+	pExSkill_spaceID->name = TEXT("spaceID");
+	pExSkill_spaceID->properUtype = 40002;
+	pExSkill_spaceID->properFlags = 16;
+	pExSkill_spaceID->aliasID = 3;
+	KBVar* pExSkill_spaceID_defval = new KBVar((uint32)FCString::Atoi64(TEXT("")));
+	pExSkill_spaceID->pDefaultVal = pExSkill_spaceID_defval;
+	pExSkillModule->propertys.Add(TEXT("spaceID"), pExSkill_spaceID); 
 
-	Method* pMonster_ReqStartDamage = new Method();
-	pMonster_ReqStartDamage->name = TEXT("ReqStartDamage");
-	pMonster_ReqStartDamage->methodUtype = 44;
-	pMonster_ReqStartDamage->aliasID = -1;
-	pMonster_ReqStartDamage->args = Monster_ReqStartDamage_args;
+	pExSkillModule->usePropertyDescrAlias = true;
+	pExSkillModule->idpropertys.Add((uint16)pExSkill_spaceID->aliasID, pExSkill_spaceID);
 
-	pMonsterModule->methods.Add(TEXT("ReqStartDamage"), pMonster_ReqStartDamage); 
-	pMonsterModule->cell_methods.Add(TEXT("ReqStartDamage"), pMonster_ReqStartDamage);
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExSkill), property(spaceID / 40002).");
 
-	pMonsterModule->idcell_methods.Add(pMonster_ReqStartDamage->methodUtype, pMonster_ReqStartDamage);
+	Property* pExSkill_SkillId = new Property();
+	pExSkill_SkillId->name = TEXT("SkillId");
+	pExSkill_SkillId->properUtype = 37;
+	pExSkill_SkillId->properFlags = 4;
+	pExSkill_SkillId->aliasID = 4;
+	KBVar* pExSkill_SkillId_defval = new KBVar((uint8)FCString::Atoi64(TEXT("")));
+	pExSkill_SkillId->pDefaultVal = pExSkill_SkillId_defval;
+	pExSkillModule->propertys.Add(TEXT("SkillId"), pExSkill_SkillId); 
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Monster), method(ReqStartDamage / 44).");
+	pExSkillModule->usePropertyDescrAlias = true;
+	pExSkillModule->idpropertys.Add((uint16)pExSkill_SkillId->aliasID, pExSkill_SkillId);
 
-	ScriptModule* pItemDropPackageModule = new ScriptModule("ItemDropPackage", 5);
-	EntityDef::moduledefs.Add(TEXT("ItemDropPackage"), pItemDropPackageModule);
-	EntityDef::idmoduledefs.Add(5, pItemDropPackageModule);
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExSkill), property(SkillId / 37).");
 
-	Property* pItemDropPackage_position = new Property();
-	pItemDropPackage_position->name = TEXT("position");
-	pItemDropPackage_position->properUtype = 40000;
-	pItemDropPackage_position->properFlags = 4;
-	pItemDropPackage_position->aliasID = 1;
-	KBVar* pItemDropPackage_position_defval = new KBVar(FVector());
-	pItemDropPackage_position->pDefaultVal = pItemDropPackage_position_defval;
-	pItemDropPackageModule->propertys.Add(TEXT("position"), pItemDropPackage_position); 
+	pExSkillModule->useMethodDescrAlias = true;
+	ScriptModule* pExFlobModule = new ScriptModule("ExFlob", 7);
+	EntityDef::moduledefs.Add(TEXT("ExFlob"), pExFlobModule);
+	EntityDef::idmoduledefs.Add(7, pExFlobModule);
 
-	pItemDropPackageModule->usePropertyDescrAlias = true;
-	pItemDropPackageModule->idpropertys.Add((uint16)pItemDropPackage_position->aliasID, pItemDropPackage_position);
+	Property* pExFlob_position = new Property();
+	pExFlob_position->name = TEXT("position");
+	pExFlob_position->properUtype = 40000;
+	pExFlob_position->properFlags = 4;
+	pExFlob_position->aliasID = 1;
+	KBVar* pExFlob_position_defval = new KBVar(FVector());
+	pExFlob_position->pDefaultVal = pExFlob_position_defval;
+	pExFlobModule->propertys.Add(TEXT("position"), pExFlob_position); 
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(ItemDropPackage), property(position / 40000).");
+	pExFlobModule->usePropertyDescrAlias = true;
+	pExFlobModule->idpropertys.Add((uint16)pExFlob_position->aliasID, pExFlob_position);
 
-	Property* pItemDropPackage_direction = new Property();
-	pItemDropPackage_direction->name = TEXT("direction");
-	pItemDropPackage_direction->properUtype = 40001;
-	pItemDropPackage_direction->properFlags = 4;
-	pItemDropPackage_direction->aliasID = 2;
-	KBVar* pItemDropPackage_direction_defval = new KBVar(FVector());
-	pItemDropPackage_direction->pDefaultVal = pItemDropPackage_direction_defval;
-	pItemDropPackageModule->propertys.Add(TEXT("direction"), pItemDropPackage_direction); 
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExFlob), property(position / 40000).");
 
-	pItemDropPackageModule->usePropertyDescrAlias = true;
-	pItemDropPackageModule->idpropertys.Add((uint16)pItemDropPackage_direction->aliasID, pItemDropPackage_direction);
+	Property* pExFlob_direction = new Property();
+	pExFlob_direction->name = TEXT("direction");
+	pExFlob_direction->properUtype = 40001;
+	pExFlob_direction->properFlags = 4;
+	pExFlob_direction->aliasID = 2;
+	KBVar* pExFlob_direction_defval = new KBVar(FVector());
+	pExFlob_direction->pDefaultVal = pExFlob_direction_defval;
+	pExFlobModule->propertys.Add(TEXT("direction"), pExFlob_direction); 
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(ItemDropPackage), property(direction / 40001).");
+	pExFlobModule->usePropertyDescrAlias = true;
+	pExFlobModule->idpropertys.Add((uint16)pExFlob_direction->aliasID, pExFlob_direction);
 
-	Property* pItemDropPackage_spaceID = new Property();
-	pItemDropPackage_spaceID->name = TEXT("spaceID");
-	pItemDropPackage_spaceID->properUtype = 40002;
-	pItemDropPackage_spaceID->properFlags = 16;
-	pItemDropPackage_spaceID->aliasID = 3;
-	KBVar* pItemDropPackage_spaceID_defval = new KBVar((uint32)FCString::Atoi64(TEXT("")));
-	pItemDropPackage_spaceID->pDefaultVal = pItemDropPackage_spaceID_defval;
-	pItemDropPackageModule->propertys.Add(TEXT("spaceID"), pItemDropPackage_spaceID); 
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExFlob), property(direction / 40001).");
 
-	pItemDropPackageModule->usePropertyDescrAlias = true;
-	pItemDropPackageModule->idpropertys.Add((uint16)pItemDropPackage_spaceID->aliasID, pItemDropPackage_spaceID);
+	Property* pExFlob_spaceID = new Property();
+	pExFlob_spaceID->name = TEXT("spaceID");
+	pExFlob_spaceID->properUtype = 40002;
+	pExFlob_spaceID->properFlags = 16;
+	pExFlob_spaceID->aliasID = 3;
+	KBVar* pExFlob_spaceID_defval = new KBVar((uint32)FCString::Atoi64(TEXT("")));
+	pExFlob_spaceID->pDefaultVal = pExFlob_spaceID_defval;
+	pExFlobModule->propertys.Add(TEXT("spaceID"), pExFlob_spaceID); 
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(ItemDropPackage), property(spaceID / 40002).");
+	pExFlobModule->usePropertyDescrAlias = true;
+	pExFlobModule->idpropertys.Add((uint16)pExFlob_spaceID->aliasID, pExFlob_spaceID);
 
-	Property* pItemDropPackage_dropItems = new Property();
-	pItemDropPackage_dropItems->name = TEXT("dropItems");
-	pItemDropPackage_dropItems->properUtype = 55;
-	pItemDropPackage_dropItems->properFlags = 4;
-	pItemDropPackage_dropItems->aliasID = 4;
-	pItemDropPackage_dropItems->pDefaultVal = EntityDef::id2datatypes[27]->parseDefaultValStr("");
-	pItemDropPackageModule->propertys.Add(TEXT("dropItems"), pItemDropPackage_dropItems); 
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExFlob), property(spaceID / 40002).");
 
-	pItemDropPackageModule->usePropertyDescrAlias = true;
-	pItemDropPackageModule->idpropertys.Add((uint16)pItemDropPackage_dropItems->aliasID, pItemDropPackage_dropItems);
+	Property* pExFlob_GoodId = new Property();
+	pExFlob_GoodId->name = TEXT("GoodId");
+	pExFlob_GoodId->properUtype = 43;
+	pExFlob_GoodId->properFlags = 4;
+	pExFlob_GoodId->aliasID = 4;
+	KBVar* pExFlob_GoodId_defval = new KBVar((uint8)FCString::Atoi64(TEXT("")));
+	pExFlob_GoodId->pDefaultVal = pExFlob_GoodId_defval;
+	pExFlobModule->propertys.Add(TEXT("GoodId"), pExFlob_GoodId); 
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(ItemDropPackage), property(dropItems / 55).");
+	pExFlobModule->usePropertyDescrAlias = true;
+	pExFlobModule->idpropertys.Add((uint16)pExFlob_GoodId->aliasID, pExFlob_GoodId);
 
-	Property* pItemDropPackage_ownerDBID = new Property();
-	pItemDropPackage_ownerDBID->name = TEXT("ownerDBID");
-	pItemDropPackage_ownerDBID->properUtype = 52;
-	pItemDropPackage_ownerDBID->properFlags = 4;
-	pItemDropPackage_ownerDBID->aliasID = 5;
-	KBVar* pItemDropPackage_ownerDBID_defval = new KBVar((uint64)FCString::Atoi64(TEXT("")));
-	pItemDropPackage_ownerDBID->pDefaultVal = pItemDropPackage_ownerDBID_defval;
-	pItemDropPackageModule->propertys.Add(TEXT("ownerDBID"), pItemDropPackage_ownerDBID); 
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExFlob), property(GoodId / 43).");
 
-	pItemDropPackageModule->usePropertyDescrAlias = true;
-	pItemDropPackageModule->idpropertys.Add((uint16)pItemDropPackage_ownerDBID->aliasID, pItemDropPackage_ownerDBID);
+	pExFlobModule->useMethodDescrAlias = true;
+	ScriptModule* pExGateModule = new ScriptModule("ExGate", 8);
+	EntityDef::moduledefs.Add(TEXT("ExGate"), pExGateModule);
+	EntityDef::idmoduledefs.Add(8, pExGateModule);
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(ItemDropPackage), property(ownerDBID / 52).");
+	Property* pExGate_position = new Property();
+	pExGate_position->name = TEXT("position");
+	pExGate_position->properUtype = 40000;
+	pExGate_position->properFlags = 4;
+	pExGate_position->aliasID = 1;
+	KBVar* pExGate_position_defval = new KBVar(FVector());
+	pExGate_position->pDefaultVal = pExGate_position_defval;
+	pExGateModule->propertys.Add(TEXT("position"), pExGate_position); 
 
-	pItemDropPackageModule->useMethodDescrAlias = true;
-	ScriptModule* pOreModule = new ScriptModule("Ore", 6);
-	EntityDef::moduledefs.Add(TEXT("Ore"), pOreModule);
-	EntityDef::idmoduledefs.Add(6, pOreModule);
+	pExGateModule->usePropertyDescrAlias = true;
+	pExGateModule->idpropertys.Add((uint16)pExGate_position->aliasID, pExGate_position);
 
-	Property* pOre_position = new Property();
-	pOre_position->name = TEXT("position");
-	pOre_position->properUtype = 40000;
-	pOre_position->properFlags = 4;
-	pOre_position->aliasID = 1;
-	KBVar* pOre_position_defval = new KBVar(FVector());
-	pOre_position->pDefaultVal = pOre_position_defval;
-	pOreModule->propertys.Add(TEXT("position"), pOre_position); 
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExGate), property(position / 40000).");
 
-	pOreModule->usePropertyDescrAlias = true;
-	pOreModule->idpropertys.Add((uint16)pOre_position->aliasID, pOre_position);
+	Property* pExGate_direction = new Property();
+	pExGate_direction->name = TEXT("direction");
+	pExGate_direction->properUtype = 40001;
+	pExGate_direction->properFlags = 4;
+	pExGate_direction->aliasID = 2;
+	KBVar* pExGate_direction_defval = new KBVar(FVector());
+	pExGate_direction->pDefaultVal = pExGate_direction_defval;
+	pExGateModule->propertys.Add(TEXT("direction"), pExGate_direction); 
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Ore), property(position / 40000).");
+	pExGateModule->usePropertyDescrAlias = true;
+	pExGateModule->idpropertys.Add((uint16)pExGate_direction->aliasID, pExGate_direction);
 
-	Property* pOre_direction = new Property();
-	pOre_direction->name = TEXT("direction");
-	pOre_direction->properUtype = 40001;
-	pOre_direction->properFlags = 4;
-	pOre_direction->aliasID = 2;
-	KBVar* pOre_direction_defval = new KBVar(FVector());
-	pOre_direction->pDefaultVal = pOre_direction_defval;
-	pOreModule->propertys.Add(TEXT("direction"), pOre_direction); 
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExGate), property(direction / 40001).");
 
-	pOreModule->usePropertyDescrAlias = true;
-	pOreModule->idpropertys.Add((uint16)pOre_direction->aliasID, pOre_direction);
+	Property* pExGate_spaceID = new Property();
+	pExGate_spaceID->name = TEXT("spaceID");
+	pExGate_spaceID->properUtype = 40002;
+	pExGate_spaceID->properFlags = 16;
+	pExGate_spaceID->aliasID = 3;
+	KBVar* pExGate_spaceID_defval = new KBVar((uint32)FCString::Atoi64(TEXT("")));
+	pExGate_spaceID->pDefaultVal = pExGate_spaceID_defval;
+	pExGateModule->propertys.Add(TEXT("spaceID"), pExGate_spaceID); 
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Ore), property(direction / 40001).");
+	pExGateModule->usePropertyDescrAlias = true;
+	pExGateModule->idpropertys.Add((uint16)pExGate_spaceID->aliasID, pExGate_spaceID);
 
-	Property* pOre_spaceID = new Property();
-	pOre_spaceID->name = TEXT("spaceID");
-	pOre_spaceID->properUtype = 40002;
-	pOre_spaceID->properFlags = 16;
-	pOre_spaceID->aliasID = 3;
-	KBVar* pOre_spaceID_defval = new KBVar((uint32)FCString::Atoi64(TEXT("")));
-	pOre_spaceID->pDefaultVal = pOre_spaceID_defval;
-	pOreModule->propertys.Add(TEXT("spaceID"), pOre_spaceID); 
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExGate), property(spaceID / 40002).");
 
-	pOreModule->usePropertyDescrAlias = true;
-	pOreModule->idpropertys.Add((uint16)pOre_spaceID->aliasID, pOre_spaceID);
+	Property* pExGate_RoomId = new Property();
+	pExGate_RoomId->name = TEXT("RoomId");
+	pExGate_RoomId->properUtype = 47;
+	pExGate_RoomId->properFlags = 4;
+	pExGate_RoomId->aliasID = 4;
+	KBVar* pExGate_RoomId_defval = new KBVar((uint64)FCString::Atoi64(TEXT("")));
+	pExGate_RoomId->pDefaultVal = pExGate_RoomId_defval;
+	pExGateModule->propertys.Add(TEXT("RoomId"), pExGate_RoomId); 
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Ore), property(spaceID / 40002).");
+	pExGateModule->usePropertyDescrAlias = true;
+	pExGateModule->idpropertys.Add((uint16)pExGate_RoomId->aliasID, pExGate_RoomId);
 
-	Property* pOre_digCount = new Property();
-	pOre_digCount->name = TEXT("digCount");
-	pOre_digCount->properUtype = 58;
-	pOre_digCount->properFlags = 4;
-	pOre_digCount->aliasID = 4;
-	KBVar* pOre_digCount_defval = new KBVar((uint8)FCString::Atoi64(TEXT("")));
-	pOre_digCount->pDefaultVal = pOre_digCount_defval;
-	pOreModule->propertys.Add(TEXT("digCount"), pOre_digCount); 
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExGate), property(RoomId / 47).");
 
-	pOreModule->usePropertyDescrAlias = true;
-	pOreModule->idpropertys.Add((uint16)pOre_digCount->aliasID, pOre_digCount);
+	Property* pExGate_RoomName = new Property();
+	pExGate_RoomName->name = TEXT("RoomName");
+	pExGate_RoomName->properUtype = 48;
+	pExGate_RoomName->properFlags = 4;
+	pExGate_RoomName->aliasID = 5;
+	KBVar* pExGate_RoomName_defval = new KBVar(FString());
+	pExGate_RoomName->pDefaultVal = pExGate_RoomName_defval;
+	pExGateModule->propertys.Add(TEXT("RoomName"), pExGate_RoomName); 
 
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Ore), property(digCount / 58).");
+	pExGateModule->usePropertyDescrAlias = true;
+	pExGateModule->idpropertys.Add((uint16)pExGate_RoomName->aliasID, pExGate_RoomName);
 
-	Property* pOre_oreID = new Property();
-	pOre_oreID->name = TEXT("oreID");
-	pOre_oreID->properUtype = 57;
-	pOre_oreID->properFlags = 4;
-	pOre_oreID->aliasID = 5;
-	KBVar* pOre_oreID_defval = new KBVar((uint32)FCString::Atoi64(TEXT("")));
-	pOre_oreID->pDefaultVal = pOre_oreID_defval;
-	pOreModule->propertys.Add(TEXT("oreID"), pOre_oreID); 
+	//DEBUG_MSG("EntityDef::initScriptModules: add(ExGate), property(RoomName / 48).");
 
-	pOreModule->usePropertyDescrAlias = true;
-	pOreModule->idpropertys.Add((uint16)pOre_oreID->aliasID, pOre_oreID);
-
-	//DEBUG_MSG("EntityDef::initScriptModules: add(Ore), property(oreID / 57).");
-
-	pOreModule->useMethodDescrAlias = true;
+	pExGateModule->useMethodDescrAlias = true;
 }
 
 void EntityDef::initDefTypes()
 {
 	{
 		uint16 utype = 2;
-		FString typeName = TEXT("BOOL");
+		FString typeName = TEXT("KIND_ID");
 		FString name = TEXT("UINT8");
 		DATATYPE_BASE** fPtr = EntityDef::datatypes.Find(name);
 		DATATYPE_BASE* pVal = fPtr != NULL ? *fPtr : NULL;
@@ -1448,7 +1285,7 @@ void EntityDef::initDefTypes()
 
 	{
 		uint16 utype = 5;
-		FString typeName = TEXT("UINT64");
+		FString typeName = TEXT("DBID");
 		FString name = TEXT("UINT64");
 		DATATYPE_BASE** fPtr = EntityDef::datatypes.Find(name);
 		DATATYPE_BASE* pVal = fPtr != NULL ? *fPtr : NULL;
@@ -1657,33 +1494,6 @@ void EntityDef::initDefTypes()
 
 	{
 		uint16 utype = 22;
-		FString typeName = TEXT("STRING_LIST");
-		DATATYPE_STRING_LIST* pDatatype = new DATATYPE_STRING_LIST();
-		EntityDef::datatypes.Add(typeName, (DATATYPE_BASE*)pDatatype);
-		EntityDef::id2datatypes.Add(utype, EntityDef::datatypes[typeName]);
-		EntityDef::datatype2id.Add(typeName, utype);
-	}
-
-	{
-		uint16 utype = 23;
-		FString typeName = TEXT("UINT16_LIST");
-		DATATYPE_UINT16_LIST* pDatatype = new DATATYPE_UINT16_LIST();
-		EntityDef::datatypes.Add(typeName, (DATATYPE_BASE*)pDatatype);
-		EntityDef::id2datatypes.Add(utype, EntityDef::datatypes[typeName]);
-		EntityDef::datatype2id.Add(typeName, utype);
-	}
-
-	{
-		uint16 utype = 24;
-		FString typeName = TEXT("UINT64_LIST");
-		DATATYPE_UINT64_LIST* pDatatype = new DATATYPE_UINT64_LIST();
-		EntityDef::datatypes.Add(typeName, (DATATYPE_BASE*)pDatatype);
-		EntityDef::id2datatypes.Add(utype, EntityDef::datatypes[typeName]);
-		EntityDef::datatype2id.Add(typeName, utype);
-	}
-
-	{
-		uint16 utype = 25;
 		FString typeName = TEXT("ENTITY_LIST");
 		DATATYPE_ENTITY_LIST* pDatatype = new DATATYPE_ENTITY_LIST();
 		EntityDef::datatypes.Add(typeName, (DATATYPE_BASE*)pDatatype);
@@ -1692,9 +1502,27 @@ void EntityDef::initDefTypes()
 	}
 
 	{
-		uint16 utype = 26;
-		FString typeName = TEXT("ITEM");
-		DATATYPE_ITEM* pDatatype = new DATATYPE_ITEM();
+		uint16 utype = 23;
+		FString typeName = TEXT("ROLE_DATA");
+		DATATYPE_ROLE_DATA* pDatatype = new DATATYPE_ROLE_DATA();
+		EntityDef::datatypes.Add(typeName, (DATATYPE_BASE*)pDatatype);
+		EntityDef::id2datatypes.Add(utype, EntityDef::datatypes[typeName]);
+		EntityDef::datatype2id.Add(typeName, utype);
+	}
+
+	{
+		uint16 utype = 24;
+		FString typeName = TEXT("ROLE_INFO");
+		DATATYPE_ROLE_INFO* pDatatype = new DATATYPE_ROLE_INFO();
+		EntityDef::datatypes.Add(typeName, (DATATYPE_BASE*)pDatatype);
+		EntityDef::id2datatypes.Add(utype, EntityDef::datatypes[typeName]);
+		EntityDef::datatype2id.Add(typeName, utype);
+	}
+
+	{
+		uint16 utype = 25;
+		FString typeName = TEXT("ROLE_LIST");
+		DATATYPE_ROLE_LIST* pDatatype = new DATATYPE_ROLE_LIST();
 		EntityDef::datatypes.Add(typeName, (DATATYPE_BASE*)pDatatype);
 		EntityDef::id2datatypes.Add(utype, EntityDef::datatypes[typeName]);
 		EntityDef::datatype2id.Add(typeName, utype);
@@ -1702,8 +1530,8 @@ void EntityDef::initDefTypes()
 
 	{
 		uint16 utype = 27;
-		FString typeName = TEXT("ITEM_LIST");
-		DATATYPE_ITEM_LIST* pDatatype = new DATATYPE_ITEM_LIST();
+		FString typeName = TEXT("ROOM_INFO");
+		DATATYPE_ROOM_INFO* pDatatype = new DATATYPE_ROOM_INFO();
 		EntityDef::datatypes.Add(typeName, (DATATYPE_BASE*)pDatatype);
 		EntityDef::id2datatypes.Add(utype, EntityDef::datatypes[typeName]);
 		EntityDef::datatype2id.Add(typeName, utype);
@@ -1711,15 +1539,42 @@ void EntityDef::initDefTypes()
 
 	{
 		uint16 utype = 28;
-		FString typeName = TEXT("CHAT_INFO");
-		DATATYPE_CHAT_INFO* pDatatype = new DATATYPE_CHAT_INFO();
+		FString typeName = TEXT("ROOM_LIST");
+		DATATYPE_ROOM_LIST* pDatatype = new DATATYPE_ROOM_LIST();
 		EntityDef::datatypes.Add(typeName, (DATATYPE_BASE*)pDatatype);
 		EntityDef::id2datatypes.Add(utype, EntityDef::datatypes[typeName]);
 		EntityDef::datatype2id.Add(typeName, utype);
 	}
 
 	{
-		uint16 utype = 29;
+		uint16 utype = 30;
+		FString typeName = TEXT("ANIM_INFO");
+		DATATYPE_ANIM_INFO* pDatatype = new DATATYPE_ANIM_INFO();
+		EntityDef::datatypes.Add(typeName, (DATATYPE_BASE*)pDatatype);
+		EntityDef::id2datatypes.Add(utype, EntityDef::datatypes[typeName]);
+		EntityDef::datatype2id.Add(typeName, utype);
+	}
+
+	{
+		uint16 utype = 31;
+		FString typeName = TEXT("GOOD_INFO");
+		DATATYPE_GOOD_INFO* pDatatype = new DATATYPE_GOOD_INFO();
+		EntityDef::datatypes.Add(typeName, (DATATYPE_BASE*)pDatatype);
+		EntityDef::id2datatypes.Add(utype, EntityDef::datatypes[typeName]);
+		EntityDef::datatype2id.Add(typeName, utype);
+	}
+
+	{
+		uint16 utype = 32;
+		FString typeName = TEXT("BAG_INFO");
+		DATATYPE_BAG_INFO* pDatatype = new DATATYPE_BAG_INFO();
+		EntityDef::datatypes.Add(typeName, (DATATYPE_BASE*)pDatatype);
+		EntityDef::id2datatypes.Add(utype, EntityDef::datatypes[typeName]);
+		EntityDef::datatype2id.Add(typeName, utype);
+	}
+
+	{
+		uint16 utype = 34;
 		FString typeName = TEXT("SKILL_INFO");
 		DATATYPE_SKILL_INFO* pDatatype = new DATATYPE_SKILL_INFO();
 		EntityDef::datatypes.Add(typeName, (DATATYPE_BASE*)pDatatype);
@@ -1728,27 +1583,18 @@ void EntityDef::initDefTypes()
 	}
 
 	{
-		uint16 utype = 30;
-		FString typeName = TEXT("AVATAR_BRIEF_INFO");
-		DATATYPE_AVATAR_BRIEF_INFO* pDatatype = new DATATYPE_AVATAR_BRIEF_INFO();
+		uint16 utype = 35;
+		FString typeName = TEXT("CHAT_INFO");
+		DATATYPE_CHAT_INFO* pDatatype = new DATATYPE_CHAT_INFO();
 		EntityDef::datatypes.Add(typeName, (DATATYPE_BASE*)pDatatype);
 		EntityDef::id2datatypes.Add(utype, EntityDef::datatypes[typeName]);
 		EntityDef::datatype2id.Add(typeName, utype);
 	}
 
 	{
-		uint16 utype = 31;
-		FString typeName = TEXT("AVATAR_BRIEF_INFO_LIST");
-		DATATYPE_AVATAR_BRIEF_INFO_LIST* pDatatype = new DATATYPE_AVATAR_BRIEF_INFO_LIST();
-		EntityDef::datatypes.Add(typeName, (DATATYPE_BASE*)pDatatype);
-		EntityDef::id2datatypes.Add(utype, EntityDef::datatypes[typeName]);
-		EntityDef::datatype2id.Add(typeName, utype);
-	}
-
-	{
-		uint16 utype = 32;
-		FString typeName = TEXT("ANIM_INFO");
-		DATATYPE_ANIM_INFO* pDatatype = new DATATYPE_ANIM_INFO();
+		uint16 utype = 36;
+		FString typeName = TEXT("CHAT_LIST");
+		DATATYPE_CHAT_LIST* pDatatype = new DATATYPE_CHAT_LIST();
 		EntityDef::datatypes.Add(typeName, (DATATYPE_BASE*)pDatatype);
 		EntityDef::id2datatypes.Add(utype, EntityDef::datatypes[typeName]);
 		EntityDef::datatype2id.Add(typeName, utype);

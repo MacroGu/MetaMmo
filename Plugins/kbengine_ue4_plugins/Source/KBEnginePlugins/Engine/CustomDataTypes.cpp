@@ -1,4 +1,4 @@
-﻿#include "CustomDataTypes.h"
+#include "CustomDataTypes.h"
 #include "EntityDef.h"
 #include "KBDebug.h"
 #include "DataTypes.h"
@@ -6,66 +6,6 @@
 
 namespace KBEngine
 {
-
-void DATATYPE_STRING_LIST::createFromStreamEx(MemoryStream& stream, STRING_LIST& datas)
-{
-	uint32 size = stream.readUint32();
-	while(size > 0)
-	{
-		--size;
-		datas.Add(stream.readUint16());
-	};
-
-}
-
-void DATATYPE_STRING_LIST::addToStreamEx(Bundle& stream, const STRING_LIST& v)
-{
-	stream.writeUint32((uint32)v.Num());
-	for(int i=0; i<v.Num(); ++i)
-	{
-		stream.writeUint16(v[i]);
-	};
-}
-
-void DATATYPE_UINT16_LIST::createFromStreamEx(MemoryStream& stream, UINT16_LIST& datas)
-{
-	uint32 size = stream.readUint32();
-	while(size > 0)
-	{
-		--size;
-		datas.Add(stream.readUint16());
-	};
-
-}
-
-void DATATYPE_UINT16_LIST::addToStreamEx(Bundle& stream, const UINT16_LIST& v)
-{
-	stream.writeUint32((uint32)v.Num());
-	for(int i=0; i<v.Num(); ++i)
-	{
-		stream.writeUint16(v[i]);
-	};
-}
-
-void DATATYPE_UINT64_LIST::createFromStreamEx(MemoryStream& stream, UINT64_LIST& datas)
-{
-	uint32 size = stream.readUint32();
-	while(size > 0)
-	{
-		--size;
-		datas.Add(stream.readUint64());
-	};
-
-}
-
-void DATATYPE_UINT64_LIST::addToStreamEx(Bundle& stream, const UINT64_LIST& v)
-{
-	stream.writeUint32((uint32)v.Num());
-	for(int i=0; i<v.Num(); ++i)
-	{
-		stream.writeUint64(v[i]);
-	};
-}
 
 void DATATYPE_ENTITY_LIST::createFromStreamEx(MemoryStream& stream, ENTITY_LIST& datas)
 {
@@ -87,114 +27,64 @@ void DATATYPE_ENTITY_LIST::addToStreamEx(Bundle& stream, const ENTITY_LIST& v)
 	};
 }
 
-void DATATYPE_ITEM::createFromStreamEx(MemoryStream& stream, ITEM& datas)
+void DATATYPE_ROLE_DATA::createFromStreamEx(MemoryStream& stream, ROLE_DATA& datas)
 {
-	datas.uid = stream.readUint64();
-	datas.id = stream.readUint32();
-	datas.num = stream.readUint32();
-	datas.bagIndex = stream.readUint16();
+	datas.DataType = stream.readInt8();
+	datas.DataValue = stream.readBlob();
 }
 
-void DATATYPE_ITEM::addToStreamEx(Bundle& stream, const ITEM& v)
+void DATATYPE_ROLE_DATA::addToStreamEx(Bundle& stream, const ROLE_DATA& v)
 {
-	stream.writeUint64(v.uid);
-	stream.writeUint32(v.id);
-	stream.writeUint32(v.num);
-	stream.writeUint16(v.bagIndex);
+	stream.writeInt8(v.DataType);
+	stream.writeBlob(v.DataValue);
 }
 
-void DATATYPE_ITEM_LIST::createFromStreamEx(MemoryStream& stream, ITEM_LIST& datas)
+void DATATYPE_ROLE_INFO::createFromStreamEx(MemoryStream& stream, ROLE_INFO& datas)
 {
-	uint32 size = stream.readUint32();
-	while(size > 0)
-	{
-		--size;
-		ITEM childDatas;
-		itemType.createFromStreamEx(stream, childDatas);
-		datas.Add(childDatas);
-	};
-
+	datas.Dbid = stream.readUint64();
+	datas.Name = stream.readUnicode();
+	datas.RoleType = stream.readUint8();
+	Data_DataType.createFromStreamEx(stream, datas.Data);
 }
 
-void DATATYPE_ITEM_LIST::addToStreamEx(Bundle& stream, const ITEM_LIST& v)
+void DATATYPE_ROLE_INFO::addToStreamEx(Bundle& stream, const ROLE_INFO& v)
 {
-	stream.writeUint32((uint32)v.Num());
-	for(int i=0; i<v.Num(); ++i)
-	{
-		itemType.addToStreamEx(stream, v[i]);
-	};
+	stream.writeUint64(v.Dbid);
+	stream.writeUnicode(v.Name);
+	stream.writeUint8(v.RoleType);
+	Data_DataType.addToStreamEx(stream, v.Data);
 }
 
-void DATATYPE_CHAT_INFO::createFromStreamEx(MemoryStream& stream, CHAT_INFO& datas)
+void DATATYPE_ROLE_LIST::createFromStreamEx(MemoryStream& stream, ROLE_LIST& datas)
 {
-	datas.dbid = stream.readUint64();
-	datas.targetDBID = stream.readUint64();
-	datas.chatType = stream.readUint8();
-	datas.sceneID = stream.readUint32();
-	datas.name = stream.readUnicode();
-	datas.chatContent = stream.readUnicode();
+	Value_DataType.createFromStreamEx(stream, datas.Value);
 }
 
-void DATATYPE_CHAT_INFO::addToStreamEx(Bundle& stream, const CHAT_INFO& v)
+void DATATYPE_ROLE_LIST::addToStreamEx(Bundle& stream, const ROLE_LIST& v)
 {
-	stream.writeUint64(v.dbid);
-	stream.writeUint64(v.targetDBID);
-	stream.writeUint8(v.chatType);
-	stream.writeUint32(v.sceneID);
-	stream.writeUnicode(v.name);
-	stream.writeUnicode(v.chatContent);
+	Value_DataType.addToStreamEx(stream, v.Value);
 }
 
-void DATATYPE_SKILL_INFO::createFromStreamEx(MemoryStream& stream, SKILL_INFO& datas)
+void DATATYPE_ROOM_INFO::createFromStreamEx(MemoryStream& stream, ROOM_INFO& datas)
 {
-	datas.skillId = stream.readUint8();
-	datas.spawnPos = stream.readVector3();
-	datas.targetPos = stream.readVector3();
+	datas.RoomId = stream.readUint64();
+	datas.Name = stream.readUnicode();
 }
 
-void DATATYPE_SKILL_INFO::addToStreamEx(Bundle& stream, const SKILL_INFO& v)
+void DATATYPE_ROOM_INFO::addToStreamEx(Bundle& stream, const ROOM_INFO& v)
 {
-	stream.writeUint8(v.skillId);
-	stream.writeVector3(v.spawnPos);
-	stream.writeVector3(v.targetPos);
+	stream.writeUint64(v.RoomId);
+	stream.writeUnicode(v.Name);
 }
 
-void DATATYPE_AVATAR_BRIEF_INFO::createFromStreamEx(MemoryStream& stream, AVATAR_BRIEF_INFO& datas)
+void DATATYPE_ROOM_LIST::createFromStreamEx(MemoryStream& stream, ROOM_LIST& datas)
 {
-	datas.dbid = stream.readUint64();
-	datas.sex = stream.readUint8();
-	datas.name = stream.readUnicode();
-	datas.facade = stream.readBlob();
+	Value_DataType.createFromStreamEx(stream, datas.Value);
 }
 
-void DATATYPE_AVATAR_BRIEF_INFO::addToStreamEx(Bundle& stream, const AVATAR_BRIEF_INFO& v)
+void DATATYPE_ROOM_LIST::addToStreamEx(Bundle& stream, const ROOM_LIST& v)
 {
-	stream.writeUint64(v.dbid);
-	stream.writeUint8(v.sex);
-	stream.writeUnicode(v.name);
-	stream.writeBlob(v.facade);
-}
-
-void DATATYPE_AVATAR_BRIEF_INFO_LIST::createFromStreamEx(MemoryStream& stream, AVATAR_BRIEF_INFO_LIST& datas)
-{
-	uint32 size = stream.readUint32();
-	while(size > 0)
-	{
-		--size;
-		AVATAR_BRIEF_INFO childDatas;
-		itemType.createFromStreamEx(stream, childDatas);
-		datas.Add(childDatas);
-	};
-
-}
-
-void DATATYPE_AVATAR_BRIEF_INFO_LIST::addToStreamEx(Bundle& stream, const AVATAR_BRIEF_INFO_LIST& v)
-{
-	stream.writeUint32((uint32)v.Num());
-	for(int i=0; i<v.Num(); ++i)
-	{
-		itemType.addToStreamEx(stream, v[i]);
-	};
+	Value_DataType.addToStreamEx(stream, v.Value);
 }
 
 void DATATYPE_ANIM_INFO::createFromStreamEx(MemoryStream& stream, ANIM_INFO& datas)
@@ -207,6 +97,70 @@ void DATATYPE_ANIM_INFO::addToStreamEx(Bundle& stream, const ANIM_INFO& v)
 {
 	stream.writeFloat(v.Speed);
 	stream.writeFloat(v.Direction);
+}
+
+void DATATYPE_GOOD_INFO::createFromStreamEx(MemoryStream& stream, GOOD_INFO& datas)
+{
+	datas.BlockId = stream.readUint8();
+	datas.GoodId = stream.readUint8();
+	datas.Number = stream.readUint8();
+}
+
+void DATATYPE_GOOD_INFO::addToStreamEx(Bundle& stream, const GOOD_INFO& v)
+{
+	stream.writeUint8(v.BlockId);
+	stream.writeUint8(v.GoodId);
+	stream.writeUint8(v.Number);
+}
+
+void DATATYPE_BAG_INFO::createFromStreamEx(MemoryStream& stream, BAG_INFO& datas)
+{
+	Value_DataType.createFromStreamEx(stream, datas.Value);
+}
+
+void DATATYPE_BAG_INFO::addToStreamEx(Bundle& stream, const BAG_INFO& v)
+{
+	Value_DataType.addToStreamEx(stream, v.Value);
+}
+
+void DATATYPE_SKILL_INFO::createFromStreamEx(MemoryStream& stream, SKILL_INFO& datas)
+{
+	datas.SkillId = stream.readUint8();
+	datas.SpawnPos = stream.readVector3();
+	datas.TargetPos = stream.readVector3();
+}
+
+void DATATYPE_SKILL_INFO::addToStreamEx(Bundle& stream, const SKILL_INFO& v)
+{
+	stream.writeUint8(v.SkillId);
+	stream.writeVector3(v.SpawnPos);
+	stream.writeVector3(v.TargetPos);
+}
+
+void DATATYPE_CHAT_INFO::createFromStreamEx(MemoryStream& stream, CHAT_INFO& datas)
+{
+	datas.Index = stream.readUint32();
+	datas.Name = stream.readUnicode();
+	datas.Date = stream.readUnicode();
+	datas.Message = stream.readUnicode();
+}
+
+void DATATYPE_CHAT_INFO::addToStreamEx(Bundle& stream, const CHAT_INFO& v)
+{
+	stream.writeUint32(v.Index);
+	stream.writeUnicode(v.Name);
+	stream.writeUnicode(v.Date);
+	stream.writeUnicode(v.Message);
+}
+
+void DATATYPE_CHAT_LIST::createFromStreamEx(MemoryStream& stream, CHAT_LIST& datas)
+{
+	Value_DataType.createFromStreamEx(stream, datas.Value);
+}
+
+void DATATYPE_CHAT_LIST::addToStreamEx(Bundle& stream, const CHAT_LIST& v)
+{
+	Value_DataType.addToStreamEx(stream, v.Value);
 }
 
 

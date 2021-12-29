@@ -1,4 +1,4 @@
-﻿
+
 #include "MessageReader.h"
 #include "Messages.h"
 #include "KBDebug.h"

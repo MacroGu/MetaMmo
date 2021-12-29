@@ -1,4 +1,4 @@
-﻿
+
 #include "EntityCall.h"
 #include "EntityDef.h"
 #include "Bundle.h"

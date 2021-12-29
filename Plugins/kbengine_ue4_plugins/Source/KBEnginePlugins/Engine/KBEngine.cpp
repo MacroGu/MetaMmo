@@ -1,4 +1,4 @@
-﻿
+
 #include "KBEngine.h"
 #include "KBEngineArgs.h"
 #include "Entity.h"
@@ -41,7 +41,7 @@ KBEngineApp::KBEngineApp() :
 	serverScriptVersion_(TEXT("")),
 	clientScriptVersion_(TEXT("")),
 	serverProtocolMD5_(TEXT("EB8AE9F114C8797B1E70E1A629686A27")),
-	serverEntitydefMD5_(TEXT("870C5BBBCAF6BCE4C74777E8E25237FA")),
+	serverEntitydefMD5_(TEXT("9B0C142A4A56475D12AB3B2860086B90")),
 	entity_uuid_(0),
 	entity_id_(0),
 	entity_type_(TEXT("")),
@@ -84,7 +84,7 @@ KBEngineApp::KBEngineApp(KBEngineArgs* pArgs):
 	serverScriptVersion_(TEXT("")),
 	clientScriptVersion_(TEXT("")),
 	serverProtocolMD5_(TEXT("EB8AE9F114C8797B1E70E1A629686A27")),
-	serverEntitydefMD5_(TEXT("870C5BBBCAF6BCE4C74777E8E25237FA")),
+	serverEntitydefMD5_(TEXT("9B0C142A4A56475D12AB3B2860086B90")),
 	entity_uuid_(0),
 	entity_id_(0),
 	entity_type_(TEXT("")),

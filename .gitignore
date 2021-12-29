@@ -9,4 +9,5 @@ Saved/
 *.sln
 *.opendb
 *.ipch
+/Build
 /DerivedDataCache
