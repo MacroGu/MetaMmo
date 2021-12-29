@@ -1,4 +1,4 @@
-﻿#include "EntityDef.h"
+#include "EntityDef.h"
 #include "DataTypes.h"
 #include "CustomDataTypes.h"
 #include "ScriptModule.h"

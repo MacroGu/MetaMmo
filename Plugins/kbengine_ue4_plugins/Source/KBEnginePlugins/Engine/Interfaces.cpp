@@ -1,3 +1,3 @@
-﻿#include "Interfaces.h"
+#include "Interfaces.h"
 #include "KBDebug.h"
 

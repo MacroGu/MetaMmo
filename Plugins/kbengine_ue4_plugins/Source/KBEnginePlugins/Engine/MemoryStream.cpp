@@ -1,4 +1,4 @@
-﻿
+
 #include "MemoryStream.h"
 #include "KBDebug.h"
 #include "ObjectPool.h"

@@ -1,4 +1,4 @@
-﻿
+
 #include "DataTypes.h"
 #include "MemoryStream.h"
 #include "EntityDef.h"

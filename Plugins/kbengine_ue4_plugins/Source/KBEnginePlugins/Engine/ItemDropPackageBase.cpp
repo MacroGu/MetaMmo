@@ -1,4 +1,4 @@
-﻿#include "ItemDropPackageBase.h"
+#include "ItemDropPackageBase.h"
 #include "KBVar.h"
 #include "EntityDef.h"
 #include "ScriptModule.h"

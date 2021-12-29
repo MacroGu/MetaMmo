@@ -30,7 +30,7 @@ void UExLoginWidget::LoginButtonEvent()
 	}
 
 	TArray<uint8> LoginData;
-	FString ProjectName("KBECoursePro");
+	FString ProjectName("");
 
 	for (int i = 0; i < ProjectName.Len(); ++i)
 	{

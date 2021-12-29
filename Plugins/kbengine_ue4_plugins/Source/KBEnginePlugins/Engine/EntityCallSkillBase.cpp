@@ -1,4 +1,4 @@
-﻿#include "EntityCallSkillBase.h"
+#include "EntityCallSkillBase.h"
 #include "EntityDef.h"
 #include "Bundle.h"
 

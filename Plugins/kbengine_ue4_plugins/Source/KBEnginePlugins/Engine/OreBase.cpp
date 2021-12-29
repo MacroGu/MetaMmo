@@ -1,4 +1,4 @@
-﻿#include "OreBase.h"
+#include "OreBase.h"
 #include "KBVar.h"
 #include "EntityDef.h"
 #include "ScriptModule.h"

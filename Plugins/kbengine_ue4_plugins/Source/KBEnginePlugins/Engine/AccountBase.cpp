@@ -1,4 +1,4 @@
-﻿#include "AccountBase.h"
+#include "AccountBase.h"
 #include "KBVar.h"
 #include "EntityDef.h"
 #include "ScriptModule.h"

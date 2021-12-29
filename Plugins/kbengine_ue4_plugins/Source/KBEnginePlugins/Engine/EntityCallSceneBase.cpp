@@ -1,4 +1,4 @@
-﻿#include "EntityCallSceneBase.h"
+#include "EntityCallSceneBase.h"
 #include "EntityDef.h"
 #include "Bundle.h"
 
