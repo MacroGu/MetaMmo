@@ -16,6 +16,12 @@ void KBEngine::Account::__init__()
 {
 
 
+	// 触发登录成功事件
+	UKBEventData_onLoginSuccessfully* EventData = NewObject<UKBEventData_onLoginSuccessfully>();
+	EventData->entity_uuid = KBEngineApp::getSingleton().entity_uuid();
+	EventData->entity_id = id();
+	KBENGINE_EVENT_FIRE("onLoginSuccessfully", EventData);
+
 }
 
 void KBEngine::Account::onDestroy()
