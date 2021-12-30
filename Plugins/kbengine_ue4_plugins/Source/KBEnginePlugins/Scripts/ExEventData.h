@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Engine/KBEvent.h"
+#include "Engine/KBETypes.h"
 #include "UObject/NoExportTypes.h"
 #include "ExEventData.generated.h"
 
@@ -564,6 +565,116 @@ public:
 	UPROPERTY()
 		uint64 DesRoomId;
 
+};
+
+
+
+// for meta mmo game new
+// ----------------  req --------------------------------------------
+UCLASS()
+class KBENGINEPLUGINS_API UKBEventData_reqAvatarList : public UKBEventData
+{
+	GENERATED_BODY()
+
+public:
+
+};
+
+UCLASS()
+class KBENGINEPLUGINS_API UKBEventData_reqCreateAvatar : public UKBEventData
+{
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY()
+	uint8 RoleType;
+
+	UPROPERTY()
+	FString Name;
+
+	UPROPERTY()
+	TArray<uint8> Facade;
+
+};
+
+UCLASS()
+class KBENGINEPLUGINS_API UKBEventData_reqEnterGame : public UKBEventData
+{
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY()
+	uint64 DatabaseID;
+
+};
+
+UCLASS()
+class KBENGINEPLUGINS_API UKBEventData_reqRemoveAvatar : public UKBEventData
+{
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY()
+	uint64 dbid;
+
+};
+
+// ----------------  rsp --------------------------------------------
+UCLASS()
+class KBENGINEPLUGINS_API UKBEventData_rspCreateAvatar : public UKBEventData {
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY()
+	uint32 ErrorCode;
+};
+
+UCLASS()
+class KBENGINEPLUGINS_API UKBEventData_rspRemoveAvatar : public UKBEventData {
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY()
+	uint32 ErrorCode;
+};
+
+UCLASS()
+class KBENGINEPLUGINS_API UKBEventData_rspEnterGame : public UKBEventData {
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY()
+		uint32 ErrorCode;
+};
+
+UCLASS()
+class KBENGINEPLUGINS_API UKBEventData_rspAvatarList : public UKBEventData {
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY()
+	AVATAR_BRIEF_INFO_LIST AvatarList;
+
+	UPROPERTY()
+	uint64 dbid;
+
+};
+
+UCLASS()
+class KBENGINEPLUGINS_API UKBEventData_rspSwitchAvatar : public UKBEventData {
+	GENERATED_BODY()
+
+public:
+
+	UPROPERTY()
+	uint32 ErrorCode;
 };
 
 /**
