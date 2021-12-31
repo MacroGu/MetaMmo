@@ -4,7 +4,7 @@
 #include "Scene/ExActorEntity.h"
 #include "Engine/KBEngine.h"
 #include "Engine/Entity.h"
-#include "Center/ExMmoGameMode.h"
+#include "Center/MetaMmoGameMode.h"
 
 
 

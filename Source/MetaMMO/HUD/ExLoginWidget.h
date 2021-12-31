@@ -9,7 +9,7 @@
 
 class UEditableTextBox;
 class UTextBlock;
-class AExLoginGameMode;
+class AMetaLoginGameMode;
 
 /**
  * 
@@ -31,7 +31,7 @@ public:
 
 public:
 
-	AExLoginGameMode* LoginGameMode;
+	AMetaLoginGameMode* LoginGameMode;
 
 	UPROPERTY(Meta = (BindWidget))
 	UEditableTextBox* UserNameBox;

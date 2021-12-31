@@ -2,7 +2,7 @@
 
 
 #include "Scene/ExSkillActor.h"
-#include "Center/ExMmoGameMode.h"
+#include "Center/MetaMmoGameMode.h"
 #include "Particles/ParticleSystemComponent.h"
 #include "Engine/World.h"
 #include "Components/AudioComponent.h"

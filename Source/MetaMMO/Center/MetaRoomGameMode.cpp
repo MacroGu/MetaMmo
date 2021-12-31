@@ -1,7 +1,7 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Center/ExRoomGameMode.h"
+#include "Center/MetaRoomGameMode.h"
 #include <Kismet/GameplayStatics.h>
 
 #include "Engine/KBEngine.h"
@@ -12,19 +12,19 @@
 
 
 
-void AExRoomGameMode::OnReqRoomList(const UKBEventData* EventData)
+void AMetaRoomGameMode::OnReqRoomList(const UKBEventData* EventData)
 {
 	const UKBEventData_OnReqRoomList* ServerData = Cast<UKBEventData_OnReqRoomList>(EventData);
 	RoomWidget->OnReqRoomList(ServerData->RoomList);
 }
 
-void AExRoomGameMode::OnCreateRoom(const UKBEventData* EventData)
+void AMetaRoomGameMode::OnCreateRoom(const UKBEventData* EventData)
 {
 	const UKBEventData_OnCreateRoom* ServerData = Cast<UKBEventData_OnCreateRoom>(EventData);
 	RoomWidget->OnCreateRoom(ServerData->RoomInfo);
 }
 
-void AExRoomGameMode::AddSpaceGeometryMapping(const UKBEventData* EventData)
+void AMetaRoomGameMode::AddSpaceGeometryMapping(const UKBEventData* EventData)
 {
 	const UKBEventData_addSpaceGeometryMapping* ServerData = Cast<UKBEventData_addSpaceGeometryMapping>(EventData);
 
@@ -35,7 +35,7 @@ void AExRoomGameMode::AddSpaceGeometryMapping(const UKBEventData* EventData)
 	UGameplayStatics::OpenLevel(GetWorld(), FName(*MapName));
 }
 
-void AExRoomGameMode::BeginPlay()
+void AMetaRoomGameMode::BeginPlay()
 {
 
 	RoomWidget = CreateWidget<UExRoomWidget>(GetWorld(), RoomWidgetClass);
@@ -52,7 +52,7 @@ void AExRoomGameMode::BeginPlay()
 
 
 
-void AExRoomGameMode::InstallEvent()
+void AMetaRoomGameMode::InstallEvent()
 {
 	Super::InstallEvent();
 

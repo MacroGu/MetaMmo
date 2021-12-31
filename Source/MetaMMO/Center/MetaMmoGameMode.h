@@ -3,8 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Center/ExKbeGameMode.h"
-#include "ExMmoGameMode.generated.h"
+#include "Center/MetaKbeGameMode.h"
+#include "MetaMmoGameMode.generated.h"
 
 class AExCharacterEntity;
 class AExPlayerCharacter;
@@ -19,7 +19,7 @@ class UExMmoWidget;
  * 
  */
 UCLASS()
-class METAMMO_API AExMmoGameMode : public AExKbeGameMode
+class METAMMO_API AMetaMmoGameMode : public AMetaKbeGameMode
 {
 	GENERATED_BODY()
 

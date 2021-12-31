@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
-#include "ExKbeGameMode.generated.h"
+#include "MetaKbeGameMode.generated.h"
 
 class UKBEventData;
 
@@ -12,13 +12,13 @@ class UKBEventData;
  * 
  */
 UCLASS()
-class METAMMO_API AExKbeGameMode : public AGameModeBase
+class METAMMO_API AMetaKbeGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
 	
 
 public:
-	AExKbeGameMode();
+	AMetaKbeGameMode();
 
 	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 

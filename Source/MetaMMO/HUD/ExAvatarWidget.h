@@ -7,7 +7,7 @@
 #include "Button.h"
 #include "ExAvatarWidget.generated.h"
 
-class AExAvatarGameMode;
+class AMetaAvatarGameMode;
 class UButton;
 class UHorizontalBox;
 class UEditableTextBox;
@@ -55,7 +55,7 @@ public:
 	UPROPERTY(EditAnywhere)
 		TSubclassOf<UExRoleItem> RoleItemClass;
 
-	AExAvatarGameMode* RoleGameMode;
+	AMetaAvatarGameMode* RoleGameMode;
 
 	UPROPERTY(Meta = (BindWidget))
 		UScrollBox* RoleItemScroll;

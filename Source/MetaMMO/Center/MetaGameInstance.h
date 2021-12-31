@@ -4,13 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "Engine/GameInstance.h"
-#include "ExGameInstance.generated.h"
+#include "MetaGameInstance.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class METAMMO_API UExGameInstance : public UGameInstance
+class METAMMO_API UMetaGameInstance : public UGameInstance
 {
 	GENERATED_BODY()
 

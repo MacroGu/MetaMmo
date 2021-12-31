@@ -4,19 +4,19 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "ExKBEClient.generated.h"
+#include "MetaKBEClient.generated.h"
 
 class UKBEMain;
 
 
 UCLASS()
-class METAMMO_API AExKBEClient : public AActor
+class METAMMO_API AMetaKBEClient : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	AExKBEClient();
+	AMetaKBEClient();
 
 public:
 

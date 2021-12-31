@@ -6,7 +6,7 @@
 #include "GameFramework/Character.h"
 #include "ExCharacterEntity.generated.h"
 
-class AExMmoGameMode;
+class AMetaMmoGameMode;
 class UAnimInstance;
 class UAnimMontage;
 
@@ -42,7 +42,7 @@ public:
 
 	FString RoleName;
 
-	AExMmoGameMode* MmoGameMode;
+	AMetaMmoGameMode* MmoGameMode;
 
 	bool IsPlayer;
 

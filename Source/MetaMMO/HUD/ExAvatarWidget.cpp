@@ -14,7 +14,7 @@
 #include "WidgetTree.h"
 #include "ScrollBox.h"
 #include "ScrollBoxSlot.h"
-#include "Center/ExAvatarGameMode.h"
+#include "Center/MetaAvatarGameMode.h"
 #include "Scene/ExRenderActor.h"
 
 

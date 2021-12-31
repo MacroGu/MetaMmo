@@ -3,8 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Center/ExKbeGameMode.h"
-#include "ExRoomGameMode.generated.h"
+#include "Center/MetaKbeGameMode.h"
+#include "MetaRoomGameMode.generated.h"
 
 
 class UExRoomWidget;
@@ -14,7 +14,7 @@ class UKBEventData;
  * 
  */
 UCLASS()
-class METAMMO_API AExRoomGameMode : public AExKbeGameMode
+class METAMMO_API AMetaRoomGameMode : public AMetaKbeGameMode
 {
 	GENERATED_BODY()
 

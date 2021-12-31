@@ -7,7 +7,7 @@
 #include "ExRoomWidget.generated.h"
 
 
-class AExRoomGameMode;
+class AMetaRoomGameMode;
 class UScrollBox;
 class UEditableTextBox;
 class UExRoomItem;
@@ -24,7 +24,7 @@ class METAMMO_API UExRoomWidget : public UUserWidget
 	
 public:
 
-	AExRoomGameMode* RoomGameMode;
+	AMetaRoomGameMode* RoomGameMode;
 
 	UPROPERTY(Meta = (BindWidget))
 		UScrollBox* RoomListScroll;

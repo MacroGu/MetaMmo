@@ -1,7 +1,7 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Center/ExAvatarGameMode.h"
+#include "Center/MetaAvatarGameMode.h"
 #include <Kismet/GameplayStatics.h>
 
 #include "Scripts/ExEventData.h"
@@ -14,7 +14,7 @@
 
 
 
-void AExAvatarGameMode::InstallEvent()
+void AMetaAvatarGameMode::InstallEvent()
 {
 
 	Super::InstallEvent();
@@ -26,7 +26,7 @@ void AExAvatarGameMode::InstallEvent()
 
 }
 
-void AExAvatarGameMode::BeginPlay()
+void AMetaAvatarGameMode::BeginPlay()
 {
 	// 生成界面以及获取渲染Actor
 	for (TActorIterator<AExRenderActor> ActorIt(GetWorld()); ActorIt; ++ActorIt)
@@ -42,7 +42,7 @@ void AExAvatarGameMode::BeginPlay()
 
 }
 
-void AExAvatarGameMode::OnReqRoleList(const UKBEventData* EventData)
+void AMetaAvatarGameMode::OnReqRoleList(const UKBEventData* EventData)
 {
 	const UKBEventData_OnReqRoleList* ServerData = Cast<UKBEventData_OnReqRoleList>(EventData);
 	// 告诉角色界面角色列表来生成角色表
@@ -50,7 +50,7 @@ void AExAvatarGameMode::OnReqRoleList(const UKBEventData* EventData)
 
 }
 
-void AExAvatarGameMode::OnCreateRole(const UKBEventData* EventData)
+void AMetaAvatarGameMode::OnCreateRole(const UKBEventData* EventData)
 {
 	const UKBEventData_OnCreateRole* ServerData = Cast<UKBEventData_OnCreateRole>(EventData);
 	// 如果 errorcode 不为 0 ， 说明创建不成功
@@ -60,14 +60,14 @@ void AExAvatarGameMode::OnCreateRole(const UKBEventData* EventData)
 	}
 }
 
-void AExAvatarGameMode::OnRemoveRole(const UKBEventData* EventData)
+void AMetaAvatarGameMode::OnRemoveRole(const UKBEventData* EventData)
 {
 	const UKBEventData_OnRemoveRole* ServerData = Cast<UKBEventData_OnRemoveRole>(EventData);
 
 	RoleWidget->OnRemoveRole(ServerData->RoleInfo);
 }
 
-void AExAvatarGameMode::OnSelectRoleGame(const UKBEventData* EventData)
+void AMetaAvatarGameMode::OnSelectRoleGame(const UKBEventData* EventData)
 {
 	const UKBEventData_OnSelectRoleGame* ServerData = Cast<UKBEventData_OnSelectRoleGame>(EventData);
 

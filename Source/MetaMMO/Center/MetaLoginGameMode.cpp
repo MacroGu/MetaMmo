@@ -1,17 +1,17 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Center/ExLoginGameMode.h"
+#include "Center/MetaLoginGameMode.h"
 #include "Engine/KBEngine.h"
 #include "Scripts/ExCommon.h"
 #include "Engine/KBEvent.h"
 #include "Engine/KBEMain.h"
 #include "HUD/ExLoginWidget.h"
-#include "ExKBEClient.h"
+#include "MetaKBEClient.h"
 
 
 
-void AExLoginGameMode::InstallEvent()
+void AMetaLoginGameMode::InstallEvent()
 {
 	Super::InstallEvent();
 
@@ -32,7 +32,7 @@ void AExLoginGameMode::InstallEvent()
 
 }
 
-void AExLoginGameMode::BeginPlay()
+void AMetaLoginGameMode::BeginPlay()
 {
 	// 每次进入到登录界面时先清理一次KBE， 否则KBE插件缓存内容一直存在
 	KBEngine::KBEngineApp::getSingleton().reset();
@@ -45,14 +45,14 @@ void AExLoginGameMode::BeginPlay()
 	LoginWidget->InitWidget();
 
 
-	for (TActorIterator<AExKBEClient> ActorIt(GetWorld()); ActorIt; ++ActorIt)
+	for (TActorIterator<AMetaKBEClient> ActorIt(GetWorld()); ActorIt; ++ActorIt)
 	{
 		KBEMain = (*ActorIt)->KBEMain;
 	}
 
 }
 
-void AExLoginGameMode::OnCreateAccountResult(const UKBEventData* pEventData)
+void AMetaLoginGameMode::OnCreateAccountResult(const UKBEventData* pEventData)
 {
 
 	const UKBEventData_onCreateAccountResult* ServerData = Cast<UKBEventData_onCreateAccountResult>(pEventData);
@@ -60,38 +60,38 @@ void AExLoginGameMode::OnCreateAccountResult(const UKBEventData* pEventData)
 
 }
 
-void AExLoginGameMode::OnLoginFailed(const UKBEventData* pEventData)
+void AMetaLoginGameMode::OnLoginFailed(const UKBEventData* pEventData)
 {
 	const UKBEventData_onLoginFailed* ServerData = Cast<UKBEventData_onLoginFailed>(pEventData);
 	DDH::Debug() << "OnLoginFailed, failedcode: " << ServerData->failedcode << " errorStr: " << ServerData->errorStr << DDH::Endl();
 }
 
-void AExLoginGameMode::OnVersionNotMatch(const UKBEventData* pEventData)
+void AMetaLoginGameMode::OnVersionNotMatch(const UKBEventData* pEventData)
 {
 	const UKBEventData_onVersionNotMatch* ServerData = Cast<UKBEventData_onVersionNotMatch>(pEventData);
 	DDH::Debug() << "OnVersionNotMatch, clientVersion: " << ServerData->clientVersion << " serverVersion: " << ServerData->serverVersion << DDH::Endl();
 }
 
-void AExLoginGameMode::OnScriptVersionNotMatch(const UKBEventData* pEventData)
+void AMetaLoginGameMode::OnScriptVersionNotMatch(const UKBEventData* pEventData)
 {
 	const UKBEventData_onScriptVersionNotMatch* ServerData = Cast<UKBEventData_onScriptVersionNotMatch>(pEventData);
 	DDH::Debug() << "OnScriptVersionNotMatch, clientScriptVersion: " << ServerData->clientScriptVersion << " serverScriptVersion: " << ServerData->serverScriptVersion << DDH::Endl();
 
 }
 
-void AExLoginGameMode::OnLoginBaseappFailed(const UKBEventData* pEventData)
+void AMetaLoginGameMode::OnLoginBaseappFailed(const UKBEventData* pEventData)
 {
 	const UKBEventData_onLoginBaseappFailed* ServerData = Cast<UKBEventData_onLoginBaseappFailed>(pEventData);
 	DDH::Debug() << "OnLoginBaseappFailed, failedcode: " << ServerData->failedcode << " errorStr: " << ServerData->errorStr << DDH::Endl();
 }
 
-void AExLoginGameMode::OnLoginBaseapp(const UKBEventData* pEventData)
+void AMetaLoginGameMode::OnLoginBaseapp(const UKBEventData* pEventData)
 {
 	const UKBEventData_onLoginBaseapp* ServerData = Cast<UKBEventData_onLoginBaseapp>(pEventData);
 	DDH::Debug() << "OnLoginBaseapp, eventName: " << ServerData->eventName << DDH::Endl();
 }
 
-void AExLoginGameMode::OnLoginSuccessfully(const UKBEventData* pEventData)
+void AMetaLoginGameMode::OnLoginSuccessfully(const UKBEventData* pEventData)
 {
 	const UKBEventData_onLoginSuccessfully* ServerData = Cast<UKBEventData_onLoginSuccessfully>(pEventData);
 	DDH::Debug() << "OnLoginBaseappFailed, entity_uuid: " << ServerData->entity_uuid << " entity_id: " << ServerData->entity_id << DDH::Endl();

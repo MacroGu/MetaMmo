@@ -6,7 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "ExActorEntity.generated.h"
 
-class AExMmoGameMode;
+class AMetaMmoGameMode;
 
 UCLASS()
 class METAMMO_API AExActorEntity : public AActor
@@ -25,7 +25,7 @@ public:
 
 	int32 EntityId;
 
-	AExMmoGameMode* MmoGameMode;
+	AMetaMmoGameMode* MmoGameMode;
 
 protected:
 

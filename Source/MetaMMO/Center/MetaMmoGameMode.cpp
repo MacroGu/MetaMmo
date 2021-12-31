@@ -1,7 +1,7 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Center/ExMmoGameMode.h"
+#include "Center/MetaMmoGameMode.h"
 #include <Kismet/GameplayStatics.h>
 #include "Engine/KBEngine.h"
 #include "Engine/Entity.h"
@@ -13,7 +13,7 @@
 #include "Scripts/Monster.h"
 #include "Scripts/ExEventData.h"
 #include "HUD/ExMmoWidget.h"
-#include "Center/ExGameInstance.h"
+#include "Center/MetaGameInstance.h"
 #include "Player/ExMonsterCharacter.h"
 #include "Scene/ExSkillActor.h"
 #include "Scripts/Skill.h"
@@ -22,7 +22,7 @@
 
 
 
-void AExMmoGameMode::InstallEvent()
+void AMetaMmoGameMode::InstallEvent()
 {
 	Super::InstallEvent();
 
@@ -50,10 +50,10 @@ void AExMmoGameMode::InstallEvent()
 
 }
 
-void AExMmoGameMode::BeginPlay()
+void AMetaMmoGameMode::BeginPlay()
 {
 	//获取 GameInstance
-	UExGameInstance* GameInstance = Cast<UExGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
+	UMetaGameInstance* GameInstance = Cast<UMetaGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 	// 创建UI
 	MmoWidget = CreateWidget<UExMmoWidget>(GetWorld(), MmoWidgetClass);
 	MmoWidget->AddToViewport();
@@ -88,7 +88,7 @@ void AExMmoGameMode::BeginPlay()
 
 }
 
-void AExMmoGameMode::OnEnterWorld(const UKBEventData* EventData)
+void AMetaMmoGameMode::OnEnterWorld(const UKBEventData* EventData)
 {
 
 	const UKBEventData_onEnterWorld* ServerData = Cast<UKBEventData_onEnterWorld>(EventData);
@@ -195,7 +195,7 @@ void AExMmoGameMode::OnEnterWorld(const UKBEventData* EventData)
 	}
 }
 
-void AExMmoGameMode::OnLeaveWorld(const UKBEventData* EventData)
+void AMetaMmoGameMode::OnLeaveWorld(const UKBEventData* EventData)
 {
 	const UKBEventData_onLeaveWorld* ServerData = Cast<UKBEventData_onLeaveWorld>(EventData);
 
@@ -231,17 +231,17 @@ void AExMmoGameMode::OnLeaveWorld(const UKBEventData* EventData)
 	}
 }
 
-void AExMmoGameMode::OnEnterSpace(const UKBEventData* EventData)
+void AMetaMmoGameMode::OnEnterSpace(const UKBEventData* EventData)
 {
 
 }
 
-void AExMmoGameMode::OnLeaveSpace(const UKBEventData* EventData)
+void AMetaMmoGameMode::OnLeaveSpace(const UKBEventData* EventData)
 {
 
 }
 
-void AExMmoGameMode::SetPosition(const UKBEventData* EventData)
+void AMetaMmoGameMode::SetPosition(const UKBEventData* EventData)
 {
 	const UKBEventData_set_position* ServerData = Cast<UKBEventData_set_position>(EventData);
 
@@ -267,7 +267,7 @@ void AExMmoGameMode::SetPosition(const UKBEventData* EventData)
 	}
 }
 
-void AExMmoGameMode::SetDirection(const UKBEventData* EventData)
+void AMetaMmoGameMode::SetDirection(const UKBEventData* EventData)
 {
 	const UKBEventData_set_direction* ServerData = Cast<UKBEventData_set_direction>(EventData);
 
@@ -292,7 +292,7 @@ void AExMmoGameMode::SetDirection(const UKBEventData* EventData)
 
 }
 
-void AExMmoGameMode::UpdatePosition(const UKBEventData* EventData)
+void AMetaMmoGameMode::UpdatePosition(const UKBEventData* EventData)
 {
 	const UKBEventData_updatePosition* ServerData = Cast<UKBEventData_updatePosition>(EventData);
 
@@ -317,7 +317,7 @@ void AExMmoGameMode::UpdatePosition(const UKBEventData* EventData)
 
 }
 
-void AExMmoGameMode::OnAnimUpdate(const UKBEventData* EventData)
+void AMetaMmoGameMode::OnAnimUpdate(const UKBEventData* EventData)
 {
 	const UKBEventData_OnAnimUpdate* ServerData = Cast<UKBEventData_OnAnimUpdate>(EventData);
 
@@ -329,7 +329,7 @@ void AExMmoGameMode::OnAnimUpdate(const UKBEventData* EventData)
 
 }
 
-void AExMmoGameMode::SetBaseHP(const UKBEventData* EventData)
+void AMetaMmoGameMode::SetBaseHP(const UKBEventData* EventData)
 {
 	const UKBEventData_SetBaseHP* ServerData = Cast<UKBEventData_SetBaseHP>(EventData);
 	if (ServerData->IsPlayer)
@@ -358,7 +358,7 @@ void AExMmoGameMode::SetBaseHP(const UKBEventData* EventData)
 
 }
 
-void AExMmoGameMode::SetHP(const UKBEventData* EventData)
+void AMetaMmoGameMode::SetHP(const UKBEventData* EventData)
 {
 	const UKBEventData_SetHP* ServerData = Cast<UKBEventData_SetHP>(EventData);
 	if (ServerData->IsPlayer)
@@ -383,7 +383,7 @@ void AExMmoGameMode::SetHP(const UKBEventData* EventData)
 
 }
 
-void AExMmoGameMode::SetDefense(const UKBEventData* EventData)
+void AMetaMmoGameMode::SetDefense(const UKBEventData* EventData)
 {
 	// 防御力只有玩家更新，防御力只更新UI显示
 	const UKBEventData_SetDefense* ServerData = Cast<UKBEventData_SetDefense>(EventData);
@@ -395,7 +395,7 @@ void AExMmoGameMode::SetDefense(const UKBEventData* EventData)
 
 }
 
-void AExMmoGameMode::SetPowerRatio(const UKBEventData* EventData)
+void AMetaMmoGameMode::SetPowerRatio(const UKBEventData* EventData)
 {
 	// 力量只有玩家更新，力量只更新UI显示
 	const UKBEventData_SetPowerRatio* ServerData = Cast<UKBEventData_SetPowerRatio>(EventData);
@@ -406,7 +406,7 @@ void AExMmoGameMode::SetPowerRatio(const UKBEventData* EventData)
 	}
 }
 
-void AExMmoGameMode::SetSpeedRatio(const UKBEventData* EventData)
+void AMetaMmoGameMode::SetSpeedRatio(const UKBEventData* EventData)
 {
 	// 速度只有玩家更新，速度只更新UI显示
 	const UKBEventData_SetSpeedRatio* ServerData = Cast<UKBEventData_SetSpeedRatio>(EventData);
@@ -425,7 +425,7 @@ void AExMmoGameMode::SetSpeedRatio(const UKBEventData* EventData)
 
 }
 
-void AExMmoGameMode::OnAttack(const UKBEventData* EventData)
+void AMetaMmoGameMode::OnAttack(const UKBEventData* EventData)
 {
 	const UKBEventData_OnAttack* ServerData = Cast<UKBEventData_OnAttack>(EventData);
 
@@ -441,7 +441,7 @@ void AExMmoGameMode::OnAttack(const UKBEventData* EventData)
 	}
 }
 
-void AExMmoGameMode::UnInstallEvent()
+void AMetaMmoGameMode::UnInstallEvent()
 {
 	Super::UnInstallEvent();
 
@@ -449,12 +449,12 @@ void AExMmoGameMode::UnInstallEvent()
 
 }
 
-void AExMmoGameMode::OnLeaveRoom(const UKBEventData* EventData)
+void AMetaMmoGameMode::OnLeaveRoom(const UKBEventData* EventData)
 {
 	UGameplayStatics::OpenLevel(GetWorld(), FName("RoleMap"));
 }
 
-void AExMmoGameMode::AddSpaceGeometryMapping(const UKBEventData* EventData)
+void AMetaMmoGameMode::AddSpaceGeometryMapping(const UKBEventData* EventData)
 {
 	const UKBEventData_addSpaceGeometryMapping* ServerData = Cast<UKBEventData_addSpaceGeometryMapping>(EventData);
 

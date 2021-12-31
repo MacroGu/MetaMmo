@@ -11,9 +11,9 @@
 #include "Scripts/ExCommon.h"
 #include "WidgetTree.h"
 #include "EditableTextBox.h"
-#include "Center/ExRoomGameMode.h"
+#include "Center/MetaRoomGameMode.h"
 #include <Kismet/GameplayStatics.h>
-#include "Center/ExGameInstance.h"
+#include "Center/MetaGameInstance.h"
 
 
 
@@ -106,7 +106,7 @@ void UExRoomWidget::EnterGameEvent()
 		if (RoomItemGroup[i]->IsSelected)
 		{
 			// 保存选中的房间名字到 GameInstance
-			UExGameInstance* GameInstance = Cast<UExGameInstance>(UGameplayStatics::GetGameInstance(RoomGameMode->GetWorld()));
+			UMetaGameInstance* GameInstance = Cast<UMetaGameInstance>(UGameplayStatics::GetGameInstance(RoomGameMode->GetWorld()));
 			GameInstance->RoomName = FText::FromString(RoomItemGroup[i]->RoomInfo.Name);
 
 			UKBEventData_SelectRoomGame* EventData = NewObject<UKBEventData_SelectRoomGame>();

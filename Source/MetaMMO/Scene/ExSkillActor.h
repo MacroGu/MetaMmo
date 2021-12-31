@@ -6,7 +6,7 @@
 #include "Scene/ExActorEntity.h"
 #include "ExSkillActor.generated.h"
 
-class AExMmoGameMode;
+class AMetaMmoGameMode;
 class UParticleSystemComponent;
 class UParticleSystem;
 class UAudioComponent;

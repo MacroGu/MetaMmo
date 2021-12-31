@@ -4,7 +4,7 @@
 #include "Scene/ExFlobActor.h"
 #include "Materials/MaterialInstanceDynamic.h"
 #include "Components/StaticMeshComponent.h"
-#include "Center/ExMmoGameMode.h"
+#include "Center/MetaMmoGameMode.h"
 #include "Data/ExDataMgr.h"
 
 

@@ -4,8 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
-#include "Center/ExKbeGameMode.h"
-#include "ExLoginGameMode.generated.h"
+#include "Center/MetaKbeGameMode.h"
+#include "MetaLoginGameMode.generated.h"
 
 class UKBEMain;
 class UExLoginWidget;
@@ -15,7 +15,7 @@ class UKBEventData;
  * 
  */
 UCLASS()
-class METAMMO_API AExLoginGameMode : public AExKbeGameMode
+class METAMMO_API AMetaLoginGameMode : public AMetaKbeGameMode
 {
 	GENERATED_BODY()
 

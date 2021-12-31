@@ -3,8 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Center/ExKbeGameMode.h"
-#include "ExAvatarGameMode.generated.h"
+#include "Center/MetaKbeGameMode.h"
+#include "MetaAvatarGameMode.generated.h"
 
 class UExAvatarWidget;
 class AExRenderActor;
@@ -13,7 +13,7 @@ class AExRenderActor;
  * 
  */
 UCLASS()
-class METAMMO_API AExAvatarGameMode : public AExKbeGameMode
+class METAMMO_API AMetaAvatarGameMode : public AMetaKbeGameMode
 {
 	GENERATED_BODY()
 	

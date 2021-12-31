@@ -2,7 +2,7 @@
 
 
 #include "Player/ExCharacterEntity.h"
-#include "Center/ExMmoGameMode.h"
+#include "Center/MetaMmoGameMode.h"
 #include "Engine/KBEngine.h"
 #include "Engine/Entity.h"
 #include "Components/SkeletalMeshComponent.h"

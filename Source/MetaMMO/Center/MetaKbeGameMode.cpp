@@ -1,7 +1,7 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Center/ExKbeGameMode.h"
+#include "Center/MetaKbeGameMode.h"
 #include "Engine/KBEngine.h"
 #include "Scripts/ExCommon.h"
 #include "Engine/World.h"
@@ -9,27 +9,27 @@
 
 
 
-AExKbeGameMode::AExKbeGameMode()
+AMetaKbeGameMode::AMetaKbeGameMode()
 {
 	PrimaryActorTick.bCanEverTick = false;
 
 }
 
-void AExKbeGameMode::EndPlay(const EEndPlayReason::Type EndPlayReason)
+void AMetaKbeGameMode::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
 	Super::EndPlay(EndPlayReason);
 	UnInstallEvent();
 
 }
 
-void AExKbeGameMode::BeginPlay()
+void AMetaKbeGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 	InstallEvent();
 
 }
 
-void AExKbeGameMode::InstallEvent()
+void AMetaKbeGameMode::InstallEvent()
 {
 	// 注册最基本的回调事件
 	KBENGINE_REGISTER_EVENT(KBEngine::KBEventTypes::onKicked, OnKicked);
@@ -41,13 +41,13 @@ void AExKbeGameMode::InstallEvent()
 
 }
 
-void AExKbeGameMode::UnInstallEvent()
+void AMetaKbeGameMode::UnInstallEvent()
 {
 	KBENGINE_DEREGISTER_ALL_EVENT();
 
 }
 
-void AExKbeGameMode::OnKicked(const UKBEventData* EventData)
+void AMetaKbeGameMode::OnKicked(const UKBEventData* EventData)
 {
 	const UKBEventData_onKicked* ServerData = Cast<UKBEventData_onKicked>(EventData);
 
@@ -55,7 +55,7 @@ void AExKbeGameMode::OnKicked(const UKBEventData* EventData)
 
 }
 
-void AExKbeGameMode::OnDisconnected(const UKBEventData* EventData)
+void AMetaKbeGameMode::OnDisconnected(const UKBEventData* EventData)
 {
 
 	const UKBEventData_onDisconnected* ServerData = Cast<UKBEventData_onDisconnected>(EventData);
@@ -63,13 +63,13 @@ void AExKbeGameMode::OnDisconnected(const UKBEventData* EventData)
 
 }
 
-void AExKbeGameMode::OnConnectionState(const UKBEventData* EventData)
+void AMetaKbeGameMode::OnConnectionState(const UKBEventData* EventData)
 {
 	const UKBEventData_onConnectionState* ServerData = Cast<UKBEventData_onConnectionState>(EventData);
 	DDH::Debug() << "UKBEventData_onConnectionState: address --> " << ServerData->address << " success: " << ServerData->success << DDH::Endl();
 }
 
-void AExKbeGameMode::OnReloginBaseappSuccessfully(const UKBEventData* EventData)
+void AMetaKbeGameMode::OnReloginBaseappSuccessfully(const UKBEventData* EventData)
 {
 	const UKBEventData_onReloginBaseappSuccessfully* ServerData = Cast<UKBEventData_onReloginBaseappSuccessfully>(EventData);
 	DDH::Debug() << "UKBEventData_onReloginBaseappSuccessfully, EventName:  " << ServerData->eventName << DDH::Endl();
@@ -78,23 +78,23 @@ void AExKbeGameMode::OnReloginBaseappSuccessfully(const UKBEventData* EventData)
 
 }
 
-void AExKbeGameMode::OnReloginBaseappFailed(const UKBEventData* EventData)
+void AMetaKbeGameMode::OnReloginBaseappFailed(const UKBEventData* EventData)
 {
 	const UKBEventData_onReloginBaseappFailed* ServerData = Cast<UKBEventData_onReloginBaseappFailed>(EventData);
 	DDH::Debug() << "UKBEventData_onReloginBaseappFailed, failedcode:  " << ServerData->failedcode << " errorStr: " << ServerData->errorStr << DDH::Endl();
 }
 
-void AExKbeGameMode::StartReloginBaseapp()
+void AMetaKbeGameMode::StartReloginBaseapp()
 {
 	if (!ReloginHandle.IsValid())
 	{
-		GetWorld()->GetTimerManager().SetTimer(ReloginHandle, this, &AExKbeGameMode::OnReloginBaseappTimer, 1.f, true);
+		GetWorld()->GetTimerManager().SetTimer(ReloginHandle, this, &AMetaKbeGameMode::OnReloginBaseappTimer, 1.f, true);
 
 	}
 
 }
 
-void AExKbeGameMode::StopReloginBaseapp()
+void AMetaKbeGameMode::StopReloginBaseapp()
 {
 	if (ReloginHandle.IsValid())
 	{
@@ -103,7 +103,7 @@ void AExKbeGameMode::StopReloginBaseapp()
 
 }
 
-void AExKbeGameMode::OnReloginBaseappTimer()
+void AMetaKbeGameMode::OnReloginBaseappTimer()
 {
 	// 断线重连事件
 	KBEngine::KBEngineApp::getSingleton().reloginBaseapp();

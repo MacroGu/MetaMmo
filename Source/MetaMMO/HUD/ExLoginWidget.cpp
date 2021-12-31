@@ -3,7 +3,7 @@
 
 #include "HUD/ExLoginWidget.h"
 #include "EditableTextBox.h"
-#include "Center/ExLoginGameMode.h"
+#include "Center/MetaLoginGameMode.h"
 #include "Engine/KBEMain.h"
 #include "TextBlock.h"
 #include "Scripts/ExCommon.h"
