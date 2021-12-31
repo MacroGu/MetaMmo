@@ -61,25 +61,40 @@ void KBEngine::Account::onDestroy()
 
 void KBEngine::Account::rspAvatarList(const AVATAR_BRIEF_INFO_LIST& arg1, uint64 arg2)
 {
+	UKBEventData_rspAvatarList* EventData = NewObject<UKBEventData_rspAvatarList>();
+
+	EventData->AvatarList = arg1;
+	EventData->dbid = arg2;
+
+	KBENGINE_EVENT_FIRE("rspAvatarList", EventData);
 
 }
 
 void KBEngine::Account::rspCreateAvatar(uint32 arg1)
 {
+	UKBEventData_rspCreateAvatar* EventData = NewObject<UKBEventData_rspCreateAvatar>();
+	EventData->ErrorCode = arg1;
+	KBENGINE_EVENT_FIRE("rspCreateAvatar", EventData);
 
 }
 
 void KBEngine::Account::rspEnterGame(uint32 arg1)
 {
-
+	UKBEventData_rspEnterGame* EventData = NewObject<UKBEventData_rspEnterGame>();
+	EventData->ErrorCode = arg1;
+	KBENGINE_EVENT_FIRE("rspEnterGame", EventData);
 }
 
 void KBEngine::Account::rspRemoveAvatar(uint32 arg1)
 {
-
+	UKBEventData_rspRemoveAvatar* EventData = NewObject<UKBEventData_rspRemoveAvatar>();
+	EventData->ErrorCode = arg1;
+	KBENGINE_EVENT_FIRE("rspRemoveAvatar", EventData);
 }
 
 void KBEngine::Account::rspSwitchAvatar(uint32 arg1)
 {
-
+	UKBEventData_rspSwitchAvatar* EventData = NewObject<UKBEventData_rspSwitchAvatar>();
+	EventData->ErrorCode = arg1;
+	KBENGINE_EVENT_FIRE("rspSwitchAvatar", EventData);
 }

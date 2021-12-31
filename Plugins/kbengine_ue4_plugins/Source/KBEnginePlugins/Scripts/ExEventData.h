@@ -629,7 +629,6 @@ class KBENGINEPLUGINS_API UKBEventData_rspCreateAvatar : public UKBEventData {
 
 public:
 
-	UPROPERTY()
 	uint32 ErrorCode;
 };
 
@@ -639,7 +638,6 @@ class KBENGINEPLUGINS_API UKBEventData_rspRemoveAvatar : public UKBEventData {
 
 public:
 
-	UPROPERTY()
 	uint32 ErrorCode;
 };
 
@@ -649,7 +647,6 @@ class KBENGINEPLUGINS_API UKBEventData_rspEnterGame : public UKBEventData {
 
 public:
 
-	UPROPERTY()
 		uint32 ErrorCode;
 };
 
@@ -659,10 +656,8 @@ class KBENGINEPLUGINS_API UKBEventData_rspAvatarList : public UKBEventData {
 
 public:
 
-	UPROPERTY()
-	AVATAR_BRIEF_INFO_LIST AvatarList;
+	KBEngine::AVATAR_BRIEF_INFO_LIST AvatarList;
 
-	UPROPERTY()
 	uint64 dbid;
 
 };
@@ -673,7 +668,6 @@ class KBENGINEPLUGINS_API UKBEventData_rspSwitchAvatar : public UKBEventData {
 
 public:
 
-	UPROPERTY()
 	uint32 ErrorCode;
 };
 

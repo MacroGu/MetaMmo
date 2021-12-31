@@ -1,4 +1,4 @@
-
+﻿
 #include "ScriptModule.h"
 #include "Method.h"
 #include "Property.h"
