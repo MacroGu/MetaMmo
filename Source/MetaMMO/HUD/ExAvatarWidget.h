@@ -5,9 +5,9 @@
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "Button.h"
-#include "ExRoleWidget.generated.h"
+#include "ExAvatarWidget.generated.h"
 
-class AExRoleGameMode;
+class AExAvatarGameMode;
 class UButton;
 class UHorizontalBox;
 class UEditableTextBox;
@@ -22,7 +22,7 @@ class UTextBlock;
  * 
  */
 UCLASS()
-class METAMMO_API UExRoleWidget : public UUserWidget
+class METAMMO_API UExAvatarWidget : public UUserWidget
 {
 	GENERATED_BODY()
 	
@@ -55,7 +55,7 @@ public:
 	UPROPERTY(EditAnywhere)
 		TSubclassOf<UExRoleItem> RoleItemClass;
 
-	AExRoleGameMode* RoleGameMode;
+	AExAvatarGameMode* RoleGameMode;
 
 	UPROPERTY(Meta = (BindWidget))
 		UScrollBox* RoleItemScroll;

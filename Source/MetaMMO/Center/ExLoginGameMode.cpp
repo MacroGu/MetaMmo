@@ -96,6 +96,6 @@ void AExLoginGameMode::OnLoginSuccessfully(const UKBEventData* pEventData)
 	const UKBEventData_onLoginSuccessfully* ServerData = Cast<UKBEventData_onLoginSuccessfully>(pEventData);
 	DDH::Debug() << "OnLoginBaseappFailed, entity_uuid: " << ServerData->entity_uuid << " entity_id: " << ServerData->entity_id << DDH::Endl();
 
-	UGameplayStatics::OpenLevel(GetWorld(), FName("RoleMap"));
+	UGameplayStatics::OpenLevel(GetWorld(), FName("AvatarMap"));
 
 }

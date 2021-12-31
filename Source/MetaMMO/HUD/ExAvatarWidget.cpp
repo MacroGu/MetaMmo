@@ -1,7 +1,7 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "HUD/ExRoleWidget.h"
+#include "HUD/ExAvatarWidget.h"
 #include "EditableTextBox.h"
 #include "CheckBox.h"
 #include "TextBlock.h"
@@ -14,14 +14,14 @@
 #include "WidgetTree.h"
 #include "ScrollBox.h"
 #include "ScrollBoxSlot.h"
-#include "Center/ExRoleGameMode.h"
+#include "Center/ExAvatarGameMode.h"
 #include "Scene/ExRenderActor.h"
 
 
 
 
 
-void UExRoleWidget::OnReqRoleList(TArray<FROLE_INFO> RoleList)
+void UExAvatarWidget::OnReqRoleList(TArray<FROLE_INFO> RoleList)
 {
 	for (int i = 0; i < RoleList.Num(); ++i)
 	{
@@ -32,7 +32,7 @@ void UExRoleWidget::OnReqRoleList(TArray<FROLE_INFO> RoleList)
 
 		// 设置角色信息
 		RoleItem->InitItem(RoleList[i]);
-		RoleItem->RoleItemSelectDel.BindUObject(this, &UExRoleWidget::RoleItemSelect);
+		RoleItem->RoleItemSelectDel.BindUObject(this, &UExAvatarWidget::RoleItemSelect);
 
 		// 保存角色条目到本地数组
 		RoleItemGroup.Add(RoleItem);
@@ -44,7 +44,7 @@ void UExRoleWidget::OnReqRoleList(TArray<FROLE_INFO> RoleList)
 	}
 }
 
-void UExRoleWidget::OnCreateRole(FROLE_INFO RoleInfo)
+void UExAvatarWidget::OnCreateRole(FROLE_INFO RoleInfo)
 {
 	// 创建 RoleItem 并且添加到界面
 	UExRoleItem* RoleItem = WidgetTree->ConstructWidget<UExRoleItem>(RoleItemClass);
@@ -53,7 +53,7 @@ void UExRoleWidget::OnCreateRole(FROLE_INFO RoleInfo)
 
 	// 设置角色信息
 	RoleItem->InitItem(RoleInfo);
-	RoleItem->RoleItemSelectDel.BindUObject(this, &UExRoleWidget::RoleItemSelect);
+	RoleItem->RoleItemSelectDel.BindUObject(this, &UExAvatarWidget::RoleItemSelect);
 
 	// 保存角色条目到本地数组
 	RoleItemGroup.Add(RoleItem);
@@ -66,7 +66,7 @@ void UExRoleWidget::OnCreateRole(FROLE_INFO RoleInfo)
 
 }
 
-void UExRoleWidget::OnRemoveRole(FROLE_INFO RoleInfo)
+void UExAvatarWidget::OnRemoveRole(FROLE_INFO RoleInfo)
 {
 	// 获取移除的角色
 	UExRoleItem* RoleItem = NULL;
@@ -80,7 +80,7 @@ void UExRoleWidget::OnRemoveRole(FROLE_INFO RoleInfo)
 	// 如果角色不存在
 	if (!RoleItem)
 	{
-		DDH::Debug() << "UExRoleWidget::OnRemoveRole : No RoleInfo Exit By Dbid --> " << RoleInfo.Dbid << DDH::Endl();
+		DDH::Debug() << "UExAvatarWidget::OnRemoveRole : No RoleInfo Exit By Dbid --> " << RoleInfo.Dbid << DDH::Endl();
 		return;
 	}
 
@@ -96,7 +96,7 @@ void UExRoleWidget::OnRemoveRole(FROLE_INFO RoleInfo)
 
 }
 
-void UExRoleWidget::EnterGameEvent()
+void UExAvatarWidget::EnterGameEvent()
 {
 	// 获取当前选择的角色
 	for (int i = 0; i < RoleItemGroup.Num(); ++i)
@@ -111,11 +111,11 @@ void UExRoleWidget::EnterGameEvent()
 	}
 
 	// 如果运行到这里说明没有选择任何角色
-	DDH::Debug() << "UExRoleWidget::EnterGameEvent : No Role Selected" << DDH::Endl();
+	DDH::Debug() << "UExAvatarWidget::EnterGameEvent : No Role Selected" << DDH::Endl();
 
 }
 
-void UExRoleWidget::CreateRoleEvent()
+void UExAvatarWidget::CreateRoleEvent()
 {
 	EnterGameButton->SetVisibility(ESlateVisibility::Hidden);
 	RoleTypeBox->SetVisibility(ESlateVisibility::Visible);
@@ -129,7 +129,7 @@ void UExRoleWidget::CreateRoleEvent()
 
 }
 
-void UExRoleWidget::RemoveRoleEvent()
+void UExAvatarWidget::RemoveRoleEvent()
 {
 	// 获取当前选择的角色
 	for (int i = 0; i < RoleItemGroup.Num(); ++i)
@@ -144,11 +144,11 @@ void UExRoleWidget::RemoveRoleEvent()
 	}
 
 	// 如果运行到这里说明没有选择任何角色
-	DDH::Debug() << "UExRoleWidget::RemoveRoleEvent : No Role Selected" << DDH::Endl();
+	DDH::Debug() << "UExAvatarWidget::RemoveRoleEvent : No Role Selected" << DDH::Endl();
 
 }
 
-void UExRoleWidget::SureEvent()
+void UExAvatarWidget::SureEvent()
 {
 	EnterGameButton->SetVisibility(ESlateVisibility::Visible);
 	RoleTypeBox->SetVisibility(ESlateVisibility::Hidden);
@@ -181,7 +181,7 @@ void UExRoleWidget::SureEvent()
 
 }
 
-void UExRoleWidget::CancelEvent()
+void UExAvatarWidget::CancelEvent()
 {
 	EnterGameButton->SetVisibility(ESlateVisibility::Visible);
 	RoleTypeBox->SetVisibility(ESlateVisibility::Hidden);
@@ -197,7 +197,7 @@ void UExRoleWidget::CancelEvent()
 	RoleNameTextBox->SetText(FText());
 }
 
-void UExRoleWidget::RoleItemSelect(uint64 Dbid)
+void UExAvatarWidget::RoleItemSelect(uint64 Dbid)
 {
 	// 取消其他角色的选定
 	for (int i = 0; i < RoleItemGroup.Num(); ++i)

@@ -4,16 +4,16 @@
 
 #include "CoreMinimal.h"
 #include "Center/ExKbeGameMode.h"
-#include "ExRoleGameMode.generated.h"
+#include "ExAvatarGameMode.generated.h"
 
-class UExRoleWidget;
+class UExAvatarWidget;
 class AExRenderActor;
 
 /**
  * 
  */
 UCLASS()
-class METAMMO_API AExRoleGameMode : public AExKbeGameMode
+class METAMMO_API AExAvatarGameMode : public AExKbeGameMode
 {
 	GENERATED_BODY()
 	
@@ -24,9 +24,9 @@ public:
 
 public:
 	UPROPERTY(EditAnywhere)
-		TSubclassOf<UExRoleWidget> RoleWidgetClass;
+		TSubclassOf<UExAvatarWidget> RoleWidgetClass;
 
-	UExRoleWidget* RoleWidget;
+	UExAvatarWidget* RoleWidget;
 
 	AExRenderActor* RenderActor;
 
