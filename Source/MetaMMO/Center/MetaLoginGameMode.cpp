@@ -6,7 +6,7 @@
 #include "Scripts/ExCommon.h"
 #include "Engine/KBEvent.h"
 #include "Engine/KBEMain.h"
-#include "HUD/ExLoginWidget.h"
+#include "HUD/MetaLoginWidget.h"
 #include "MetaKBEClient.h"
 
 
@@ -39,7 +39,7 @@ void AMetaLoginGameMode::BeginPlay()
 
 	Super::BeginPlay();
 
-	LoginWidget = CreateWidget<UExLoginWidget>(GetWorld(), LoginWidgetClass);
+	LoginWidget = CreateWidget<UMetaLoginWidget>(GetWorld(), LoginWidgetClass);
 	LoginWidget->AddToViewport();
 	LoginWidget->LoginGameMode = this;
 	LoginWidget->InitWidget();

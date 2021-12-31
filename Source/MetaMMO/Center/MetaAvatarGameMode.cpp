@@ -7,8 +7,8 @@
 #include "Scripts/ExEventData.h"
 #include "Scripts/ExCommon.h"
 #include "Engine/KBEngine.h"
-#include "HUD/ExAvatarWidget.h"
-#include "Scene/ExRenderActor.h"
+#include "HUD/MetaAvatarWidget.h"
+#include "Scene/MetaRenderActor.h"
 #include "EngineUtils.h"
 #include "TextBlock.h"
 
@@ -29,12 +29,12 @@ void AMetaAvatarGameMode::InstallEvent()
 void AMetaAvatarGameMode::BeginPlay()
 {
 	// 生成界面以及获取渲染Actor
-	for (TActorIterator<AExRenderActor> ActorIt(GetWorld()); ActorIt; ++ActorIt)
+	for (TActorIterator<AUMetaRenderActor> ActorIt(GetWorld()); ActorIt; ++ActorIt)
 	{
-		RenderActor = Cast<AExRenderActor>(*ActorIt);
+		RenderActor = Cast<AUMetaRenderActor>(*ActorIt);
 	}
 	
-	RoleWidget = CreateWidget<UExAvatarWidget>(GetWorld(), RoleWidgetClass);
+	RoleWidget = CreateWidget<UMetaAvatarWidget>(GetWorld(), RoleWidgetClass);
 	RoleWidget->AddToViewport();
 	RoleWidget->RoleGameMode = this;
 

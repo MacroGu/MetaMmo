@@ -5,19 +5,19 @@
 #include <Kismet/GameplayStatics.h>
 #include "Engine/KBEngine.h"
 #include "Engine/Entity.h"
-#include "Player/ExPlayerCharacter.h"
-#include "Player/ExMmoController.h"
-#include "Player/ExRemoteCharacter.h"
+#include "Player/MetaPlayerCharacter.h"
+#include "Player/MetaMmoController.h"
+#include "Player/MetaRemoteCharacter.h"
 #include "Scripts/ExCommon.h"
 #include "Scripts/Avatar.h"
 #include "Scripts/Monster.h"
 #include "Scripts/ExEventData.h"
-#include "HUD/ExMmoWidget.h"
+#include "HUD/MetaMmoWidget.h"
 #include "Center/MetaGameInstance.h"
-#include "Player/ExMonsterCharacter.h"
-#include "Scene/ExSkillActor.h"
+#include "Player/MetaMonsterCharacter.h"
+#include "Scene/MetaSkillActor.h"
 #include "Scripts/Skill.h"
-#include "Scene/ExFlobActor.h"
+#include "Scene/MetaFlobActor.h"
 
 
 
@@ -55,7 +55,7 @@ void AMetaMmoGameMode::BeginPlay()
 	//获取 GameInstance
 	UMetaGameInstance* GameInstance = Cast<UMetaGameInstance>(UGameplayStatics::GetGameInstance(GetWorld()));
 	// 创建UI
-	MmoWidget = CreateWidget<UExMmoWidget>(GetWorld(), MmoWidgetClass);
+	MmoWidget = CreateWidget<UMetaMmoWidget>(GetWorld(), MmoWidgetClass);
 	MmoWidget->AddToViewport();
 	// 注册KBE事件以及设置房间名
 	MmoWidget->InstallEvents(GameInstance->RoomName);
@@ -114,7 +114,7 @@ void AMetaMmoGameMode::OnEnterWorld(const UKBEventData* EventData)
 			return;
 		}
 
-		PlayerCharacter = Cast<AExPlayerCharacter>(UGameplayStatics::BeginDeferredActorSpawnFromClass(this, PlayerClassList[0], SpawnTransform));
+		PlayerCharacter = Cast<AMetaPlayerCharacter>(UGameplayStatics::BeginDeferredActorSpawnFromClass(this, PlayerClassList[0], SpawnTransform));
 		if (PlayerCharacter)
 		{
 			PlayerCharacter->EntityId = ServerData->entityID;
@@ -125,7 +125,7 @@ void AMetaMmoGameMode::OnEnterWorld(const UKBEventData* EventData)
 			PlayerCharacter->IsPlayer = true;
 
 			// 创建出角色, 需要绑定到Controller
-			AExMmoController* MmoController = Cast<AExMmoController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
+			AMetaMmoController* MmoController = Cast<AMetaMmoController>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
 			PlayerCharacter->MmoController = MmoController;
 			MmoWidget->SetName(AvatarInst->name);
 			MmoWidget->PlayerCharacter = PlayerCharacter;
@@ -148,7 +148,7 @@ void AMetaMmoGameMode::OnEnterWorld(const UKBEventData* EventData)
 			KBEngine::Avatar* AvatarInst = static_cast<KBEngine::Avatar*>(EntityInst);
 
 			// 生成远程玩家
-			AExRemoteCharacter* RemoteCharacter = Cast<AExRemoteCharacter>(UGameplayStatics::BeginDeferredActorSpawnFromClass(this, RemoteClassList[0], SpawnTransform));
+			AMetaRemoteCharacter* RemoteCharacter = Cast<AMetaRemoteCharacter>(UGameplayStatics::BeginDeferredActorSpawnFromClass(this, RemoteClassList[0], SpawnTransform));
 			if (RemoteCharacter)
 			{
 				RemoteCharacter->EntityId = ServerData->entityID;
@@ -166,7 +166,7 @@ void AMetaMmoGameMode::OnEnterWorld(const UKBEventData* EventData)
 			KBEngine::Monster* MonsterInst = static_cast<KBEngine::Monster*>(EntityInst);
 
 			// 生成怪物
-			AExMonsterCharacter* MonsterCharacter = Cast<AExMonsterCharacter>(UGameplayStatics::BeginDeferredActorSpawnFromClass(this, MonsterClass, SpawnTransform));
+			AMetaMonsterCharacter* MonsterCharacter = Cast<AMetaMonsterCharacter>(UGameplayStatics::BeginDeferredActorSpawnFromClass(this, MonsterClass, SpawnTransform));
 			if (MonsterCharacter)
 			{
 				MonsterCharacter->EntityId = ServerData->entityID;
@@ -181,7 +181,7 @@ void AMetaMmoGameMode::OnEnterWorld(const UKBEventData* EventData)
 			KBEngine::Skill* SkillInst = static_cast<KBEngine::Skill*>(EntityInst);
 
 			// 生成对象
-			AExSkillActor* SkillActor = Cast<AExSkillActor>(UGameplayStatics::BeginDeferredActorSpawnFromClass(this, SkillClassList[SkillInst->skillId], SpawnTransform));
+			AMetaSkillActor* SkillActor = Cast<AMetaSkillActor>(UGameplayStatics::BeginDeferredActorSpawnFromClass(this, SkillClassList[SkillInst->skillId], SpawnTransform));
 			if (SkillActor)
 			{
 				SkillActor->MmoGameMode = this;
@@ -202,7 +202,7 @@ void AMetaMmoGameMode::OnLeaveWorld(const UKBEventData* EventData)
 	// 如果存在于CharacterMap，说明不是本地玩家
 	if (CharacterMap.Contains(ServerData->entityID))
 	{
-		AExCharacterEntity* CharacterEntity = *CharacterMap.Find(ServerData->entityID);
+		AMetaCharacterEntity* CharacterEntity = *CharacterMap.Find(ServerData->entityID);
 
 		// 根据实体ID 获取实体对象
 		KBEngine::Entity* EntityInst = KBEngine::KBEngineApp::getSingleton().findEntity(ServerData->entityID);
@@ -215,18 +215,18 @@ void AMetaMmoGameMode::OnLeaveWorld(const UKBEventData* EventData)
 		}
 		else if (EntityInst->className().Equals(FString("ExMonster")))
 		{
-			AExMonsterCharacter* MonsterCharacter = Cast<AExMonsterCharacter>(CharacterEntity);
+			AMetaMonsterCharacter* MonsterCharacter = Cast<AMetaMonsterCharacter>(CharacterEntity);
 			MonsterCharacter->PlayDeath();
 		}
 	}
 	else if (SkillMap.Contains(ServerData->entityID))
 	{
-		AExSkillActor* SkillActor = *SkillMap.Find(ServerData->entityID);
+		AMetaSkillActor* SkillActor = *SkillMap.Find(ServerData->entityID);
 		SkillActor->PlayExplode();
 	}
 	else if (FlobMap.Contains(ServerData->entityID))
 	{
-		AExFlobActor* FlobActor = *FlobMap.Find(ServerData->entityID);
+		AMetaFlobActor* FlobActor = *FlobMap.Find(ServerData->entityID);
 		FlobActor->Destroy();
 	}
 }
@@ -247,21 +247,21 @@ void AMetaMmoGameMode::SetPosition(const UKBEventData* EventData)
 
 	if (CharacterMap.Contains(ServerData->entityID))
 	{
-		AExCharacterEntity* CharacterEntity = *CharacterMap.Find(ServerData->entityID);
+		AMetaCharacterEntity* CharacterEntity = *CharacterMap.Find(ServerData->entityID);
 		CharacterEntity->SetActorLocation(ServerData->position);
 		CharacterEntity->SetTargetPosition(ServerData->position);
 	}
 
 	if (SkillMap.Contains(ServerData->entityID))
 	{
-		AExSkillActor* SkillActor = *SkillMap.Find(ServerData->entityID);
+		AMetaSkillActor* SkillActor = *SkillMap.Find(ServerData->entityID);
 		SkillActor->SetActorLocation(ServerData->position);
 		SkillActor->SetTargetPosition(ServerData->position);
 	}
 
 	if (FlobMap.Contains(ServerData->entityID))
 	{
-		AExFlobActor* FlobActor = *FlobMap.Find(ServerData->entityID);
+		AMetaFlobActor* FlobActor = *FlobMap.Find(ServerData->entityID);
 		FlobActor->SetActorLocation(ServerData->position);
 		FlobActor->SetTargetPosition(ServerData->position);
 	}
@@ -273,20 +273,20 @@ void AMetaMmoGameMode::SetDirection(const UKBEventData* EventData)
 
 	if (CharacterMap.Contains(ServerData->entityID))
 	{
-		AExCharacterEntity* CharacterEntity = *CharacterMap.Find(ServerData->entityID);
+		AMetaCharacterEntity* CharacterEntity = *CharacterMap.Find(ServerData->entityID);
 		CharacterEntity->SetActorRotation(ServerData->direction);
 		CharacterEntity->SetTargetRotator(ServerData->direction);
 	}
 
 	if (SkillMap.Contains(ServerData->entityID))
 	{
-		AExSkillActor* SkillActor = *SkillMap.Find(ServerData->entityID);
+		AMetaSkillActor* SkillActor = *SkillMap.Find(ServerData->entityID);
 		SkillActor->SetActorRotation(ServerData->direction);
 	}
 
 	if (FlobMap.Contains(ServerData->entityID))
 	{
-		AExFlobActor* FlobActor = *FlobMap.Find(ServerData->entityID);
+		AMetaFlobActor* FlobActor = *FlobMap.Find(ServerData->entityID);
 		FlobActor->SetActorRotation(ServerData->direction);
 	}
 
@@ -298,20 +298,20 @@ void AMetaMmoGameMode::UpdatePosition(const UKBEventData* EventData)
 
 	if (CharacterMap.Contains(ServerData->entityID))
 	{
-		AExCharacterEntity* CharacterEntity = *CharacterMap.Find(ServerData->entityID);
+		AMetaCharacterEntity* CharacterEntity = *CharacterMap.Find(ServerData->entityID);
 		CharacterEntity->SetTargetPosition(ServerData->position);
 		CharacterEntity->SetTargetRotator(ServerData->direction);
 	}
 
 	if (SkillMap.Contains(ServerData->entityID))
 	{
-		AExSkillActor* SkillActor = *SkillMap.Find(ServerData->entityID);
+		AMetaSkillActor* SkillActor = *SkillMap.Find(ServerData->entityID);
 		SkillActor->SetTargetPosition(ServerData->position);
 	}
 
 	if (FlobMap.Contains(ServerData->entityID))
 	{
-		AExFlobActor* FlobActor = *FlobMap.Find(ServerData->entityID);
+		AMetaFlobActor* FlobActor = *FlobMap.Find(ServerData->entityID);
 		FlobActor->SetTargetPosition(ServerData->position);
 	}
 
@@ -323,7 +323,7 @@ void AMetaMmoGameMode::OnAnimUpdate(const UKBEventData* EventData)
 
 	if (CharacterMap.Contains(ServerData->EntityId))
 	{
-		AExCharacterEntity* CharacterEntity = *CharacterMap.Find(ServerData->EntityId);
+		AMetaCharacterEntity* CharacterEntity = *CharacterMap.Find(ServerData->EntityId);
 		CharacterEntity->SetTargetAnim(ServerData->Speed, ServerData->Direction);
 	}
 
@@ -351,7 +351,7 @@ void AMetaMmoGameMode::SetBaseHP(const UKBEventData* EventData)
 	{
 		if (CharacterMap.Contains(ServerData->EntityId))
 		{
-			AExCharacterEntity* CharacterEntity = *CharacterMap.Find(ServerData->EntityId);
+			AMetaCharacterEntity* CharacterEntity = *CharacterMap.Find(ServerData->EntityId);
 			CharacterEntity->SetBaseHP(ServerData->BaseHP);
 		}
 	}
@@ -376,7 +376,7 @@ void AMetaMmoGameMode::SetHP(const UKBEventData* EventData)
 	{
 		if (CharacterMap.Contains(ServerData->EntityId))
 		{
-			AExCharacterEntity* CharacterEntity = *CharacterMap.Find(ServerData->EntityId);
+			AMetaCharacterEntity* CharacterEntity = *CharacterMap.Find(ServerData->EntityId);
 			CharacterEntity->SetHP(ServerData->HP);
 		}
 	}
@@ -436,7 +436,7 @@ void AMetaMmoGameMode::OnAttack(const UKBEventData* EventData)
 
 	if (CharacterMap.Contains(ServerData->EntityId))
 	{
-		AExCharacterEntity* CharacterEntity = *CharacterMap.Find(ServerData->EntityId);
+		AMetaCharacterEntity* CharacterEntity = *CharacterMap.Find(ServerData->EntityId);
 		CharacterEntity->OnAttack();
 	}
 }

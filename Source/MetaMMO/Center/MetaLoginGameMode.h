@@ -8,7 +8,7 @@
 #include "MetaLoginGameMode.generated.h"
 
 class UKBEMain;
-class UExLoginWidget;
+class UMetaLoginWidget;
 class UKBEventData;
 
 /**
@@ -62,10 +62,10 @@ protected:
 
 protected:
 
-	UExLoginWidget* LoginWidget;
+	UMetaLoginWidget* LoginWidget;
 
 	UPROPERTY(EditAnywhere)
-	TSubclassOf<UExLoginWidget> LoginWidgetClass;
+	TSubclassOf<UMetaLoginWidget> LoginWidgetClass;
 
 
 };

@@ -6,13 +6,13 @@
 #include "Center/MetaKbeGameMode.h"
 #include "MetaMmoGameMode.generated.h"
 
-class AExCharacterEntity;
-class AExPlayerCharacter;
-class AExRemoteCharacter;
-class AExMonsterCharacter;
-class AExSkillActor;
-class AExFlobActor;
-class UExMmoWidget;
+class AMetaCharacterEntity;
+class AMetaPlayerCharacter;
+class AMetaRemoteCharacter;
+class AMetaMonsterCharacter;
+class AMetaSkillActor;
+class AMetaFlobActor;
+class UMetaMmoWidget;
 
 
 /**
@@ -27,36 +27,36 @@ class METAMMO_API AMetaMmoGameMode : public AMetaKbeGameMode
 public:
 
 	UPROPERTY()
-		AExPlayerCharacter* PlayerCharacter;
+		AMetaPlayerCharacter* PlayerCharacter;
 
 	UPROPERTY(EditAnywhere)
-		TArray<TSubclassOf<AExPlayerCharacter>> PlayerClassList;
+		TArray<TSubclassOf<AMetaPlayerCharacter>> PlayerClassList;
 
 	UPROPERTY(EditAnywhere)
-		TArray<TSubclassOf<AExRemoteCharacter>> RemoteClassList;
+		TArray<TSubclassOf<AMetaRemoteCharacter>> RemoteClassList;
 
 	UPROPERTY(EditAnywhere)
-		TSubclassOf<AExMonsterCharacter> MonsterClass;
+		TSubclassOf<AMetaMonsterCharacter> MonsterClass;
 
 
 	// 保持所有远程玩家和怪物
 	UPROPERTY(EditAnywhere)
-		TMap<int32, AExCharacterEntity*> CharacterMap;
+		TMap<int32, AMetaCharacterEntity*> CharacterMap;
 
 	UPROPERTY(EditAnywhere)
-		TSubclassOf<UExMmoWidget> MmoWidgetClass;
+		TSubclassOf<UMetaMmoWidget> MmoWidgetClass;
 
 	UPROPERTY(EditAnywhere)
-		TMap<int32, AExSkillActor*> SkillMap;
+		TMap<int32, AMetaSkillActor*> SkillMap;
 
 	UPROPERTY(EditAnywhere)
-		TArray<TSubclassOf<AExSkillActor>> SkillClassList;
+		TArray<TSubclassOf<AMetaSkillActor>> SkillClassList;
 
 	UPROPERTY(EditAnywhere)
-		TMap<int32, AExFlobActor*> FlobMap;
+		TMap<int32, AMetaFlobActor*> FlobMap;
 
 	UPROPERTY(EditAnywhere)
-		TSubclassOf<AExFlobActor> FlobClass;
+		TSubclassOf<AMetaFlobActor> FlobClass;
 
 protected:
 
@@ -100,7 +100,7 @@ protected:
 
 protected:
 
-	UExMmoWidget* MmoWidget;
+	UMetaMmoWidget* MmoWidget;
 
 
 public:

@@ -7,7 +7,7 @@
 #include "Engine/KBEngine.h"
 #include "Scripts/ExCommon.h"
 #include "Scripts/ExEventData.h"
-#include "HUD/ExRoomWidget.h"
+#include "HUD/MetaRoomWidget.h"
 
 
 
@@ -38,7 +38,7 @@ void AMetaRoomGameMode::AddSpaceGeometryMapping(const UKBEventData* EventData)
 void AMetaRoomGameMode::BeginPlay()
 {
 
-	RoomWidget = CreateWidget<UExRoomWidget>(GetWorld(), RoomWidgetClass);
+	RoomWidget = CreateWidget<UMetaRoomWidget>(GetWorld(), RoomWidgetClass);
 	RoomWidget->AddToViewport();
 	RoomWidget->RoomGameMode = this;
 

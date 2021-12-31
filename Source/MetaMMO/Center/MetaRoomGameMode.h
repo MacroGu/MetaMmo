@@ -7,7 +7,7 @@
 #include "MetaRoomGameMode.generated.h"
 
 
-class UExRoomWidget;
+class UMetaRoomWidget;
 class UKBEventData;
 
 /**
@@ -22,9 +22,9 @@ class METAMMO_API AMetaRoomGameMode : public AMetaKbeGameMode
 public:
 
 	UPROPERTY(EditAnywhere)
-		TSubclassOf<UExRoomWidget> RoomWidgetClass;
+		TSubclassOf<UMetaRoomWidget> RoomWidgetClass;
 
-	UExRoomWidget* RoomWidget;
+	UMetaRoomWidget* RoomWidget;
 
 public:
 

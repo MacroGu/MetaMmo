@@ -6,8 +6,8 @@
 #include "Center/MetaKbeGameMode.h"
 #include "MetaAvatarGameMode.generated.h"
 
-class UExAvatarWidget;
-class AExRenderActor;
+class UMetaAvatarWidget;
+class AUMetaRenderActor;
 
 /**
  * 
@@ -24,11 +24,11 @@ public:
 
 public:
 	UPROPERTY(EditAnywhere)
-		TSubclassOf<UExAvatarWidget> RoleWidgetClass;
+		TSubclassOf<UMetaAvatarWidget> RoleWidgetClass;
 
-	UExAvatarWidget* RoleWidget;
+	UMetaAvatarWidget* RoleWidget;
 
-	AExRenderActor* RenderActor;
+	AUMetaRenderActor* RenderActor;
 
 
 protected:
