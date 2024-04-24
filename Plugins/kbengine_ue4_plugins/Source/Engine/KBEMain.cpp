@@ -121,11 +121,13 @@ void UKBEMain::onScriptVersionNotMatch(const UKBEventData* pEventData)
 
 bool UKBEMain::isUpdateSDK()
 {
-#if WITH_EDITOR
-	return automaticallyUpdateSDK;
-#endif
+//#if WITH_EDITOR
+//	return automaticallyUpdateSDK;
+//#endif
+//
+//	return false;
 
-	return false;
+	return true;
 }
 
 void UKBEMain::downloadSDKFromServer()

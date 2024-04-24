@@ -2,8 +2,8 @@
 
 
 #include "HUD/MetaRoleItem.h"
-#include "Image.h"
-#include "TextBlock.h"
+#include "Components/Image.h"
+#include "Components/TextBlock.h"
 #include "Scripts/ExEventData.h"
 
 

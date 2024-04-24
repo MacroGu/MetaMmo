@@ -2,8 +2,8 @@
 
 
 #include "HUD/BagWidget/MetaGoodItem.h"
-#include "Image.h"
-#include "TextBlock.h"
+#include "Components/Image.h"
+#include "Components/TextBlock.h"
 
 
 void UMetaGoodItem::InitGoodItem(EBagType InType, uint8 InId)

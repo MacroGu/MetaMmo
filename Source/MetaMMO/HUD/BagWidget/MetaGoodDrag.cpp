@@ -2,8 +2,8 @@
 
 
 #include "HUD/BagWidget/MetaGoodDrag.h"
-#include "Image.h"
-#include "TextBlock.h"
+#include "Components/Image.h"
+#include "Components/TextBlock.h"
 
 
 void UMetaGoodDrag::InitGoodInfo(uint8 GoodId, uint8 Number)

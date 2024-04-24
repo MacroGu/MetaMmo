@@ -3,7 +3,7 @@
 
 #include "HUD/MetaChatItem.h"
 #include "Engine/Engine.h"
-#include "TextBlock.h"
+#include "Components/TextBlock.h"
 
 
 void UMetaChatItem::InitItem(FString Name, FString Date, FString Message)

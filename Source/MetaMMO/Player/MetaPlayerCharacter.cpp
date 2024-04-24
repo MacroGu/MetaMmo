@@ -11,8 +11,8 @@
 #include "Engine/KBEngine.h"
 #include "Scripts/ExEventData.h"
 #include "TimerManager.h"
-#include <NoExportTypes.h>
-#include <RotationMatrix.h>
+#include "UObject/NoExportTypes.h"
+#include "Math/RotationMatrix.h"
 #include "Scripts/ExCommon.h"
 #include "HUD/MetaMmoWidget.h"
 
@@ -198,7 +198,7 @@ void AMetaPlayerCharacter::Attack(uint8 SkillId)
 		MmoController->DeprojectScreenPositionToWorld(ScreenSize.X * 0.5f, ScreenSize.Y * 0.5f, RayStartPos, RayDirection);
 
 		// 进行射线检测
-		FCollisionQueryParams TraceParams(true);
+		FCollisionQueryParams TraceParams;
 		TraceParams.AddIgnoredActor(this);
 		TraceParams.bReturnPhysicalMaterial = false;
 		TraceParams.bTraceComplex = true;

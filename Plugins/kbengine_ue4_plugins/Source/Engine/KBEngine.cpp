@@ -13,10 +13,10 @@
 #include "Property.h"
 #include "Method.h"
 #include "EntityCall.h"
-#include "Regex.h"
 #include "KBDebug.h"
 #include "KBEvent.h"
 #include "EncryptionFilter.h"
+#include "Internationalization/Regex.h"
 
 namespace KBEngine
 {
@@ -2079,7 +2079,12 @@ void KBEngineApp::Client_onUpdateData_xz_optimized(MemoryStream& stream)
 	ENTITY_ID eid = getViewEntityIDFromStream(stream);
 
 	FVector xz;
-	stream.readPackXZ(xz.X, xz.Z);
+	float X;
+	float Z;
+	stream.readPackXZ(X, Z);
+
+	xz.X = X;
+	xz.Z = Z;
 
 	_updateVolatileData(eid, xz.X, KBE_FLT_MAX, xz.Z, KBE_FLT_MAX, KBE_FLT_MAX, KBE_FLT_MAX, 1, true);
 }
@@ -2089,7 +2094,12 @@ void KBEngineApp::Client_onUpdateData_xz_ypr_optimized(MemoryStream& stream)
 	ENTITY_ID eid = getViewEntityIDFromStream(stream);
 
 	FVector xz;
-	stream.readPackXZ(xz.X, xz.Z);
+	float X;
+	float Z;
+	stream.readPackXZ(X, Z);
+
+	xz.X = X;
+	xz.Z = Z;
 
 	int8 y = stream.read<int8>();
 	int8 p = stream.read<int8>();
@@ -2103,7 +2113,12 @@ void KBEngineApp::Client_onUpdateData_xz_yp_optimized(MemoryStream& stream)
 	ENTITY_ID eid = getViewEntityIDFromStream(stream);
 
 	FVector xz;
-	stream.readPackXZ(xz.X, xz.Z);
+	float X;
+	float Z;
+	stream.readPackXZ(X, Z);
+
+	xz.X = X;
+	xz.Z = Z;
 
 	int8 y = stream.read<int8>();
 	int8 p = stream.read<int8>();
@@ -2116,7 +2131,12 @@ void KBEngineApp::Client_onUpdateData_xz_yr_optimized(MemoryStream& stream)
 	ENTITY_ID eid = getViewEntityIDFromStream(stream);
 
 	FVector xz;
-	stream.readPackXZ(xz.X, xz.Z);
+	float X;
+	float Z;
+	stream.readPackXZ(X, Z);
+
+	xz.X = X;
+	xz.Z = Z;
 
 	int8 y = stream.read<int8>();
 	int8 r = stream.read<int8>();
@@ -2129,7 +2149,12 @@ void KBEngineApp::Client_onUpdateData_xz_pr_optimized(MemoryStream& stream)
 	ENTITY_ID eid = getViewEntityIDFromStream(stream);
 
 	FVector xz;
-	stream.readPackXZ(xz.X, xz.Z);
+	float X;
+	float Z;
+	stream.readPackXZ(X, Z);
+
+	xz.X = X;
+	xz.Z = Z;
 
 	int8 p = stream.read<int8>();
 	int8 r = stream.read<int8>();
@@ -2142,7 +2167,12 @@ void KBEngineApp::Client_onUpdateData_xz_y_optimized(MemoryStream& stream)
 	ENTITY_ID eid = getViewEntityIDFromStream(stream);
 
 	FVector xz;
-	stream.readPackXZ(xz.X, xz.Z);
+	float X;
+	float Z;
+	stream.readPackXZ(X, Z);
+
+	xz.X = X;
+	xz.Z = Z;
 
 	int8 y = stream.read<int8>();
 
@@ -2154,7 +2184,12 @@ void KBEngineApp::Client_onUpdateData_xz_p_optimized(MemoryStream& stream)
 	ENTITY_ID eid = getViewEntityIDFromStream(stream);
 
 	FVector xz;
-	stream.readPackXZ(xz.X, xz.Z);
+	float X;
+	float Z;
+	stream.readPackXZ(X, Z);
+
+	xz.X = X;
+	xz.Z = Z;
 
 	int8 p = stream.read<int8>();
 
@@ -2166,7 +2201,12 @@ void KBEngineApp::Client_onUpdateData_xz_r_optimized(MemoryStream& stream)
 	ENTITY_ID eid = getViewEntityIDFromStream(stream);
 
 	FVector xz;
-	stream.readPackXZ(xz.X, xz.Z);
+	float X;
+	float Z;
+	stream.readPackXZ(X, Z);
+
+	xz.X = X;
+	xz.Z = Z;
 
 	int8 r = stream.read<int8>();
 
@@ -2178,8 +2218,15 @@ void KBEngineApp::Client_onUpdateData_xyz_optimized(MemoryStream& stream)
 	ENTITY_ID eid = getViewEntityIDFromStream(stream);
 
 	FVector xz;
-	stream.readPackXZ(xz.X, xz.Z);
-	stream.readPackY(xz.Y);
+	float X;
+	float Y;
+	float Z;
+	stream.readPackXZ(X, Z);
+	stream.readPackY(Y);
+
+	xz.X = X;
+	xz.Y = Y;
+	xz.Z = Z;
 
 	_updateVolatileData(eid, xz.X, xz.Y, xz.Z, KBE_FLT_MAX, KBE_FLT_MAX, KBE_FLT_MAX, 0, true);
 }
@@ -2189,8 +2236,15 @@ void KBEngineApp::Client_onUpdateData_xyz_ypr_optimized(MemoryStream& stream)
 	ENTITY_ID eid = getViewEntityIDFromStream(stream);
 
 	FVector xz;
-	stream.readPackXZ(xz.X, xz.Z);
-	stream.readPackY(xz.Y);
+	float X;
+	float Y;
+	float Z;
+	stream.readPackXZ(X, Z);
+	stream.readPackY(Y);
+
+	xz.X = X;
+	xz.Y = Y;
+	xz.Z = Z;
 
 	int8 y = stream.read<int8>();
 	int8 p = stream.read<int8>();
@@ -2204,8 +2258,15 @@ void KBEngineApp::Client_onUpdateData_xyz_yp_optimized(MemoryStream& stream)
 	ENTITY_ID eid = getViewEntityIDFromStream(stream);
 
 	FVector xz;
-	stream.readPackXZ(xz.X, xz.Z);
-	stream.readPackY(xz.Y);
+	float X;
+	float Y;
+	float Z;
+	stream.readPackXZ(X, Z);
+	stream.readPackY(Y);
+
+	xz.X = X;
+	xz.Y = Y;
+	xz.Z = Z;
 
 	int8 y = stream.read<int8>();
 	int8 p = stream.read<int8>();
@@ -2218,8 +2279,15 @@ void KBEngineApp::Client_onUpdateData_xyz_yr_optimized(MemoryStream& stream)
 	ENTITY_ID eid = getViewEntityIDFromStream(stream);
 
 	FVector xz;
-	stream.readPackXZ(xz.X, xz.Z);
-	stream.readPackY(xz.Y);
+	float X;
+	float Y;
+	float Z;
+	stream.readPackXZ(X, Z);
+	stream.readPackY(Y);
+
+	xz.X = X;
+	xz.Y = Y;
+	xz.Z = Z;
 
 	int8 y = stream.read<int8>();
 	int8 r = stream.read<int8>();
@@ -2232,8 +2300,15 @@ void KBEngineApp::Client_onUpdateData_xyz_pr_optimized(MemoryStream& stream)
 	ENTITY_ID eid = getViewEntityIDFromStream(stream);
 
 	FVector xz;
-	stream.readPackXZ(xz.X, xz.Z);
-	stream.readPackY(xz.Y);
+	float X;
+	float Y;
+	float Z;
+	stream.readPackXZ(X, Z);
+	stream.readPackY(Y);
+
+	xz.X = X;
+	xz.Y = Y;
+	xz.Z = Z;
 
 	int8 p = stream.read<int8>();
 	int8 r = stream.read<int8>();
@@ -2246,8 +2321,15 @@ void KBEngineApp::Client_onUpdateData_xyz_y_optimized(MemoryStream& stream)
 	ENTITY_ID eid = getViewEntityIDFromStream(stream);
 
 	FVector xz;
-	stream.readPackXZ(xz.X, xz.Z);
-	stream.readPackY(xz.Y);
+	float X;
+	float Y;
+	float Z;
+	stream.readPackXZ(X, Z);
+	stream.readPackY(Y);
+
+	xz.X = X;
+	xz.Y = Y;
+	xz.Z = Z;
 
 	int8 y = stream.read<int8>();
 
@@ -2259,8 +2341,15 @@ void KBEngineApp::Client_onUpdateData_xyz_p_optimized(MemoryStream& stream)
 	ENTITY_ID eid = getViewEntityIDFromStream(stream);
 
 	FVector xz;
-	stream.readPackXZ(xz.X, xz.Z);
-	stream.readPackY(xz.Y);
+	float X;
+	float Y;
+	float Z;
+	stream.readPackXZ(X, Z);
+	stream.readPackY(Y);
+
+	xz.X = X;
+	xz.Y = Y;
+	xz.Z = Z;
 
 	int8 p = stream.read<int8>();
 
@@ -2272,13 +2361,21 @@ void KBEngineApp::Client_onUpdateData_xyz_r_optimized(MemoryStream& stream)
 	ENTITY_ID eid = getViewEntityIDFromStream(stream);
 
 	FVector xz;
-	stream.readPackXZ(xz.X, xz.Z);
-	stream.readPackY(xz.Y);
+	float X;
+	float Y;
+	float Z;
+	stream.readPackXZ(X, Z);
+	stream.readPackY(Y);
+
+	xz.X = X;
+	xz.Y = Y;
+	xz.Z = Z;
 
 	int8 r = stream.read<int8>();
 
 	_updateVolatileData(eid, xz.X, xz.Y, xz.Z, KBE_FLT_MAX, KBE_FLT_MAX, r, 0, true);
 }
+
 
 void KBEngineApp::_updateVolatileData(ENTITY_ID entityID, float x, float y, float z, float yaw, float pitch, float roll, int8 isOnGround, bool isOptimized)
 {

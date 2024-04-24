@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
-#include "Button.h"
+#include "Components/Button.h"
 #include "MetaAvatarWidget.generated.h"
 
 class AMetaAvatarGameMode;

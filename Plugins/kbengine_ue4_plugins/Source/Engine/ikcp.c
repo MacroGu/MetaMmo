@@ -433,11 +433,11 @@ int ikcp_recv(ikcpcb *kcp, char *buffer, int len)
 
 	// move available data from rcv_buf -> rcv_queue
 	while (! iqueue_is_empty(&kcp->rcv_buf)) {
-		IKCPSEG *seg = iqueue_entry(kcp->rcv_buf.next, IKCPSEG, node);
-		if (seg->sn == kcp->rcv_nxt && kcp->nrcv_que < kcp->rcv_wnd) {
-			iqueue_del(&seg->node);
+		IKCPSEG *segTemp = iqueue_entry(kcp->rcv_buf.next, IKCPSEG, node);
+		if (segTemp->sn == kcp->rcv_nxt && kcp->nrcv_que < kcp->rcv_wnd) {
+			iqueue_del(&segTemp->node);
 			kcp->nrcv_buf--;
-			iqueue_add_tail(&seg->node, &kcp->rcv_queue);
+			iqueue_add_tail(&segTemp->node, &kcp->rcv_queue);
 			kcp->nrcv_que++;
 			kcp->rcv_nxt++;
 		}	else {
@@ -775,7 +775,7 @@ int ikcp_input(ikcpcb *kcp, const char *data, long size)
 	if (data == NULL || (int)size < (int)IKCP_OVERHEAD) return -1;
 
 	while (1) {
-		IUINT32 ts, sn, len, una, conv;
+		IUINT32 ts, sn, len, unaTemp, conv;
 		IUINT16 wnd;
 		IUINT8 cmd, frg;
 		IKCPSEG *seg;
@@ -790,7 +790,7 @@ int ikcp_input(ikcpcb *kcp, const char *data, long size)
 		data = ikcp_decode16u(data, &wnd);
 		data = ikcp_decode32u(data, &ts);
 		data = ikcp_decode32u(data, &sn);
-		data = ikcp_decode32u(data, &una);
+		data = ikcp_decode32u(data, &unaTemp);
 		data = ikcp_decode32u(data, &len);
 
 		size -= IKCP_OVERHEAD;
@@ -802,7 +802,7 @@ int ikcp_input(ikcpcb *kcp, const char *data, long size)
 			return -3;
 
 		kcp->rmt_wnd = wnd;
-		ikcp_parse_una(kcp, una);
+		ikcp_parse_una(kcp, unaTemp);
 		ikcp_shrink_buf(kcp);
 
 		if (cmd == IKCP_CMD_ACK) {
@@ -1079,16 +1079,16 @@ void ikcp_flush(ikcpcb *kcp)
 		}
 
 		if (needsend) {
-			int size, need;
+			int sizeTemp, needTemp;
 			segment->ts = current;
 			segment->wnd = seg.wnd;
 			segment->una = kcp->rcv_nxt;
 
-			size = (int)(ptr - buffer);
-			need = IKCP_OVERHEAD + segment->len;
+			sizeTemp = (int)(ptr - buffer);
+			needTemp = IKCP_OVERHEAD + segment->len;
 
-			if (size + need > (int)kcp->mtu) {
-				ikcp_output(kcp, buffer, size);
+			if (sizeTemp + needTemp > (int)kcp->mtu) {
+				ikcp_output(kcp, buffer, sizeTemp);
 				ptr = buffer;
 			}
 

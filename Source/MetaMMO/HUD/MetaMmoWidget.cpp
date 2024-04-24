@@ -2,9 +2,9 @@
 
 
 #include "HUD/MetaMmoWidget.h"
-#include "TextBlock.h"
-#include "ProgressBar.h"
-#include "Overlay.h"
+#include "Components/TextBlock.h"
+#include "Components/ProgressBar.h"
+#include "Components/Overlay.h"
 #include "Engine/KBEngine.h"
 #include "Scripts/ExEventData.h"
 #include "BagWidget/MetaEquipBag.h"

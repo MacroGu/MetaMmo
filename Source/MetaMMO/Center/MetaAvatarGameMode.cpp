@@ -10,7 +10,8 @@
 #include "HUD/MetaAvatarWidget.h"
 #include "Scene/MetaRenderActor.h"
 #include "EngineUtils.h"
-#include "TextBlock.h"
+
+#include "Components/TextBlock.h"
 
 
 

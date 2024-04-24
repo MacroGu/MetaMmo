@@ -2,22 +2,23 @@
 
 
 #include "HUD/MetaAvatarWidget.h"
-#include "EditableTextBox.h"
-#include "CheckBox.h"
-#include "TextBlock.h"
-#include "Button.h"
-#include "HorizontalBox.h"
+
 #include "Scripts/ExCommon.h"
 #include "Scripts/ExEventData.h"
 #include "Engine/KBEngine.h"
 #include "MetaRoleItem.h"
-#include "WidgetTree.h"
-#include "ScrollBox.h"
-#include "ScrollBoxSlot.h"
+
 #include "Center/MetaAvatarGameMode.h"
 #include "Scene/MetaRenderActor.h"
 
-
+#include "Blueprint/WidgetTree.h"
+#include "Components/EditableTextBox.h"
+#include "Components/CheckBox.h"
+#include "Components/TextBlock.h"
+#include "Components/Button.h"
+#include "Components/HorizontalBox.h"
+#include "Components/ScrollBox.h"
+#include "Components/ScrollBoxSlot.h"
 
 
 

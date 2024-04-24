@@ -157,7 +157,7 @@ namespace DDH
 		const UEnum* EnumPtr = FindObject<UEnum>(ANY_PACKAGE, *Name, true);
 		if (!EnumPtr)
 			return FString("InValid");
-		return EnumPtr->GetEnumName((int32)Value);
+		return EnumPtr->GetNameStringByIndex((int32)Value);
 	}
 
 	//将传入的Enum值对应的FName输出
@@ -168,7 +168,7 @@ namespace DDH
 		if (!EnumPtr) {
 			return FName("InValid");
 		}
-		return FName(*EnumPtr->GetEnumName((int32)Value));
+		return FName(*EnumPtr->GetNameStringByIndex((int32)Value));
 	}
 
 	//将传入的FName对应的Enum输出

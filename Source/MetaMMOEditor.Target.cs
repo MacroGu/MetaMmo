@@ -8,7 +8,8 @@ public class MetaMMOEditorTarget : TargetRules
 	public MetaMMOEditorTarget(TargetInfo Target) : base(Target)
 	{
 		Type = TargetType.Editor;
-
-		ExtraModuleNames.AddRange( new string[] { "MetaMMO" } );
+        DefaultBuildSettings = BuildSettingsVersion.Latest;
+        IncludeOrderVersion = EngineIncludeOrderVersion.Latest;
+        ExtraModuleNames.AddRange( new string[] { "MetaMMO" } );
 	}
 }

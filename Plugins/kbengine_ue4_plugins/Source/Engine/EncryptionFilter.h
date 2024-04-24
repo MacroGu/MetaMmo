@@ -2,8 +2,9 @@
 #include "KBECommon.h"
 
 #if PLATFORM_WINDOWS
-#include "WindowsHWrapper.h"
-#include "AllowWindowsPlatformTypes.h"
+#include "Windows/WindowsHWrapper.h"
+#include "Windows/AllowWindowsPlatformTypes.h"
+#include "Windows/HideWindowsPlatformTypes.h"
 #endif
 
 #define UI UI_ST
@@ -12,10 +13,6 @@ THIRD_PARTY_INCLUDES_START
 #include "openssl/blowfish.h"
 THIRD_PARTY_INCLUDES_END
 #undef UI
-
-#if PLATFORM_WINDOWS
-#include "HideWindowsPlatformTypes.h"
-#endif
 
 namespace KBEngine
 {

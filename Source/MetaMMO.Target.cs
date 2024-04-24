@@ -8,7 +8,8 @@ public class MetaMMOTarget : TargetRules
 	public MetaMMOTarget(TargetInfo Target) : base(Target)
 	{
 		Type = TargetType.Game;
-
-		ExtraModuleNames.AddRange( new string[] { "MetaMMO" } );
+        DefaultBuildSettings = BuildSettingsVersion.Latest;
+        IncludeOrderVersion = EngineIncludeOrderVersion.Latest;
+        ExtraModuleNames.AddRange( new string[] { "MetaMMO" } );
 	}
 }

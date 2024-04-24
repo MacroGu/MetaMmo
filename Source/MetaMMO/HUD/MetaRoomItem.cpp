@@ -2,8 +2,8 @@
 
 
 #include "HUD/MetaRoomItem.h"
-#include "TextBlock.h"
-#include "Image.h"
+#include "Components/TextBlock.h"
+#include "Components/Image.h"
 
 
 

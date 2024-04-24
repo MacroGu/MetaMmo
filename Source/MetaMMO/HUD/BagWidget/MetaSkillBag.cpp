@@ -2,7 +2,7 @@
 
 
 #include "HUD/BagWidget/MetaSkillBag.h"
-#include "TextBlock.h"
+#include "Components/TextBlock.h"
 #include "Data/MetaDataMgr.h"
 
 

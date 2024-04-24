@@ -2,10 +2,10 @@
 
 
 #include "HUD/MetaLoginWidget.h"
-#include "EditableTextBox.h"
+#include "Components/EditableTextBox.h"
 #include "Center/MetaLoginGameMode.h"
 #include "Engine/KBEMain.h"
-#include "TextBlock.h"
+#include "Components/TextBlock.h"
 #include "Scripts/ExCommon.h"
 #include "Components/EditableTextBox.h"
 

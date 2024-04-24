@@ -2,8 +2,8 @@
 
 
 #include "HUD/MetaBloodBar.h"
-#include "TextBlock.h"
-#include "ProgressBar.h"
+#include "Components/TextBlock.h"
+#include "Components/ProgressBar.h"
 
 
 

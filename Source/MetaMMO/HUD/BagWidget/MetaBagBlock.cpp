@@ -2,8 +2,8 @@
 
 
 #include "HUD/BagWidget/MetaBagBlock.h"
-#include "Overlay.h"
-#include "OverlaySlot.h"
+#include "Components/Overlay.h"
+#include "Components/OverlaySlot.h"
 #include "MetaGoodItem.h"
 #include "MetaGoodDrag.h"
 #include "Scripts/ExEventData.h"
